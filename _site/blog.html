@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="/static/css/master.css" type="text/css" charset="utf-8"/>
+</head>
+<body>
+	<div>
+		<div class='header'>
+		   <div class="menu">
+		   		<div class='logo'><a href=""></a></div>
+	          	<ul>
+			       	<li><a href="/" id="home_link" title="首页">首页</a></li>
+				    <li><a href="/docs.html" id="docs_link" title="例程">例程</a></li>
+			       	<li><a href="/about.html" id="about_link" title="关于">关于</a></li>
+			       	<li><a href="http://www.weibo.com/lsar" target="_blank" id="weibo_link" title="微博">微博</a></li>
+	         	</ul>
+	        </div>
+		</div>
+		<div class='content'>
+			
+  
+  <div class='post'>
+    <span class='date'>30 Sep 2013</span>
+    <h1><a href='/2013/09/30/1.html'>cocos2dx-html5基础教程</a></h1>
+    <div class='body'><h1 id='id24'><center>cocos2dx-html5基础教程</center></h1>
+
+<p>这几天闲来没事学习cocos2dx-html5，官方教程都是E文的，有点让人头疼。搜了下其他人写的教程，又太零散不系统。所以遂想系统的总结和罗列下，以方便其他人学习。 讲cocos2d首先要先从基本的概念讲起，了解这些基本概念后，再看源码什么的学起来也快。那么cocos2dx里面有哪些概念呢。</p>
+
+<p>1.基本概念：场景，导演，层，以及精灵</p>
+
+<p>1）场景（Sence），什么是场景，我们在玩游戏时候都知道，游戏有开始画面，游戏画面，结束画面。这不同的画面，在cocos2dx中称之为场景。 2）导演（Director），在cocos2dx-html中就是Director.js这个类，目前只需要知道他的主要负责场景（Sence）的显示，管理和切换。后面会单独一个章节做详细介绍。 3）层（Layer），在游戏中，一个场景内，有背景，动画，按钮和菜单，这些东西如果都放到一个层里面，会难以把控。 4）精灵（Sprite）可以关联材质的层，他可以用来显示加载的图片。同时可以试用actions对进行缩放，位移等操作。</p>
+
+<p>2.坐标系： 与flash不同的是，flash以左上角为坐标原点。cocos2dx以左下角为坐标原点。 <img alt='' src='/static/images/posts/20130930/1.png' /></p>
+
+<ol>
+<li>actions</li>
+</ol>
+
+<p>可以用来修改对象的属性，包括，位置，缩放，旋转，可见性，透明度，颜色。按照属性是否是及时修改，还是一段时间内慢慢修改，actions分为两种。CCIntervalAction和CCInstantAction。CCIntervalAction实现功能是这样的，如修改一个属性x，从0到100，使用CCInstantAction，你会发现物体一下从0到了100.而使用CCIntervalAction，你会看到一个过度的动画。</p>
+
+<p>在cocos2dx中我们常用的actions如下： 位置(position) CCMoveBy CCMoveTo CCJumpBy CCJumpTo CCBezierBy CCBezierTo CCPlace</p>
+
+<p>缩放(scale) CCScaleBy CCScaleTo</p>
+
+<p>旋转(rotation) CCRotateBy CCRotateTo</p>
+
+<p>可见性(visible) CCShow CCHide CCBlink CCToggleVisibility</p>
+
+<p>透明度(opacity) CCFadeIn CCFadeOut CCFadeTo</p>
+
+<p>颜色(color) CCTintBy CCTintTo</p></div>
+  </div>
+  
+
+  
+  <div class='post'>
+    <span class='date'>04 Sep 2013</span>
+    <h1><a href='/2013/09/04/1.html'>破解版flashfirebug4.45不能用的解决办法</a></h1>
+    <div class='body'><h1 id='id22'><center>破解版flashfirebug4.45不能用的解决办法</center></h1>
+
+<p>将4.45安装后，去附件中心搜索flashfirebug并点击安装，重启后，即可生效。</p></div>
+  </div>
+  
+
+  
+  <div class='post'>
+    <span class='date'>27 Mar 2013</span>
+    <h1><a href='/2013/03/27/1.html'>flashdevelop的几个优点</a></h1>
+    <div class='body'><h1 id='id20'><center>flashdevelop的几个优点</center></h1>
+
+<p>1.更轻量级：启动速度飞快</p>
+
+<ol>
+<li>更贴心：一键嵌入资源，自动生成带loading的项目，一键生成时间戳</li>
+</ol>
+
+<p><img alt='' src='/static/images/posts/20130327/1.jpg' /> <img alt='' src='/static/images/posts/20130327/2.jpg' /></p>
+
+<p>3.更好的配色方案</p>
+
+<p><img alt='' src='/static/images/posts/20130327/5.jpg' /></p>
+
+<p>4.功能更强大 （1）flash log viewer：可以支持在线调试打印</p>
+
+<p><img alt='' src='/static/images/posts/20130327/3.jpg' /></p>
+
+<p>（2）asdoc生成器：生成帮助文档</p>
+
+<p>（3）性能分析器</p>
+
+<p><img alt='' src='/static/images/posts/20130327/4.jpg' /></p>
+
+<p>5.最新版支持中文</p></div>
+  </div>
+  
+
+  
+  <div class='post'>
+    <span class='date'>22 Jan 2013</span>
+    <h1><a href='/2013/01/22/1.html'>html嵌入flash说明</a></h1>
+    <div class='body'><h1 id='id18'><center>html嵌入flash说明</center></h1>
+
+<p>页面嵌入flash总是有这里那里的问题，今天找到一篇官方的详细说明。e文好的直接：http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html</p>
+
+<p>e文不好的且听我来絮叨：</p>
+
+<p>1.嵌入方式有几种？</p>
+
+<p>html嵌入flash有两种方式，一种是ie内核，使用object标签，另一种是非ie内核，使用embed标签。如果你只使用其中一种方式嵌入极有可能导致flash在个别浏览器里面显示不出来。</p>
+
+<p>2.两种嵌入方式参数是否相同？</p>
+
+<p>两种嵌入方式参数有所不同，有些是object标签支持，而embed标签不支持。有些是embed标签支持，object不支持。</p>
+
+<p>3.下面我们会根据重要程度罗列出所有可用参数：</p>
+
+<p><strong>仅适用于object标签的参数</strong></p>
+
+<p>(1)classid(必填参数)</p>
+
+<p>值: clsid:D27cdb6e-ae6d-11cf-96b8-444553540000</p>
+
+<p>说明: 标识浏览器的 ActiveX 控件。输入的值必须与上面的显示完全一致。仅适用于 object。</p>
+
+<p>(2)codebase(必填参数)</p>
+
+<p>值: http://get.adobe.com/cn/flashplayer/</p>
+
+<p>说明: 标识 Flash Player ActiveX 控件的位置，以便在尚未安装该控件时，浏览器可以自动下载它。输入的值必须与上面的显示完全一致。仅适用于 object。</p>
+
+<p>(3)movie(必填参数)</p>
+
+<p>值: movieName.swf</p>
+
+<p>说明: 指定要加载的 SWF 文件的名称。仅适用于 object。</p>
+
+<p>(4)id(可选参数)</p>
+
+<p>值：一个字符名字</p>
+
+<p>说明：用于页面和flash之间互相脚本调用使用。仅适用于 object。</p>
+
+<p><strong>仅适用于embed标签的参数</strong></p>
+
+<p>(1)src(必填参数)</p>
+
+<p>值: movieName.swf</p>
+
+<p>说明 : 指定要加载的 SWF 文件的名称。仅适用于 embed。</p>
+
+<p>(2)pluginspage(必填参数)</p>
+
+<p>值: http://get.adobe.com/cn/flashplayer/</p>
+
+<p>说明: 标识 Flash Player 插件的位置，以便在尚未安装该插件时，用户可以下载它。输入的值必须与上面的显示完全一致。仅适用于 embed 。</p>
+
+<p>(3)name(可选参数)</p>
+
+<p>值：一个字符名字</p>
+
+<p>说明：用于页面和flash之间互相脚本调用使用。仅适用于 embed。</p>
+
+<p><strong>通用可选参数</strong></p>
+
+<p>(1)play</p>
+
+<p>值: true or false</p>
+
+<p>说明:（可选）指定应用程序是否在浏览器中加载时就开始播放。如果您的 Flash 应用程序是交互式的，则可以让用户通过单击按钮或执行某些其他任务来开始播放。在这种情况下，将 play 属性设置为 false 可禁止应用程序自动开始播放。如果忽略此属性，默认值为 true。</p>
+
+<p>(2)loop</p>
+
+<p>值: true/false</p>
+
+<p>说明: （可选）指定 Flash 内容在它到达最后一帧后是无限制重复播放还是停止。如果忽略此属性，默认值为 true。</p>
+
+<p>(3)menu</p>
+
+<p>值: true/false</p>
+
+<p>说明: （可选）指定当观众在浏览器中右击 (Windows) 或按住 Command 键单击 (Macintosh) 应用程序区域时将显示的菜单类型。 &#8220;true&#8221; 显示完整的菜单，让用户使用各种选项增强或控制回放。&#8221;false&#8221; 显示的是一个只包含&#8221;关于 Macromedia Flash Player&#8221;选项和&#8221;设置&#8221;选项的菜单。如果忽略此属性，默认值为 true。</p>
+
+<p>(4)quality</p>
+
+<p>值: low/medium/high/autolow/autohigh/best</p>
+
+<p>说明: （可选）指定在应用程序回放期间使用的消除锯齿级别。因为消除锯齿需要更快的处理器先对 SWF 文件的每一帧进行平滑处理，然后再将它们呈现到观众屏幕上，所以需要根据要优化速度还是优化外观来选择一个值：</p>
+
+<p>&#8220;Low&#8221;使回放速度优先于外观，而且从不使用消除锯齿功能。</p>
+
+<p>&#8220;Autolow&#8221;优先考虑速度，但是也会尽可能改善外观。回放开始时，消除锯齿功能处于关闭状态。如果 Flash Player 检测到处理器可以处理消除锯齿功能，就会打开该功能。</p>
+
+<p>&#8220;Autohigh&#8221;在开始时是回放速度和外观两者并重，但在必要时会牺牲外观来保证回放速度。回放开始时，消除锯齿功能处于打开状态。如果实际帧频降到指定帧频之下，就会关闭消除锯齿功能以提高回放速度。使用此设置可模拟 Flash 中的“消除锯齿”命令（&#8221;查看&#8221;&gt;&#8221;预览模式&#8221;&gt;&#8221;消除锯齿&#8221;）。</p>
+
+<p>&#8220;Medium&#8221;会应用一些消除锯齿功能，但并不会平滑位图。该设置生成的图像品质要高于“Low”设置生成的图像品质，但低于“High”设置生成的图像品质。</p>
+
+<p>&#8220;High&#8221;使外观优先于回放速度，它始终应用消除锯齿功能。如果 SWF 文件不包含动画，则会对位图进行平滑处理；如果 SWF 文件包含动画，则不会对位图进行平滑处理。</p>
+
+<p>&#8220;Best&#8221;提供最佳的显示品质，而不考虑回放速度。对所有输出都进行消除锯齿处理，并且对所有位图都进行平滑处理。</p>
+
+<p>如果忽略 quality 属性，其默认值为 high。</p>
+
+<p>(5)scale</p>
+
+<p>值: showall/noborder/exactfit</p>
+
+<p>说明: （可选）当 width 和 height 值是百分比时，定义应用程序如何放置在浏览器窗口中。</p>
+
+<p>&#8220;Showall&#8221;（默认值）使整个 Flash 内容显示在指定区域中，且不会发生扭曲，同时保持它的原始高宽比。边框可能会出现在应用程序的两侧。</p>
+
+<p>&#8220;Noborder&#8221;对 Flash 内容进行缩放以填充指定区域，不会发生扭曲，它会使应用程序保持原始高宽比，但有可能会进行一些裁剪。</p>
+
+<p>&#8220;Exactfit&#8221;使整个 Flash 内容显示在指定区域中，但不尝试保持原始高宽比。可能会发生扭曲。</p>
+
+<p>如果忽略此属性（而且 width 和 height 值是百分比），则它的默认值是 showall。</p>
+
+<p>(6)align</p>
+
+<p>值: Default /L/R/T/B</p>
+
+<p>说明: 指定 object、embed 和 img 标记的 align 值，并确定如何在浏览器窗口内放置 Flash SWF 文件。</p>
+
+<p>“默认”使应用程序在浏览器窗口内居中显示，如果浏览器窗口小于应用程序，则会裁剪边缘。</p>
+
+<p>L、R、T 和 B 让应用程序分别沿着浏览器窗口的左、右、上、下边缘对齐，并根据需要裁剪其余三边。</p>
+
+<p>(7)salign</p>
+
+<p>值: L/R/T/B/TL/TR/BL/BR</p>
+
+<p>说明: （可选）指定缩放的 Flash SWF 文件在由 width 和 height 设置定义的区域内的位置。有关这些条件的详细信息，请参阅scale 属性/参数。</p>
+
+<p>L、R、T 和 B 让应用程序分别沿着浏览器窗口的左、右、上、下边缘对齐，并根据需要裁剪其余三边。</p>
+
+<p>TL 和 TR 让应用程序分别与浏览器窗口的左上角和右上角对齐，并根据需要裁剪底边和剩余的右侧或左侧边缘。</p>
+
+<p>BL 和 BR 让应用程序分别与浏览器窗口的左下角和右下角对齐，并根据需要裁剪顶边和剩余的右侧或左侧边缘。</p>
+
+<p>如果忽略此属性，Flash 内容会在浏览器窗口中居中显示。</p>
+
+<p>(8)wmode 值 : Window/Opaque/Transparent/direct/gpu</p>
+
+<p>说明: （可选）使您可以使用 Internet Explorer 4.0 中的透明 Flash 内容、绝对定位和分层显示的功能。此标记/属性仅在带有 Flash Player ActiveX 控件的 Windows 中有效。</p>
+
+<p>&#8220;Window&#8221;在 Web 页上用影片自己的矩形窗口来播放应用程序。“Window”表明 Flash 应用程序与 HTML 层没有任何交互，并且始终位于最顶层。</p>
+
+<p>&#8220;Opaque&#8221;使应用程序隐藏页面上位于它后面的所有内容。</p>
+
+<p>&#8220;Transparent&#8221;使 HTML 页的背景可以透过应用程序的所有透明部分进行显示，这样可能会降低动画性能。</p>
+
+<p>&#8220;direct&#8221;完全避开父网页浏览器的渲染。您可以把他看成跟单独的播放器类似</p>
+
+<p>&#8220;gpu&#8221;是完全的硬件加速合成。但是注意到， GPU模式不是灵丹妙药, 对一些都加快，在某些情况下它可能在事实上会牺牲性能。</p>
+
+<p>如果忽略此属性，默认值为 Window。仅适用于 object。</p>
+
+<p>(9)bgcolor</p>
+
+<p>值: &#8220;#RRGGBB&#8221;（十六进制 RGB 值）</p>
+
+<p>说明: （可选）指定应用程序的背景色。使用此属性来覆盖在 Flash SWF 文件中指定的背景色设置。此属性不影响 HTML 页面的背景色。</p>
+
+<p>(10)base</p>
+
+<p>值: 基本目录或 URL</p>
+
+<p>说明: （可选）指定用于解析 Flash SWF 文件中的所有相对路径语句的基本目录或 URL。如果 SWF 文件保存在与您的其他文件不同的目录下，这个属性是非常有用。</p>
+
+<p>(11)allowFullScreen</p>
+
+<p>值: true或者false</p>
+
+<p>说明：(可选)指定嵌入网页中的flash是否可以全屏显示。默认为true</p>
+
+<p>(12)allowscriptaccess</p>
+
+<p>值: always/never/samedomain</p>
+
+<p>说明: 使用 allowscriptaccess 使 Flash 应用程序可与承载它的 HTML 页通信。此参数是必需的，因为 fscommand() 和 getURL() 操作可能导致 JavaScript 使用 HTML 页的权限，而该权限可能与 Flash 应用程序的权限不同。这与跨域安全性有着重要关系。</p>
+
+<p>always 允许随时执行脚本操作。</p>
+
+<p>never 禁止所有脚本执行操作。</p>
+
+<p>samedomain 只有在 Flash 应用程序来自与 HTML 页相同的域时才允许执行脚本操作。 所有 HTML 发布模板使用的默认值均为 samedomain。</p>
+
+<p>(13)allowNetworking</p>
+
+<p>值: all/internal/none</p>
+
+<p>&#8220;all&#8221;（默认值）― SWF 文件中允许使用所有网络 API。</p>
+
+<p>&#8220;internal&#8221;― SWF 文件可能不调用浏览器导航或浏览器交互 API，但是它会调用任何其它网络 API。</p>
+
+<p>&#8220;none&#8221;― SWF 文件可能不调用浏览器导航或浏览器交互 API，并且它无法使用任何 SWF 到 SWF 通信 API。</p>
+
+<p>可以控制 SWF 文件对网络功能的访问。调用被禁止的 API 会引发 SecurityError 异常。</p>
+
+<p>当 allowNetworking 设置为 &#8220;internal&#8221; 时，以下 API 被禁止：</p>
+
+<p>navigateToURL</p>
+
+<p>fscommand</p>
+
+<p>ExternalInterface.call</p>
+
+<p>当 allowNetworking 设置为 &#8220;none&#8221; 时，除了上面列出的那些 API 外，还会禁止以下 API：</p>
+
+<p>sendToURL</p>
+
+<p>FileReference.download</p>
+
+<p>FileReference.upload</p>
+
+<p>Loader.load</p>
+
+<p>LocalConnection.connect</p>
+
+<p>LocalConnection.send</p>
+
+<p>NetConnection.connect</p>
+
+<p>NetStream.play</p>
+
+<p>Security.loadPolicyFile</p>
+
+<p>SharedObject.getLocal</p>
+
+<p>SharedObject.getRemote</p>
+
+<p>Socket.connect</p>
+
+<p>(14)flashvars</p>
+
+<p>值：字符串格式，用“&amp;”分隔的name=value集</p>
+
+<p>说明：传递变量到flash player，需要flash player6及以后的版本。 浏览器支持64kB大小的字符串长度。</p>
+
+<p>参考来源：http://www.nowamagic.net/librarys/veda/detail/1615</p>
+
+<p>http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html</p></div>
+  </div>
+  
+
+  
+    
+    <h3>Older Posts</h3>
+    <table class='post-list'>
+    
+    <tr>
+      <th><a href='/2013/01/06/1.html'>给flashbuilder套个花衣裳</a></th>
+      <td>06 Jan 2013</td>
+    </tr>
+  
+
+  
+    
+    <tr>
+      <th><a href='/2012/12/24/1.html'>actionscript条件编译</a></th>
+      <td>24 Dec 2012</td>
+    </tr>
+  
+
+  
+    
+    <tr>
+      <th><a href='/2012/09/27/1.html'>flashdevelop快捷键修改</a></th>
+      <td>27 Sep 2012</td>
+    </tr>
+  
+
+  
+    
+    <tr>
+      <th><a href='/2012/09/19/1.html'>一个用来取点坐标的小程序</a></th>
+      <td>19 Sep 2012</td>
+    </tr>
+  
+
+  
+    
+    <tr>
+      <th><a href='/2012/09/18/1.html'>RPG制作之 -- 大地图渲染</a></th>
+      <td>18 Sep 2012</td>
+    </tr>
+  
+
+  
+    
+    <tr>
+      <th><a href='/2012/09/17/1.html'>RPG制作之 -- 小地图渲染</a></th>
+      <td>17 Sep 2012</td>
+    </tr>
+  
+
+  
+    
+    <tr>
+      <th><a href='/2012/09/16/1.html'>RPG制作之 -- 人物动作渲染</a></th>
+      <td>16 Sep 2012</td>
+    </tr>
+  
+
+  
+    
+    <tr>
+      <th><a href='/2012/09/06/1.html'>github速成手册</a></th>
+      <td>06 Sep 2012</td>
+    </tr>
+  
+
+</table>
+	 	</div>
+ 	</div>
+ 	<br style="clear:both">
+ 	<div id='footer'>
+	  Copyright &copy; 2009 Michael Bleigh. Some rights reserved. Hosted by <a href='http://github.com/mbleigh/mbleigh.github.com/' target='_blank'>GitHub</a> and powered by <a href='http://github.com/mojombo/jekyll'>Jekyll</a>.
+	    <script src="http://s11.cnzz.com/stat.php?id=4567281&web_id=4567281&show=pic" language="JavaScript"></script>
+	</div>
+</body>
+</html>

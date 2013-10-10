@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>RPG制作之 -- 大地图渲染</title>
+    <link rel="stylesheet" href="/static/css/master.css" type="text/css" charset="utf-8"/>
+</head>
+<body>
+	<div>
+		<div class='header'>
+		   <div class="menu">
+		   		<div class='logo'><a href=""></a></div>
+	          	<ul>
+			       	<li><a href="/" id="home_link" title="首页">首页</a></li>
+				    <li><a href="/docs.html" id="docs_link" title="例程">例程</a></li>
+			       	<li><a href="/about.html" id="about_link" title="关于">关于</a></li>
+			       	<li><a href="http://www.weibo.com/lsar" target="_blank" id="weibo_link" title="微博">微博</a></li>
+	         	</ul>
+	        </div>
+		</div>
+		<div class='content'>
+			<h1 id='id8'><center>RPG制作之 -- 大地图渲染</center></h1>
+
+<p>大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。</p>
+<object width='600' type='application/x-shockwave-flash' height='400'>
+ <param value='/static/images/posts/bigMap.swf' name='movie' />
+ <param value='#ffffff' name='bgcolor' />
+ <embed width='600' src='/static/images/posts/bigMap.swf' type='application/x-shockwave-flash' height='400' bgcolor='#ffffff'>
+ </embed>
+</object>
+<pre><code>/**
+* 整个拼合的大图尺寸：3200 * 720
+* 这个地图缩略图尺寸：190 * 42
+* 每个tile尺寸是：320 * 360
+* 渲染尺寸：1320 * 720,由于该游戏地图是横版的，所以只在x方向多渲染了一个tile
+*/
+package com.zs
+{
+import com.zs.utils.MapLoader;
+
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.Loader;
+import flash.display.LoaderInfo;
+import flash.display.Shape;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import flash.net.URLRequest;
+import flash.utils.setInterval;
+
+public class BigMapFill extends Sprite
+{
+	private var _smallMap:BitmapData;
+	/**
+	 * 地图缓冲区（源地图）
+	 */
+	private var buffer:BitmapData;
+	
+	private var shape:Bitmap = new Bitmap();
+	
+	private var smallMapFilled:Boolean;
+	
+	public function BigMapFill()
+	{
+		buffer=new BitmapData(1320,720,false);
+		
+		shape.bitmapData = buffer;
+		this.addChild(shape);
+	}
+	
+	public function fillSmallMap():Boolean
+	{
+		if(smallMapFilled == false){
+			loadSmallMap();
+		}
+		return smallMapFilled;
+	}
+	
+	public function fillBigMap():void
+	{
+		var i:int = 0;
+		var j:int = 0;
+		setInterval(function():void{
+			if(i&gt;=4){
+				i=0;
+				j=1;
+			}
+			var loader:MapLoader = new MapLoader();
+			loader.load(getSwfCatalog()+&#39;/assets/tiles/301/&#39;+j+&#39;_&#39;+i+&#39;.jpg&#39;);
+			loader.addEventListener(Event.COMPLETE,onTileLoaded);
+			loader.data = {i:i,j:j};
+			i ++;
+		},1000);
+		
+		/*for(i=0;i&lt;4;i++){
+			for(j=0;j&lt;2;j++){
+				var loader:MapLoader = new MapLoader();
+				loader.load(&#39;assets/tiles/301/&#39;+j+&#39;_&#39;+i+&#39;.jpg&#39;);
+				loader.addEventListener(Event.COMPLETE,onTileLoaded);
+				loader.data = {i:i,j:j};
+			}
+		}*/
+	}
+	
+	public function getSwfCatalog():String
+	{
+		//通用代码段，获取播放器自身所在的路径 + 补全URL路径字符串以支持相对路径
+		var playerrealurl:String = &quot;&quot;;
+		var playervarsstr:String = &quot;&quot;;
+		var playerrootpath:String = &quot;&quot;;
+		loaderInfo.url.indexOf(&quot;?&quot;, 0)&gt;=0 ? playerrealurl=loaderInfo.url.slice(0, loaderInfo.url.indexOf(&quot;?&quot;, 0)) : playerrealurl=loaderInfo.url;
+		loaderInfo.url.indexOf(&quot;?&quot;, 0)&gt;=0 ? playervarsstr=loaderInfo.url.slice(loaderInfo.url.indexOf(&quot;?&quot;, 0)+1) : playervarsstr=&quot;&quot;;
+		playerrealurl.lastIndexOf(&quot;/&quot;, playerrealurl.length)&gt;=0 ? playerrootpath=playerrealurl.slice(0, playerrealurl.lastIndexOf(&quot;/&quot;, playerrealurl.length)) : playerrootpath=&quot;&quot;;
+		
+		return playerrootpath;
+	}
+	
+	private function onTileLoaded(e:Event):void
+	{
+		var rect:Rectangle = new Rectangle(0,0,320,360);
+		var point:Point = new Point(MapLoader(e.target).data.i*320,MapLoader(e.target).data.j * 360);
+		buffer.lock();
+		buffer.copyPixels(Bitmap(MapLoader(e.target).content).bitmapData,rect,point);
+		buffer.unlock();
+	}
+	
+	private function loadSmallMap():void
+	{
+		var loader:Loader = new Loader();
+		loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
+		loader.load(new URLRequest(&#39;assets/s.jpg&#39;));
+	}
+	
+	private function smallMapLoaded(e:Event):void
+	{
+		var loadinfo:LoaderInfo = e.target as LoaderInfo;
+		
+		_smallMap = (loadinfo.content as Bitmap).bitmapData;
+		
+		var per:Number = 3200/_smallMap.width;
+		buffer.draw(_smallMap,new Matrix(per,0,0,per),null,null,null,true);
+		
+		smallMapFilled = true;
+	}
+}
+}</code></pre>
+
+<p>地图加载器：</p>
+
+<pre><code>package com.zs.utils
+{
+import flash.display.DisplayObject;
+import flash.display.Loader;
+import flash.display.LoaderInfo;
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.events.IOErrorEvent;
+import flash.net.URLRequest;
+
+[Event(name=&#39;COMPLETE&#39;,type=&#39;flash.events.Event&#39;)]
+public class MapLoader extends EventDispatcher
+{
+	public var data:Object = {};
+	
+	private var _content:DisplayObject;
+	
+	public function MapLoader()
+	{
+	}
+	
+	public function load(url:String):MapLoader
+	{
+		var loader:Loader = new Loader();
+		loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
+		loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
+		loader.load(new URLRequest(url));
+		
+		return this;
+	}
+	
+	private function onError(e:IOErrorEvent):void
+	{
+		LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
+		LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
+	}
+	
+	public function get content():DisplayObject
+	{
+		return _content;
+	}
+	
+	private function onLoaded(e:Event):void
+	{
+		LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
+		LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
+		
+		_content = LoaderInfo(e.target).content;
+		
+		this.dispatchEvent(new Event(Event.COMPLETE));
+	}
+}
+}</code></pre>
+
+<p>使用：</p>
+
+<pre><code>package
+{
+import com.zs.BigMapFill;
+
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.MouseEvent;
+
+[SWF(width=&#39;600&#39;,height=&#39;400&#39;)]
+public class Main extends Sprite
+{
+	private var map:BigMapFill = new BigMapFill();
+	
+	public function Main()
+	{
+		this.addEventListener(Event.ADDED_TO_STAGE,init);
+	}
+	
+	private function init(e:Event):void
+	{
+		this.stage.align = &#39;TL&#39;;
+		this.stage.scaleMode = &#39;noScale&#39;;
+		this.stage.addEventListener(MouseEvent.CLICK,onStart);
+		this.addChild(map);
+	}
+	
+	private function onStart(event:MouseEvent):void
+	{
+		if(map.fillSmallMap()){
+			map.fillBigMap();
+		}
+	}
+}
+}</code></pre>
+	 	</div>
+ 	</div>
+ 	<br style="clear:both">
+ 	<div id='footer'>
+	  Copyright &copy; 2009 Michael Bleigh. Some rights reserved. Hosted by <a href='http://github.com/mbleigh/mbleigh.github.com/' target='_blank'>GitHub</a> and powered by <a href='http://github.com/mojombo/jekyll'>Jekyll</a>.
+	    <script src="http://s11.cnzz.com/stat.php?id=4567281&web_id=4567281&show=pic" language="JavaScript"></script>
+	</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>RPG制作之 -- 小地图渲染</title>
+    <link rel="stylesheet" href="/static/css/master.css" type="text/css" charset="utf-8"/>
+</head>
+<body>
+	<div>
+		<div class='header'>
+		   <div class="menu">
+		   		<div class='logo'><a href=""></a></div>
+	          	<ul>
+			       	<li><a href="/" id="home_link" title="首页">首页</a></li>
+				    <li><a href="/docs.html" id="docs_link" title="例程">例程</a></li>
+			       	<li><a href="/about.html" id="about_link" title="关于">关于</a></li>
+			       	<li><a href="http://www.weibo.com/lsar" target="_blank" id="weibo_link" title="微博">微博</a></li>
+	         	</ul>
+	        </div>
+		</div>
+		<div class='content'>
+			<h1 id='id6'><center>RPG制作之 -- 小地图渲染</center></h1>
+
+<p>地图渲染分两步：</p>
+
+<p>- 使用缩略图渲染</p>
+
+<ul>
+<li>加载tile，分块渲染</li>
+</ul>
+
+<p>名词解释：</p>
+
+<p>- 整地图：游戏要使用的整张地图</p>
+
+<ul>
+<li>
+<p>tile：由于整张地图比较大，要是每次都全部渲染，会浪费内存，所以采取分块渲染。分块渲染时将一整张地图按相同大小分成等份。</p>
+</li>
+
+<li>
+<p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。</p>
+</li>
+</ul>
+<object width='500' type='application/x-shockwave-flash' height='400'>
+ <param value='/static/images/posts/scaleMap.swf' name='movie' />
+ <param value='#ffffff' name='bgcolor' />
+ <embed width='500' src='/static/images/posts/scaleMap.swf' type='application/x-shockwave-flash' height='400' bgcolor='#ffffff'>
+ </embed>
+</object>
+<p>本文先讲解小地图渲染：</p>
+
+<pre><code>package com.zs
+{
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.Loader;
+import flash.display.LoaderInfo;
+import flash.display.Shape;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import flash.net.URLRequest;
+
+public class SmallMapFill extends Sprite
+{
+	private var _smallMap:BitmapData;
+	protected var _scache:BitmapData;
+	/**
+	 * 地图缓冲区（源地图）
+	 */
+	private var buffer:BitmapData;
+	
+	private var shape:Bitmap = new Bitmap();
+	
+	public function SmallMapFill()
+	{
+		this.addChild(shape);
+	}
+	
+	public function init():void
+	{
+		loadSmallMap();
+	}
+	
+	private function loadSmallMap():void
+	{
+		var loader:Loader = new Loader();
+		loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
+		loader.load(new URLRequest(&#39;assets/s.jpg&#39;));
+	}
+	
+	private function smallMapLoaded(e:Event):void
+	{
+		var loadinfo:LoaderInfo = e.target as LoaderInfo;
+		
+		_smallMap = (loadinfo.content as Bitmap).bitmapData;
+		
+		buffer=new BitmapData(1320,720,false);
+		
+		var per:Number = 3200/_smallMap.width;
+		buffer.draw(_smallMap,new Matrix(per,0,0,per),null,null,null,true);
+		
+		shape.bitmapData = buffer;
+	}
+}
+}</code></pre>
+
+<p>使用代码：</p>
+
+<pre><code>package
+{
+import com.zs.SmallMapFill;
+
+import flash.display.LoaderInfo;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.MouseEvent;
+
+[SWF(width=&#39;500&#39;,height=&#39;400&#39;,backgroundColor=&#39;0xcccccc&#39;)]
+public class Main extends Sprite
+{
+	private var map:SmallMapFill = new SmallMapFill();
+	
+	public function Main()
+	{
+		this.addEventListener(Event.ADDED_TO_STAGE,init);
+	}
+	
+	private function init(e:Event):void
+	{
+		this.stage.align = &#39;TL&#39;;
+		this.stage.scaleMode = &#39;noScale&#39;;
+		this.stage.addEventListener(MouseEvent.CLICK,onStart);
+		this.addChild(map);
+	}
+	
+	private function onStart(e:Event):void
+	{
+		map.init();
+	}
+}
+}</code></pre>
+	 	</div>
+ 	</div>
+ 	<br style="clear:both">
+ 	<div id='footer'>
+	  Copyright &copy; 2009 Michael Bleigh. Some rights reserved. Hosted by <a href='http://github.com/mbleigh/mbleigh.github.com/' target='_blank'>GitHub</a> and powered by <a href='http://github.com/mojombo/jekyll'>Jekyll</a>.
+	    <script src="http://s11.cnzz.com/stat.php?id=4567281&web_id=4567281&show=pic" language="JavaScript"></script>
+	</div>
+</body>
+</html>
