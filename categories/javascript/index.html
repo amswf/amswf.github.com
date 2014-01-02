@@ -5,16 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>一个用来取点坐标的小程序 | Amswf&#39;s Home</title>
+  <title>javascript | Amswf&#39;s Home</title>
   <meta name="author" content="John Doe">
-  
-  <meta name="description" content="一个用来取点坐标的小程序
-为了取一个复杂图形的坐标，专门做了个蛋疼的小程序。如果你也蛋疼，请试玩，有彩蛋！">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="一个用来取点坐标的小程序"/>
+  
   <meta property="og:site_name" content="Amswf&#39;s Home"/>
 
   
@@ -78,7 +75,12 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
        <div class="row">
          <div id="main-col" class="alignleft col9 col-sm-7 col-md-9 col-lg-9">
 	    <section id='header_widget'></section>
-	    <div id="wrapper"><article>
+	    <div id="wrapper">
+<h2 class="archive-title category">javascript<small><small></h2>
+
+
+  
+    <article>
 <div id="master" class="master well">
   
     <div class="gallery">
@@ -96,37 +98,44 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title">一个用来取点坐标的小程序</h1>
+      <h1 class="title"><a href="/2014/01/02/2013-10-31-1/">js类相关概念梳理</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:14.000Z"> <a href="/2014/01/02/2012-09-19-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-02T09:05:52.000Z"> <a href="/2014/01/02/2013-10-31-1/">Jan 2 2014</a></time></span>      
     </header>
-    <section id='before_content_widget'></section>
+    
     <div class="entry">
       
-        <h1 id="-3c-center-3e-4e00-4e2a-7528-6765-53d6-70b9-5750-6807-7684-5c0f-7a0b-5e8f-3c-2f-center-3e-"><center>一个用来取点坐标的小程序</center></h1>
-<p>为了取一个复杂图形的坐标，专门做了个蛋疼的小程序。如果你也蛋疼，请试玩，有彩蛋！</p>
-<object type="application/x-shockwave-flash" width="680" height="500"><br> <param name="movie" value="/static/images/posts/getPoints.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="/static/images/posts/getPoints.swf"
-        type="application/x-shockwave-flash"
-        bgcolor="#ffffff"
-        width="680"
-        height="500"><br> </embed><br></object>
+        <h1 id="-3c-center-3e-js-7c7b-76f8-5173-6982-5ff5-68b3-7406-3c-2f-center-3e-"><center>js类相关概念梳理</center></h1>
+<p>js确切的说是一种基于对象的语言，和纯面向对象的语言（比如as）稍微有点区别，js中没有类的概念。虽然有继承但是基于原型的继承。随着前段越来越受重视，jser们利用js的一些特性他们制造出了和纯面向对象一样好玩的东西。下面就js中一些概念进行概述，很多东西都是来自博客园的一些大牛，我写这篇文章主要想拿as和js做对比来讲，以方便as像转js的程序员们。本片文章涉及的概念有，模块，类，继承，私有属性和公开属性。</p>
+<p>1.模块<br>大家写as的时候都知道，as里面是有类的概念，每次生成一个类，系统中都会多一个以.as结尾的文件，这个文件我们称为类文件，我们会将所有关于该类实现的属性方法放到这个文件中来写。那么js呢。在我看了很多大牛的博客后，了解到js也是可以分模块的。有两种写法。</p>
+<p>//module1.js<br>1).(function(namespace) {<br>    function log() {<br>        console.log(‘test’);<br>    }<br>    namespace.run = function() {<br>        log();<br>    };<br>})(window.module1 = window.module1 || {});</p>
+<p>//module2.js<br>2).var module2 = {<br>    run: function() {<br>         console.log(‘hi module’);<br>    }<br>}<br>从这两种写法中我们可以看到，js中单独的模块并不一定是一个单独的类，而是将一组相关的逻辑写到一个模块中，目的在于程序架构清晰和便于协同开发。</p>
+<p>2.类的概念<br>js中没有类，但是每个函数都可以使用new来生成新的对象。也就是说在js中每个函数都可以代表as中类的概念。那么类中私有方法，公开方法，私有属性和公开属性又是怎样实现的。可以看代码</p>
+<p>function ClassA(){<br>    var a ＝ 1；//这里的a是在函数中使用var关键字声明的，表示的是ClassA中的私有属性，外部不可访问<br>    this.b = 2;//这里this调用的，表示的是ClassA中公开的属性。<br>    c = 3;//这里声明的c不在ClassA中，而是在全局作用域，相当于window.c = 3;<br>    function d(){//这种形式声明的函数属于私有函数，只能在ClassA中调用，window也无法调用。<br>        console.log(‘function d’);<br>    }</p>
+<pre><code><span class="transposed_variable">this.</span>e = <span class="function"><span class="keyword">function</span><span class="params">()</span>{//这种形式声明的函数，属于公开函数</span>
+    <span class="transposed_variable">console.</span><span class="built_in">log</span>(<span class="string">'function e'</span>);
+}
+</code></pre><p>}<br>var cla = new ClassA();<br>console.log(cla.a);//undefined<br>console.log(cla.b);//2<br>console.log(cla.c);//undefined<br>console.log(window.c);//3</p>
+<p>console.log(cla.d);//undefined<br>console.log(cla.e);//输出函数e的实现<br>console.log(window.d);//undefined</p>
+<p>3.继承<br>aser都知道as继承一个类很简单只要使用extends就可以了。但是js里面继承是使用的原型继承，什么是原型继承呢。js里面对象有个prototype属性，我们利用这个属性来实现继承。代码演示如下：</p>
+<p>function ClassB(){<br>    this.a = 10;<br>    this.run = function(){<br>        console.log(‘函数run被调用’);<br>    }<br>}</p>
+<p>function ClassC(){};</p>
+<p>ClassC.prototype = new ClassB();//这样ClassC就继承了ClassB的属性和方法不信可以实验下</p>
+<p>var t = new ClassC();<br>console.log(t.a);//看到没，这里输出的是10<br>t.run();//这里输出的是“函数run被调用”</p>
+<p>ClassC.prototype.proA = 34;</p>
+<p>console.log(t.proA);//34</p>
+<p>4.命名空间<br>js里面的命名空间是如何实现的呢<br>var com = {};<br>com.amswf = {};<br>com.amswf.utils = {};<br>com.amswf.utils.PageUtil = function(){<br>    this.getPageURL = function(){<br>        return window.location.href;<br>    }<br>}<br>上面概念如果理解的话，我们可以这样写一个类模块<br>//PageUtil.js<br>(function(window){<br>    window.com = {};<br>    com.amswf = {};<br>    com.amswf.utils = {};<br>    com.amswf.utils.PageUtil = function(){};<br>    com.amswf.utils.PageUtil.prototype.name = ‘amswf’;<br>    com.amswf.utils.PageUtil.prototype.getPageURL = function(){<br>        return window.location.href;<br>    };<br>    //其他属性方法可以继续。。。<br>})(window)<br>外部使用如下：<br>var util = new com.amswf.utils.PageUtil();<br>console.log(util.getPageURL());//这里会输出当前网页地址</p>
+
       
     </div>
-    <section id='after_content_widget'><div class="widget" id="widget_after_content_wumiiRelatedItems>">
-<script type="text/javascript" id="wumiiRelatedItems"></script>
-</div><div class="widget" id="widget_after_content_post_footer_info>">
-<div class="panel panel-success">
-    <div class="panel-heading" align="center">希望本站内容对您有点用处,有什么疑问或建议请在后面留言评论</div>
-    <div align="center" class="panel-body">若无特别注明，本站内容均属原创,转载请注明作者(<a href="">John Doe</a>)和出处 <a href="http://amswf.com">Amswf's Home</a> ，请勿用于任何商业用途</div>
-    <div class="panel-body">本文链接: <a href="/2014/01/02/2012-09-19-1/">一个用来取点坐标的小程序</a></div>
-</div></div><div class="widget" id="widget_after_content_ujian>">
-<div class="ujian-hook"></div>
-</div></section>
+    
+    
+      
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-19-1/#comments" id="uyan_count_unit" su="2012-09-19-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/javascript/">javascript</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/02/2013-10-31-1/#comments" id="uyan_count_unit" su="2013-10-31-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -136,23 +145,9 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 </article>
 
 
-    <section id='after_post_widget'><div class="widget" id="widget_after_post_post_pageNav>">
-<ul class="pager">
   
-  <li class="previous"><a href="/2014/01/02/2012-09-27-1/" title="flashdevelop快捷键修改">&larr; flashdevelop快捷键修改</a></li>
-  
-  
-  <li class="next"><a href="/2014/01/02/2012-09-18-1/" title="RPG制作之 -- 大地图渲染">RPG制作之 -- 大地图渲染 &rarr;</a></li>
-  
-</ul></div></section>    
-	<div id="comment"><a name="comments"></a>
 
-<!-- UY BEGIN -->
-<div id="uyan_frame"></div>
-<!-- UY END -->
-
-
-</div>    
+  
 </div><!--wapper-->
          </div><!-- ID main-col END -->
          <div id="sidebar well-sm" class="alignright col3 col-sm-5 col-md-3 col-lg-3">
@@ -227,8 +222,8 @@ $(window).load(function(){
         
     <script type="text/javascript">
 var uyan_config={
-     'url':'http://amswf.com/2014/01/02/2012-09-19-1/',
-'su':'2012-09-19-1'
+     'url':'http://amswf.com/categories/javascript/',
+'su':'2013-10-31-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>
