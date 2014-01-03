@@ -98,18 +98,24 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2014/01/03/2012-09-18-1/">RPG制作之 -- 大地图渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-01-03T02:05:42.000Z"> <a href="/2014/01/03/2012-09-18-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T03:03:27.000Z"> <a href="/2014/01/03/2012-09-18-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
         <p>大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。</p>
-<object type="application/x-shockwave-flash" width="600" height="400"><br> <param name="movie" value="/static/images/posts/bigMap.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="/static/images/posts/bigMap.swf"
+<pre>
+<object type="application/x-shockwave-flash" width="600" height="400">
+ <param name="movie" value="http://amswf.com/static/images/posts/bigMap.swf"/>
+ <param name="bgcolor" value="#ffffff"/>
+ <embed src="http://amswf.com/static/images/posts/bigMap.swf"
         type="application/x-shockwave-flash"
         bgcolor="#ffffff"
         width="600"
-        height="400"><br> </embed><br></object>
-
+        height="400">
+ </embed>
+</object>
+</pre>
 <pre>
 /**
 * 整个拼合的大图尺寸：3200 * 720
@@ -333,7 +339,7 @@ package
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2014/01/03/2012-09-17-1/">RPG制作之 -- 小地图渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-01-03T01:59:13.000Z"> <a href="/2014/01/03/2012-09-17-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T03:03:03.000Z"> <a href="/2014/01/03/2012-09-17-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
@@ -352,7 +358,7 @@ package
 <ul>
 <li><p>tile：由于整张地图比较大，要是每次都全部渲染，会浪费内存，所以采取分块渲染。分块渲染时将一整张地图按相同大小分成等份。</p>
 </li>
-<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。<br><pre><br>  <object type="application/x-shockwave-flash" width="500" height="400"><br>   <param name="movie" value="/static/images/posts/scaleMap.swf"/><br>   <param name="bgcolor" value="#ffffff"/><br>   &lt;embed src=”/static/images/posts/scaleMap.swf”</p>
+<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。<br><pre><br>  <object type="application/x-shockwave-flash" width="500" height="400"><br>   <param name="movie" value="http://amswf.com/static/images/posts/scaleMap.swf"/><br>   <param name="bgcolor" value="#ffffff"/><br>   &lt;embed src=”<a href="http://amswf.com/static/images/posts/scaleMap.swf">http://amswf.com/static/images/posts/scaleMap.swf</a>“</p>
 <pre><code>      <span class="comment">type="application/x</span><span class="literal">-</span><span class="comment">shockwave</span><span class="literal">-</span><span class="comment">flash"</span>
       <span class="comment">bgcolor="#ffffff"</span>
       <span class="comment">width="500"</span>
@@ -482,7 +488,7 @@ package
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2014/01/03/2012-09-16-1/">RPG制作之 -- 人物动作渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-01-03T01:53:00.000Z"> <a href="/2014/01/03/2012-09-16-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T03:02:49.000Z"> <a href="/2014/01/03/2012-09-16-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
@@ -490,9 +496,9 @@ package
         <p>动作渲染有两种方式，一种是flash的movieclip方式，一种是块传输技术（spritesheet），这两种方式各有利弊。使用movieclip方式优点是：制作方便，缺点是：由于所有动作都基于movieclip类渲染，这样会浪费内存和cpu资源。而spritesheet的优缺点和movieclip正好相反。为了让用户的游戏体验更好，flash在制作大型游戏，一般都选用spritesheet方式。</p>
 <pre>
 <object type="application/x-shockwave-flash" width="105" height="120">
- <param name="movie" value="/static/images/posts/sheet.swf"/>
+ <param name="movie" value="http://amswf.com/static/images/posts/sheet.swf"/>
  <param name="bgcolor" value="#ffffff"/>
- <embed src="/static/images/posts/sheet.swf"
+ <embed src="http://amswf.com/static/images/posts/sheet.swf"
         type="application/x-shockwave-flash"
         bgcolor="#ffffff"
         width="105"
@@ -652,7 +658,7 @@ package
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2012-09-18-1/">RPG制作之 -- 大地图渲染</a></li><li class="list-group-item icon"><a href="/2014/01/03/2012-09-17-1/">RPG制作之 -- 小地图渲染</a></li><li class="list-group-item icon"><a href="/2014/01/03/2012-09-16-1/">RPG制作之 -- 人物动作渲染</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">

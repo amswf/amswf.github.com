@@ -9,14 +9,20 @@
   <meta name="author" content="John Doe">
   
   <meta name="description" content="大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。
-    
+
+
+ 
+ 
+ 
+ 
+
 
 
 /**
 * 整个拼合的大图尺寸：3200 * 720
 * 这个地图缩略图尺寸：190 * 42
 * 每个tile尺寸是：320 * 360
-* 渲染尺寸：1320 * 720,由于该">
+* 渲染尺寸：1320 * 7">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -103,18 +109,24 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title">RPG制作之 -- 大地图渲染</h1>
       
-        <span>Posted on<time datetime="2014-01-03T02:05:42.000Z"> <a href="/2014/01/03/2012-09-18-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T03:03:27.000Z"> <a href="/2014/01/03/2012-09-18-1/">Jan 3 2014</a></time></span>      
     </header>
     <section id='before_content_widget'></section>
     <div class="entry">
       
         <p>大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。</p>
-<object type="application/x-shockwave-flash" width="600" height="400"><br> <param name="movie" value="/static/images/posts/bigMap.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="/static/images/posts/bigMap.swf"
+<pre>
+<object type="application/x-shockwave-flash" width="600" height="400">
+ <param name="movie" value="http://amswf.com/static/images/posts/bigMap.swf"/>
+ <param name="bgcolor" value="#ffffff"/>
+ <embed src="http://amswf.com/static/images/posts/bigMap.swf"
         type="application/x-shockwave-flash"
         bgcolor="#ffffff"
         width="600"
-        height="400"><br> </embed><br></object>
-
+        height="400">
+ </embed>
+</object>
+</pre>
 <pre>
 /**
 * 整个拼合的大图尺寸：3200 * 720
@@ -327,8 +339,6 @@ package
     <section id='after_post_widget'><div class="widget" id="widget_after_post_post_pageNav>">
 <ul class="pager">
   
-  <li class="previous"><a href="/2014/01/03/2012-09-19-1/" title="一个用来取点坐标的小程序">&larr; 一个用来取点坐标的小程序</a></li>
-  
   
   <li class="next"><a href="/2014/01/03/2012-09-17-1/" title="RPG制作之 -- 小地图渲染">RPG制作之 -- 小地图渲染 &rarr;</a></li>
   
@@ -362,7 +372,7 @@ package
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2012-09-18-1/">RPG制作之 -- 大地图渲染</a></li><li class="list-group-item icon"><a href="/2014/01/03/2012-09-17-1/">RPG制作之 -- 小地图渲染</a></li><li class="list-group-item icon"><a href="/2014/01/03/2012-09-16-1/">RPG制作之 -- 人物动作渲染</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
