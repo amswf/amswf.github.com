@@ -96,6 +96,81 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的最明了总结</a></h1>
+      
+        <span>Posted on<time datetime="2014-01-03T08:45:37.000Z"> <a href="/2014/01/03/2013-11-17-1/">Jan 3 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>安全域：是用来解决程序安全问题的，比如：资源访问安全，接口调用安全，通信安全等。<br>相同域：协议相同（http和https不同），host相同（www.a.com和new.a.com不同）,端口相同（<a href="http://www.a.com:80和http://www.a.com:8816不同）" target="_blank">http://www.a.com:80和http://www.a.com:8816不同）</a><br>常用到沙箱的几个地方：</p>
+<p>(一)资源访问安全：</p>
+<p>A服务器上有一些静态图片和swf资源，这些资源都是A站长辛苦所得，如果没有任何限制，别人将可以随意访问并获得资源。这样无缘增加了A站的带宽流量，并让别人随意盗图。那么A站长怎么来限制别的网站的flash访问本站资源呢。答案很简单，只要在图片的域名下放置一个限制访问的跨域访问文件，填上允许的域即可。</p>
+<p>(二)接口调用安全：</p>
+<ul>
+<li><p>js和flash接口调用：通过flash里面Security.allowDomain();来设置允许js访问的域。</p>
+</li>
+<li><p>flash加载子flash调用接口：子flash允许父flash访问：通过在子flash里面设置Security.allowDomain()来限制访问;</p>
+</li>
+<li><p>两个flash通过localconnection通信：Security.allowDomain()来限制可访问的域;</p>
+</li>
+</ul>
+<p>(三)通信安全：</p>
+<ul>
+<li><p>flash和php后台的通信：A服务器有一些php服务接口，这些接口都不是对外公开访问的，那如何限制别的域名下flash访问A服务器的这些接口，答案是，通过服务器配置跨域访问文件解决。</p>
+</li>
+<li><p>flash和socket后台的通信：A服务器有一些socket服务，这些接口不想对外公开访问，那如何限制别的域下flash访问本站socket资源，答案是，通过843端口架设跨域服务解决。</p>
+</li>
+</ul>
+<p>应用程序域：</p>
+<p>主要为了解决相同安全域下类的命名冲突问题。应用程序域只存在于相同的安全域下，划分管理类定义。对于加载的swf，在加载时候可以通过loader的load方法的第二个参数LoaderContext 设置子swf的程序域。</p>
+<ul>
+<li><p>加载器的 ApplicationDomain 的子级。默认值。（模块）可以使用语法 new ApplicationDomain(ApplicationDomain.currentDomain) 明确表示这种选择。这将允许所加载的 SWF 文件直接使用父级的类，如果父级要使用子级的类，它必须调用 ApplicationDomain.getDefinition() 来检索它们。</p>
+</li>
+<li><p>加载器自己的 ApplicationDomain。（共享库）使用 ApplicationDomain.currentDomain 时请使用此应用程序域。加载完成后父级和子级可以直接使用对方的类。 如果子级试图定义的类与父级已经定义的类同名，将出现错误并放弃加载。</p>
+</li>
+<li><p>系统 ApplicationDomain 的子级。（独立运行的程序或模块）使用 new ApplicationDomain(null) 时请使用此应用程序域。这将完全分离加载方和被加载方，从而允许它们使用相同的名称定义各自版本的类并且不会产生冲突或隐藏。一方查看另一方的类的唯一方式是调用 ApplicationDomain.getDefinition() 方法。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2014/01/03/2014-01-03-1/">flash优化</a></h1>
       
         <span>Posted on<time datetime="2014-01-03T07:56:56.000Z"> <a href="/2014/01/03/2014-01-03-1/">Jan 3 2014</a></time></span>      
@@ -212,71 +287,6 @@ for ( i = 0; i< lng; i++ )
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></h1>
-      
-        <span>Posted on<time datetime="2014-01-03T03:24:35.000Z"> <a href="/2014/01/03/2013-11-17-1/">Jan 3 2014</a></time></span>      
-    </header>
-    
-    <div class="entry">
-      
-        <p>前两天朋友问我安全域和程序域的问题，这个问题我之前也查过，网上大多数文章要么很长要么讲解的不详细，看了后还是一头雾水。所以我就想自己写一篇关于这方面的文章。力求简洁而全面。</p>
-<p>1.安全域<br>先来说安全域，这个东西通过名字也能理解意思，就是用来解决不同域名下flash文件访问和通信安全。这分两种情况。</p>
-<p>(一)文件访问安全：</p>
-<p>js和flash接口调用：通过flash里面设置Security.allowDomain(‘<em>‘);<br>flash加载swf调用接口：<br>1）子swf信任父swf：通过子swf里面设置Security.allowDomain(‘</em>‘)，这种情况子虽然信任了父，但是子和父仍然位于两个不同的域中;</p>
-<p>2）父swf信任子swf：可以在LoaderContext 中设置子的安全域和自己的安全域相同，这种情况子完全在父的域中，父子同域。</p>
-<p>两个swf通过localconnection通信：Security.allowDomain(‘*’);<br>(二)服务访问安全：</p>
-<p>1)flash和php后台的通信：通过服务器配置跨域访问文件crossdomain.xml来解决，这种情况如果crossdomain如果没允许其他域名的访问，其他域名的flash调用这个php服务会直接报错的。<br>2)flash和socket后台的通信：通过843端口放置跨域服务解决。这种情况下，如果后台没有相应的跨域服务，flash建立长连接会直接报错。</p>
-<p>2.程序域<br>讲之前需要说明的是，不同的安全域，程序域必然不同。相同的安全域下才可以对程序域进行设置以达到不同的效果。那么程序域用来干嘛的呢，他是用来设置父子之间对类的访问。<br>比如：a.swf和b.swf位于相同安全域下面。a.swf和b.swf里面都有com.amswf.game.as这个文件。那么当a.swf加载了b.swf后会是什么情况呢。我大概看了下手册发现讲的已经很明确，所以直接抄录了下来。</p>
-<ul>
-<li><p>加载器的 ApplicationDomain 的子级。默认值。可以使用语法 new ApplicationDomain(ApplicationDomain.currentDomain) 显式表示这种选择。这将允许所加载的 SWF 文件直接使用父级的类，例如，可通过编写 new MyClassDefinedInParent() 来使用。但是父级则不能使用此语法；如果父级要使用子级的类，它必须调用 ApplicationDomain.getDefinition() 来检索它们。这种选择的优点是，如果子级定义的类与父级已经定义的类同名，不会出现错误结果；子级只会继承父级对该类的定义，除非子级或父级调用 ApplicationDomain.getDefinition() 方法来检索子级的冲突定义，否则将不使用此定义。</p>
-</li>
-<li><p>加载器自己的 ApplicationDomain。使用 ApplicationDomain.currentDomain 时请使用此应用程序域。加载完成后，父级和子级可以直接使用对方的类。如果子级试图定义的类与父级已定义的类同名，则使用父类并忽略子类。</p>
-</li>
-<li><p>系统 ApplicationDomain 的子级。使用 new ApplicationDomain(null) 时请使用此应用程序域。这将完全分离加载方和被加载方，从而允许它们使用相同的名称定义各自版本的类并且不会产生冲突或隐藏。一方查看另一方的类的唯一方式是调用 ApplicationDomain.getDefinition() 方法。</p>
-</li>
-<li><p>其他 ApplicationDomain 的子级。有时可能会有更复杂的 ApplicationDomain 层次结构。可以将 SWF 文件从您自己的 SecurityDomain 加载到任何 ApplicationDomain 中。例如，new ApplicationDomain(ApplicationDomain.currentDomain.parentDomain.parentDomain) 将 SWF 文件加载到当前域父级的父级的新子级中。</p>
-</li>
-</ul>
-<p>这里只要明确三个概念，就能明白其中的道理。这三个概念是，加载器的程序域，系统的程序域，子级。</p>
-
-      
-    </div>
-    
-    
-      
-    
-    
-        <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/03/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
-</span>
-        </footer>
-        <div class="clearfix"></div>
-    
-  </div>
-</div>
-</article>
-
-
-  
-    <article>
-<div id="master" class="master well">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header class="well-sm">
-      <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2014/01/03/2012-12-24-1/">actionscript条件编译</a></h1>
       
         <span>Posted on<time datetime="2014-01-03T03:23:56.000Z"> <a href="/2014/01/03/2012-12-24-1/">Jan 3 2014</a></time></span>      
@@ -335,7 +345,7 @@ for ( i = 0; i< lng; i++ )
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2014-01-03-1/">flash优化</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的最明了总结</a></li><li class="list-group-item icon"><a href="/2014/01/03/2014-01-03-1/">flash优化</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
