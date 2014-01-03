@@ -94,7 +94,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2014/01/03/2014-01-03-1/">flash优化</a></h1>
       
-        <span>Posted on<time datetime="2014-01-03T07:54:52.000Z"> <a href="/2014/01/03/2014-01-03-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T07:56:56.000Z"> <a href="/2014/01/03/2014-01-03-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
@@ -120,15 +120,12 @@ for (var i:int = 0; i< MAX_NUM; i++)
     myContainer.y = (myContainer.height + 8) * int(i / 20);
 }
 </pre>
-@当创建同一图像的多个实例时，使用一个BitmapData源，将大大节省内存。
 
-@尝试尽量减少使用滤镜效果,Flash Player 将在 内存中创建两个位图。其中每个位图的大小与显示对象相同。将第一个位图创建为显示对象的栅格化版本，然后用于生成应用 滤镜的另一个位图。尽可能使用通过创作工具（例如 Adobe® Photoshop®）创建的位图来模拟滤镜。
-
-@减少3d的应用,或者使用gpu来完成3d。
-
-2)内存释放：
-
-引用计数法，标记清除法。
+<p>@当创建同一图像的多个实例时，使用一个BitmapData源，将大大节省内存。</p>
+<p>@尝试尽量减少使用滤镜效果,Flash Player 将在 内存中创建两个位图。其中每个位图的大小与显示对象相同。将第一个位图创建为显示对象的栅格化版本，然后用于生成应用 滤镜的另一个位图。尽可能使用通过创作工具（例如 Adobe® Photoshop®）创建的位图来模拟滤镜。</p>
+<p>@减少3d的应用,或者使用gpu来完成3d。</p>
+<p>2)内存释放：</p>
+<p>引用计数法，标记清除法。</p>
 <pre>
 public function gc():void
 {
@@ -144,26 +141,17 @@ public function gc():void
     mapName = null;
 }
 </pre>
-总结就是在移除对象的时候，将引用置null，并移除相关显示对象和事件监听。
 
-3)减少cpu占用：
-
-@如果移除对象，并不能减少对象cpu暂用。最好是移除之前对对象内的动画和其他效果进行冻结。
-
-@不用的loader加载的对象进行卸载。
-
-@不需要互动的sprite和movieclip最好禁用鼠标事件。mouseEnabled和mouseChildren。
-
-@timer和EnterFrame进行停止。
-
-@尽量少的使用补间动画。
-
-@bitmap绘制时候，尽量使用setVector()方法。如果使用使用setPixel和setPixel32方法，最好在绘制之前调用lock，绘制之后调用unlock方法。
-BitmapData 类的 lock() 方法可以锁定图像，并防止引用该图像的对象在 BitmapData 对象更改时进行更新。例如，如果 Bitmap 对象引用 BitmapData 对象，则可以锁定 BitmapData 对象，对其更改后再解锁。在 BitmapData 对象解锁之前， Bitmap 对象不会更改。要提高性能，请在对 setPixel() 或 setPixel32() 方法进行多次调用之前和之后使用此方法及 unlock() 方 法。调用 lock() 和 unlock() 可防止屏幕进行不必要的更新。
-
-@当使用 TextField 类的 text 属性时，请使用 appendText() 方法，而不是 += 运算符。
-
-@使用中括号运算符可能会降低性能。将您的引用存储在本地变量中可避免使用该运算符
+<p>总结就是在移除对象的时候，将引用置null，并移除相关显示对象和事件监听。</p>
+<p>3)减少cpu占用：</p>
+<p>@如果移除对象，并不能减少对象cpu暂用。最好是移除之前对对象内的动画和其他效果进行冻结。</p>
+<p>@不用的loader加载的对象进行卸载。</p>
+<p>@不需要互动的sprite和movieclip最好禁用鼠标事件。mouseEnabled和mouseChildren。</p>
+<p>@timer和EnterFrame进行停止。</p>
+<p>@尽量少的使用补间动画。</p>
+<p>@bitmap绘制时候，尽量使用setVector()方法。如果使用使用setPixel和setPixel32方法，最好在绘制之前调用lock，绘制之后调用unlock方法。<br>BitmapData 类的 lock() 方法可以锁定图像，并防止引用该图像的对象在 BitmapData 对象更改时进行更新。例如，如果 Bitmap 对象引用 BitmapData 对象，则可以锁定 BitmapData 对象，对其更改后再解锁。在 BitmapData 对象解锁之前， Bitmap 对象不会更改。要提高性能，请在对 setPixel() 或 setPixel32() 方法进行多次调用之前和之后使用此方法及 unlock() 方 法。调用 lock() 和 unlock() 可防止屏幕进行不必要的更新。</p>
+<p>@当使用 TextField 类的 text 属性时，请使用 appendText() 方法，而不是 += 运算符。</p>
+<p>@使用中括号运算符可能会降低性能。将您的引用存储在本地变量中可避免使用该运算符</p>
 <pre>
 for ( i = 0; i< lng; i++ )
 {
