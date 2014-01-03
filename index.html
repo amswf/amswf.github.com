@@ -58,8 +58,6 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 	    
       </ul>
       <ul class="nav navbar-nav pull-right">
-      
-        <li><a href="/atom.xml">RSS</a></li>
             
       
       
@@ -94,15 +92,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2013-11-17-1/">flash安全域和程序域的一点见解</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:57.000Z"> <a href="/2014/01/02/2013-11-17-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:14:22.000Z"> <a href="/2014/01/03/2013-11-17-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-flash-5b89-5168-57df-548c-7a0b-5e8f-57df-7684-4e00-70b9-89c1-89e3-3c-2f-center-3e-"><center>flash安全域和程序域的一点见解</center></h1>
-<p>前两天朋友问我安全域和程序域的问题，这个问题我之前也查过，网上大多数文章要么很长要么讲解的不详细，看了后还是一头雾水。所以我就想自己写一篇关于这方面的文章。力求简洁而全面。</p>
+        <p>前两天朋友问我安全域和程序域的问题，这个问题我之前也查过，网上大多数文章要么很长要么讲解的不详细，看了后还是一头雾水。所以我就想自己写一篇关于这方面的文章。力求简洁而全面。</p>
 <p>1.安全域<br>先来说安全域，这个东西通过名字也能理解意思，就是用来解决不同域名下flash文件访问和通信安全。这分两种情况。</p>
 <p>(一)文件访问安全：</p>
 <p>js和flash接口调用：通过flash里面设置Security.allowDomain(‘<em>‘);<br>flash加载swf调用接口：<br>1）子swf信任父swf：通过子swf里面设置Security.allowDomain(‘</em>‘)，这种情况子虽然信任了父，但是子和父仍然位于两个不同的域中;</p>
@@ -130,8 +127,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -160,33 +157,116 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2013-10-31-1/">js类相关概念梳理</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:52.000Z"> <a href="/2014/01/02/2013-10-31-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:12:01.000Z"> <a href="/2014/01/03/2013-10-31-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-js-7c7b-76f8-5173-6982-5ff5-68b3-7406-3c-2f-center-3e-"><center>js类相关概念梳理</center></h1>
-<p>js确切的说是一种基于对象的语言，和纯面向对象的语言（比如as）稍微有点区别，js中没有类的概念。虽然有继承但是基于原型的继承。随着前段越来越受重视，jser们利用js的一些特性他们制造出了和纯面向对象一样好玩的东西。下面就js中一些概念进行概述，很多东西都是来自博客园的一些大牛，我写这篇文章主要想拿as和js做对比来讲，以方便as像转js的程序员们。本片文章涉及的概念有，模块，类，继承，私有属性和公开属性。</p>
+        <p>js确切的说是一种基于对象的语言，和纯面向对象的语言（比如as）稍微有点区别，js中没有类的概念。虽然有继承但是基于原型的继承。随着前段越来越受重视，jser们利用js的一些特性他们制造出了和纯面向对象一样好玩的东西。下面就js中一些概念进行概述，很多东西都是来自博客园的一些大牛，我写这篇文章主要想拿as和js做对比来讲，以方便as像转js的程序员们。本片文章涉及的概念有，模块，类，继承，私有属性和公开属性。</p>
 <p>1.模块<br>大家写as的时候都知道，as里面是有类的概念，每次生成一个类，系统中都会多一个以.as结尾的文件，这个文件我们称为类文件，我们会将所有关于该类实现的属性方法放到这个文件中来写。那么js呢。在我看了很多大牛的博客后，了解到js也是可以分模块的。有两种写法。</p>
-<p>//module1.js<br>1).(function(namespace) {<br>    function log() {<br>        console.log(‘test’);<br>    }<br>    namespace.run = function() {<br>        log();<br>    };<br>})(window.module1 = window.module1 || {});</p>
-<p>//module2.js<br>2).var module2 = {<br>    run: function() {<br>         console.log(‘hi module’);<br>    }<br>}<br>从这两种写法中我们可以看到，js中单独的模块并不一定是一个单独的类，而是将一组相关的逻辑写到一个模块中，目的在于程序架构清晰和便于协同开发。</p>
-<p>2.类的概念<br>js中没有类，但是每个函数都可以使用new来生成新的对象。也就是说在js中每个函数都可以代表as中类的概念。那么类中私有方法，公开方法，私有属性和公开属性又是怎样实现的。可以看代码</p>
-<p>function ClassA(){<br>    var a ＝ 1；//这里的a是在函数中使用var关键字声明的，表示的是ClassA中的私有属性，外部不可访问<br>    this.b = 2;//这里this调用的，表示的是ClassA中公开的属性。<br>    c = 3;//这里声明的c不在ClassA中，而是在全局作用域，相当于window.c = 3;<br>    function d(){//这种形式声明的函数属于私有函数，只能在ClassA中调用，window也无法调用。<br>        console.log(‘function d’);<br>    }</p>
-<pre><code><span class="transposed_variable">this.</span>e = <span class="function"><span class="keyword">function</span><span class="params">()</span>{//这种形式声明的函数，属于公开函数</span>
-    <span class="transposed_variable">console.</span><span class="built_in">log</span>(<span class="string">'function e'</span>);
+<pre>
+//module1.js
+1).(function(namespace) {
+    function log() {
+        console.log('test');
+    }
+    namespace.run = function() {
+        log();
+    };
+})(window.module1 = window.module1 || {});
+</pre>
+<pre>
+//module2.js
+2).var module2 = {
+    run: function() {
+         console.log('hi module');
+    }
 }
-</code></pre><p>}<br>var cla = new ClassA();<br>console.log(cla.a);//undefined<br>console.log(cla.b);//2<br>console.log(cla.c);//undefined<br>console.log(window.c);//3</p>
-<p>console.log(cla.d);//undefined<br>console.log(cla.e);//输出函数e的实现<br>console.log(window.d);//undefined</p>
-<p>3.继承<br>aser都知道as继承一个类很简单只要使用extends就可以了。但是js里面继承是使用的原型继承，什么是原型继承呢。js里面对象有个prototype属性，我们利用这个属性来实现继承。代码演示如下：</p>
-<p>function ClassB(){<br>    this.a = 10;<br>    this.run = function(){<br>        console.log(‘函数run被调用’);<br>    }<br>}</p>
-<p>function ClassC(){};</p>
-<p>ClassC.prototype = new ClassB();//这样ClassC就继承了ClassB的属性和方法不信可以实验下</p>
-<p>var t = new ClassC();<br>console.log(t.a);//看到没，这里输出的是10<br>t.run();//这里输出的是“函数run被调用”</p>
-<p>ClassC.prototype.proA = 34;</p>
-<p>console.log(t.proA);//34</p>
-<p>4.命名空间<br>js里面的命名空间是如何实现的呢<br>var com = {};<br>com.amswf = {};<br>com.amswf.utils = {};<br>com.amswf.utils.PageUtil = function(){<br>    this.getPageURL = function(){<br>        return window.location.href;<br>    }<br>}<br>上面概念如果理解的话，我们可以这样写一个类模块<br>//PageUtil.js<br>(function(window){<br>    window.com = {};<br>    com.amswf = {};<br>    com.amswf.utils = {};<br>    com.amswf.utils.PageUtil = function(){};<br>    com.amswf.utils.PageUtil.prototype.name = ‘amswf’;<br>    com.amswf.utils.PageUtil.prototype.getPageURL = function(){<br>        return window.location.href;<br>    };<br>    //其他属性方法可以继续。。。<br>})(window)<br>外部使用如下：<br>var util = new com.amswf.utils.PageUtil();<br>console.log(util.getPageURL());//这里会输出当前网页地址</p>
+</pre>
+从这两种写法中我们可以看到，js中单独的模块并不一定是一个单独的类，而是将一组相关的逻辑写到一个模块中，目的在于程序架构清晰和便于协同开发。
+
+2.类的概念
+js中没有类，但是每个函数都可以使用new来生成新的对象。也就是说在js中每个函数都可以代表as中类的概念。那么类中私有方法，公开方法，私有属性和公开属性又是怎样实现的。可以看代码
+<pre>
+function ClassA(){
+    var a ＝ 1；//这里的a是在函数中使用var关键字声明的，表示的是ClassA中的私有属性，外部不可访问
+    this.b = 2;//这里this调用的，表示的是ClassA中公开的属性。
+    c = 3;//这里声明的c不在ClassA中，而是在全局作用域，相当于window.c = 3;
+    function d(){//这种形式声明的函数属于私有函数，只能在ClassA中调用，window也无法调用。
+        console.log('function d');
+    }
+
+    this.e = function(){//这种形式声明的函数，属于公开函数
+        console.log('function e');
+    }
+}
+var cla = new ClassA();
+console.log(cla.a);//undefined
+console.log(cla.b);//2
+console.log(cla.c);//undefined
+console.log(window.c);//3
+
+console.log(cla.d);//undefined
+console.log(cla.e);//输出函数e的实现
+console.log(window.d);//undefined
+</pre>
+3.继承
+aser都知道as继承一个类很简单只要使用extends就可以了。但是js里面继承是使用的原型继承，什么是原型继承呢。js里面对象有个prototype属性，我们利用这个属性来实现继承。代码演示如下：
+
+<pre>
+function ClassB(){
+    this.a = 10;
+    this.run = function(){
+        console.log('函数run被调用');
+    }
+}
+
+function ClassC(){};
+
+ClassC.prototype = new ClassB();//这样ClassC就继承了ClassB的属性和方法不信可以实验下
+
+var t = new ClassC();
+console.log(t.a);//看到没，这里输出的是10
+t.run();//这里输出的是“函数run被调用”
+
+ClassC.prototype.proA = 34;
+
+console.log(t.proA);//34
+</pre>
+4.命名空间
+js里面的命名空间是如何实现的呢
+<pre>
+var com = {};
+com.amswf = {};
+com.amswf.utils = {};
+com.amswf.utils.PageUtil = function(){
+    this.getPageURL = function(){
+        return window.location.href;
+    }
+}
+</pre>
+上面概念如果理解的话，我们可以这样写一个类模块
+<pre>
+//PageUtil.js
+(function(window){
+    window.com = {};
+    com.amswf = {};
+    com.amswf.utils = {};
+    com.amswf.utils.PageUtil = function(){};
+    com.amswf.utils.PageUtil.prototype.name = 'amswf';
+    com.amswf.utils.PageUtil.prototype.getPageURL = function(){
+        return window.location.href;
+    };
+    //其他属性方法可以继续。。。
+})(window)
+</pre>
+外部使用如下：
+<pre>
+var util = new com.amswf.utils.PageUtil();
+console.log(util.getPageURL());//这里会输出当前网页地址
+</pre>
 
       
     </div>
@@ -196,8 +276,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/javascript/">javascript</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2013-10-31-1/#comments" id="uyan_count_unit" su="2013-10-31-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/javascript/">javascript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-10-31-1/#comments" id="uyan_count_unit" su="2013-10-31-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -226,15 +306,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2013-09-30-1/">cocos2dx-html5基础教程</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:48.000Z"> <a href="/2014/01/02/2013-09-30-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:08:50.000Z"> <a href="/2014/01/03/2013-09-30-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-cocos2dx-html5-57fa-7840-6559-7a0b-3c-2f-center-3e-"><center>cocos2dx-html5基础教程</center></h1>
-<p>这几天闲来没事学习cocos2dx-html5，官方教程都是E文的，有点让人头疼。搜了下其他人写的教程，又太零散不系统。所以遂想系统的总结和罗列下，以方便其他人学习。<br>讲cocos2d首先要先从基本的概念讲起，了解这些基本概念后，再看源码什么的学起来也快。那么cocos2dx里面有哪些概念呢。</p>
+        <p>这几天闲来没事学习cocos2dx-html5，官方教程都是E文的，有点让人头疼。搜了下其他人写的教程，又太零散不系统。所以遂想系统的总结和罗列下，以方便其他人学习。<br>讲cocos2d首先要先从基本的概念讲起，了解这些基本概念后，再看源码什么的学起来也快。那么cocos2dx里面有哪些概念呢。</p>
 <p>1.基本概念：场景，导演，层，以及精灵</p>
 <p>1）场景（Sence），什么是场景，我们在玩游戏时候都知道，游戏有开始画面，游戏画面，结束画面。这不同的画面，在cocos2dx中称之为场景。<br>2）导演（Director），在cocos2dx-html中就是Director.js这个类，目前只需要知道他的主要负责场景（Sence）的显示，管理和切换。后面会单独一个章节做详细介绍。<br>3）层（Layer），在游戏中，一个场景内，有背景，动画，按钮和菜单，这些东西如果都放到一个层里面，会难以把控。<br>4）精灵（Sprite）可以关联材质的层，他可以用来显示加载的图片。同时可以试用actions对进行缩放，位移等操作。</p>
 <p>2.坐标系：<br>与flash不同的是，flash以左上角为坐标原点。cocos2dx以左下角为坐标原点。<br><img src="/static/images/posts/20130930/1.png" alt=""></p>
@@ -255,8 +334,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/cocos2dx/">cocos2dx</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2013-09-30-1/#comments" id="uyan_count_unit" su="2013-09-30-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/cocos2dx/">cocos2dx</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-09-30-1/#comments" id="uyan_count_unit" su="2013-09-30-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -285,15 +364,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:43.000Z"> <a href="/2014/01/02/2013-09-04-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:08:36.000Z"> <a href="/2014/01/03/2013-09-04-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-7834-89e3-7248-flashfirebug4-45-4e0d-80fd-7528-7684-89e3-51b3-529e-6cd5-3c-2f-center-3e-"><center>破解版flashfirebug4.45不能用的解决办法</center></h1>
-<p>将4.45安装后，去附件中心搜索flashfirebug并点击安装，重启后，即可生效。</p>
+        <p>将4.45安装后，去附件中心搜索flashfirebug并点击安装，重启后，即可生效。</p>
 
       
     </div>
@@ -303,8 +381,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2013-09-04-1/#comments" id="uyan_count_unit" su="2013-09-04-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-09-04-1/#comments" id="uyan_count_unit" su="2013-09-04-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -333,15 +411,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2013-03-27-1/">flashdevelop的几个优点</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2013-03-27-1/">flashdevelop的几个优点</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:39.000Z"> <a href="/2014/01/02/2013-03-27-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:08:22.000Z"> <a href="/2014/01/03/2013-03-27-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-flashdevelop-7684-51e0-4e2a-4f18-70b9-3c-2f-center-3e-"><center>flashdevelop的几个优点</center></h1>
-<p>1.更轻量级：启动速度飞快</p>
+        <p>1.更轻量级：启动速度飞快</p>
 <p>2.更贴心：一键嵌入资源，自动生成带loading的项目，一键生成时间戳</p>
 <p><img src="/static/images/posts/20130327/1.jpg" alt=""><br><img src="/static/images/posts/20130327/2.jpg" alt=""></p>
 <p>3.更好的配色方案</p>
@@ -361,8 +438,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2013-03-27-1/#comments" id="uyan_count_unit" su="2013-03-27-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-03-27-1/#comments" id="uyan_count_unit" su="2013-03-27-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -391,15 +468,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2013-01-22-1/">html嵌入flash说明</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2013-01-22-1/">html嵌入flash说明</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:33.000Z"> <a href="/2014/01/02/2013-01-22-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:07:34.000Z"> <a href="/2014/01/03/2013-01-22-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-html-5d4c-5165-flash-8bf4-660e-3c-2f-center-3e-"><center>html嵌入flash说明</center></h1>
-<p>页面嵌入flash总是有这里那里的问题，今天找到一篇官方的详细说明。e文好的直接：<a href="http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html" target="_blank">http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html</a></p>
+        <p>页面嵌入flash总是有这里那里的问题，今天找到一篇官方的详细说明。e文好的直接：<a href="http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html" target="_blank">http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html</a></p>
 <p>e文不好的且听我来絮叨：</p>
 <p>1.嵌入方式有几种？</p>
 <p>html嵌入flash有两种方式，一种是ie内核，使用object标签，另一种是非ie内核，使用embed标签。如果你只使用其中一种方式嵌入极有可能导致flash在个别浏览器里面显示不出来。</p>
@@ -528,8 +604,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2013-01-22-1/#comments" id="uyan_count_unit" su="2013-01-22-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-01-22-1/#comments" id="uyan_count_unit" su="2013-01-22-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -558,15 +634,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2013-01-06-1/">给flashbuilder套个花衣裳</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2013-01-06-1/">给flashbuilder套个花衣裳</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:28.000Z"> <a href="/2014/01/02/2013-01-06-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:07:21.000Z"> <a href="/2014/01/03/2013-01-06-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-7ed9-flashbuilder-5957-4e2a-82b1-8863-88f3-3c-2f-center-3e-"><center>给flashbuilder套个花衣裳</center></h1>
-<p>开年第一帖，嘎嘎，刚刚添了个宝宝，祝宝宝健康美丽，祝老婆新的一年每天happy</p>
+        <p>开年第一帖，嘎嘎，刚刚添了个宝宝，祝宝宝健康美丽，祝老婆新的一年每天happy</p>
 <p>经常面对着flashbuilder的白底黑字的界面有点单调了，看到sublime颜色搭配方案那是一个八错。于是使用flashbuilder自带的elipse Marketplace搜索关键字theme，还真有这插件，难道我out了吗。果断安装之。</p>
 <p><img src="/static/images/posts/20130106/install.jpg" alt=""></p>
 <p>安装后使用如下：</p>
@@ -580,8 +655,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2013-01-06-1/#comments" id="uyan_count_unit" su="2013-01-06-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-01-06-1/#comments" id="uyan_count_unit" su="2013-01-06-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -610,15 +685,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2012-12-24-1/">actionscript条件编译</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2012-12-24-1/">actionscript条件编译</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:24.000Z"> <a href="/2014/01/02/2012-12-24-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:07:10.000Z"> <a href="/2014/01/03/2012-12-24-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-actionscript-6761-4ef6-7f16-8bd1-3c-2f-center-3e-"><center>actionscript条件编译</center></h1>
-<p>絮叨一下条件编译，条件编译就是在满足条件后将代码编译进文件，否则不将代码编译进最终文件。</p>
+        <p>絮叨一下条件编译，条件编译就是在满足条件后将代码编译进文件，否则不将代码编译进最终文件。</p>
 <p>as就是这么牛逼，也带有这个功能。使用方法如下，在编译器中定义如下参数：</p>
 <p><img src="/static/images/posts/20121224/1.jpg" alt=""></p>
 <p>然后在代码中可以针对函数，代码块，类进行条件编译。代码块条件编译如下：</p>
@@ -634,8 +708,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-12-24-1/#comments" id="uyan_count_unit" su="2012-12-24-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-12-24-1/#comments" id="uyan_count_unit" su="2012-12-24-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -664,15 +738,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2012-09-27-1/">flashdevelop快捷键修改</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2012-09-27-1/">flashdevelop快捷键修改</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:19.000Z"> <a href="/2014/01/02/2012-09-27-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:06:56.000Z"> <a href="/2014/01/03/2012-09-27-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-flashdevelop-5feb-6377-952e-4fee-6539-3c-2f-center-3e-"><center>flashdevelop快捷键修改</center></h1>
-<p>最新版的flashdevelop修改快捷键的地方有变化，以前是在设置选项里面。现在直接放到了Tools目录里面。用习惯了flashbuilder的快捷键，再用flashdevelop的快捷键，明显有点不适应。找到修改的地方后，果断出手修改。下面是我修改快捷键的几个地方。</p>
+        <p>最新版的flashdevelop修改快捷键的地方有变化，以前是在设置选项里面。现在直接放到了Tools目录里面。用习惯了flashbuilder的快捷键，再用flashdevelop的快捷键，明显有点不适应。找到修改的地方后，果断出手修改。下面是我修改快捷键的几个地方。</p>
 <p><img src="/static/images/posts/20120927/1.jpg" alt=""></p>
 <p><img src="/static/images/posts/20120927/2.jpg" alt=""></p>
 <p><img src="/static/images/posts/20120927/3.jpg" alt=""></p>
@@ -686,8 +759,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-27-1/#comments" id="uyan_count_unit" su="2012-09-27-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-09-27-1/#comments" id="uyan_count_unit" su="2012-09-27-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -716,15 +789,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2012-09-19-1/">一个用来取点坐标的小程序</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2012-09-19-1/">一个用来取点坐标的小程序</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:14.000Z"> <a href="/2014/01/02/2012-09-19-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:06:33.000Z"> <a href="/2014/01/03/2012-09-19-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-4e00-4e2a-7528-6765-53d6-70b9-5750-6807-7684-5c0f-7a0b-5e8f-3c-2f-center-3e-"><center>一个用来取点坐标的小程序</center></h1>
-<p>为了取一个复杂图形的坐标，专门做了个蛋疼的小程序。如果你也蛋疼，请试玩，有彩蛋！</p>
+        <p>为了取一个复杂图形的坐标，专门做了个蛋疼的小程序。如果你也蛋疼，请试玩，有彩蛋！</p>
 <object type="application/x-shockwave-flash" width="680" height="500"><br> <param name="movie" value="/static/images/posts/getPoints.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="/static/images/posts/getPoints.swf"
         type="application/x-shockwave-flash"
         bgcolor="#ffffff"
@@ -738,8 +810,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-19-1/#comments" id="uyan_count_unit" su="2012-09-19-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-09-19-1/#comments" id="uyan_count_unit" su="2012-09-19-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -777,7 +849,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/02/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">

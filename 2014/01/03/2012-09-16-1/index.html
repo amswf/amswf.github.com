@@ -5,16 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>github速成手册 | Amswf&#39;s Home</title>
+  <title>RPG制作之 -- 人物动作渲染 | Amswf&#39;s Home</title>
   <meta name="author" content="John Doe">
   
-  <meta name="description" content="github速成手册
-首先感谢github，有了github的建主页功能，才有了自己的网站（http://www.amswf.com/）。并使楼主省了买服务器的银子。所以楼主决定开博的首篇文章用来写一个github入门手册。虽然网上的github学习手册千千万，但是楼主保证自己的教程最精简，最有效。">
+  <meta name="description" content="动作渲染有两种方式，一种是flash的movieclip方式，一种是块传输技术（spritesheet），这两种方式各有利弊。使用movieclip方式优点是：制作方便，缺点是：由于所有动作都基于movieclip类渲染，这样会浪费内存和cpu资源。而spritesheet的优缺点和moviecli">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="github速成手册"/>
+  <meta property="og:title" content="RPG制作之 -- 人物动作渲染"/>
   <meta property="og:site_name" content="Amswf&#39;s Home"/>
 
   
@@ -61,8 +60,6 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 	    
       </ul>
       <ul class="nav navbar-nav pull-right">
-      
-        <li><a href="/atom.xml">RSS</a></li>
             
       
       
@@ -96,72 +93,135 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title">github速成手册</h1>
+      <h1 class="title">RPG制作之 -- 人物动作渲染</h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:04:54.000Z"> <a href="/2014/01/02/2012-09-06-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T01:53:00.000Z"> <a href="/2014/01/03/2012-09-16-1/">Jan 3 2014</a></time></span>      
     </header>
     <section id='before_content_widget'></section>
     <div class="entry">
       
-        <h1 id="-3c-center-3e-github-901f-6210-624b-518c-3c-2f-center-3e-"><center>github速成手册</center></h1>
-<p>首先感谢github，有了github的建主页功能，才有了自己的网站（<a href="http://www.amswf.com/" title="amswf" target="_blank"><a href="http://www.amswf.com/">http://www.amswf.com/</a></a>）。并使楼主省了买服务器的银子。所以楼主决定开博的首篇文章用来写一个github入门手册。虽然网上的github学习手册千千万，但是楼主保证自己的教程最精简，最有效。</p>
-<p><strong>1.github是啥：</strong></p>
-<p>要明白github先要知道git，git和svn一样是一种代码托管技术。而github和googlecode都属于代码托管社区。这两个社区为数以万计的程序员提供代码托管和技术交流的场所。</p>
-<p><strong>2.下载github上的代码：</strong></p>
-<p>既然github为我们提供了很多别人的代码，那么我们该怎么下载别人的代码呢。统共需要四步：<br>（1）安装客户端：下载一个客户端：<a href="http://pan.baidu.com/share/link?shareid=17503&amp;uk=1543698718" target="_blank">http://pan.baidu.com/share/link?shareid=17503&amp;uk=1543698718</a><br>（2）找到库的git地址：打开代码库页面。如<a href="https://github.com/amswf/box2d-to-cn，并找到库的git地址：https://github.com/amswf/box2d-to-cn.git" target="_blank">https://github.com/amswf/box2d-to-cn，并找到库的git地址：https://github.com/amswf/box2d-to-cn.git</a><br>（3）打开git命令行：在桌面或者硬盘的某个文件夹里，右键选择Git bash，这个是git的命令行。<br>（4）执行clone命令：git clone <a href="https://github.com/amswf/box2d-to-cn.git" target="_blank">https://github.com/amswf/box2d-to-cn.git</a> 执行完成后，待进度完成，一个开源项目就安然的躺在你的电脑里了。</p>
-<p><strong>3.托管你的代码：</strong></p>
-<p>github为我们提供了300m的免费空间，供我们存放开源代码。如果要托管代码请按以下步骤：</p>
-<ul>
-<li><p>（1）注册github账号，并登陆。</p>
-</li>
-<li><p>（2）新建库：</p>
-</li>
-</ul>
-<p><img src="/static/images/posts/1.png" alt=""><br><img src="/static/images/posts/2.png" alt=""></p>
-<ul>
-<li>（3）新库建好后，也会有一个如下的界面：</li>
-</ul>
-<p>然后找到你的库的git地址，本人库的地址为：<a href="https://github.com/amswf/box2d-to-cn.git" target="_blank">https://github.com/amswf/box2d-to-cn.git</a></p>
-<ul>
-<li><p>（4）将你的库clone到自己的电脑，这时候就会有个和你库名相同的空文件夹在你的电脑。</p>
-</li>
-<li><p>（5）往你的文件夹中放入一个文本，test.txt,然后在文件夹中右键，启动git bash</p>
-</li>
-<li><p>（6）将test.txt纳入版本控制，git add test.txt</p>
-</li>
-<li>（7）将test.txt提交到缓存，git commit -m “log”</li>
-<li>（8）将test.txt提交到github，git push origin master</li>
-<li>（9）以上如果都顺利，会提示你输入用户名和密码，成功后，会有进度显示。待100%后，你的test.txt就被成功的提交的github服务器上。</li>
-</ul>
-<p><strong>4.玩转自己的主页：</strong></p>
-<p>当你会新建并提交自己的库时，建立自己的主页其实就很简单了。如果你没有自己的域名，github为你提供一个”username.github.com”的域名，如果你有自己的域名，github支持你绑定自己的域名，这一切都很贴心。想要创建自己的主页请遵守下面的步骤：</p>
-<ul>
-<li>（1）新建一个名字为这样的库：<code>&lt;user-id&gt;.github.com</code></li>
-<li>（2）将这个库clone到你的电脑</li>
-<li>（3）在该库的文件夹中放置名为index.html的主页文件</li>
-<li>（4）按照步骤3的提交方法，将文件push到github服务器。如果没意外，十分种后，访问username.github.com,该页面就变成了你自己的主页。是不是so easy！</li>
-</ul>
-<p><strong>5.绑定自己的域名：</strong></p>
-<ul>
-<li>（1）创建一个CNAME文件，内容是你的域名，如：<br>amswf.com<br>然后把此文件添加到Github仓库，上传到Github。Github服务器会设置doulemai.com为你的主域名，然后将www.amswf.com和amswf.github.com重定向到amswf.com。</li>
-<li>（2）修改DNS<br>登陆你的域名管理界面。创建一条A记录，指向207.97.227.245这个IP地址。<br>如果是用子域名，如blog.amswf.com。只需要创建一条CNAME记录，指向blog.amswf.com。</li>
-</ul>
-<p><strong>6.使用模版</strong></p>
-<p>看看下面几个网站，以及本站，是不是感觉很酷？</p>
-<ul>
-<li><a href="http://jekyllrb.com/" target="_blank">http://jekyllrb.com/</a></li>
-<li><a href="http://ztpala.com/" target="_blank">http://ztpala.com/</a></li>
-<li><a href="http://saberma.me/" target="_blank">http://saberma.me/</a></li>
-</ul>
-<p>我想告诉你的是，其实想拥有他们只需四步。</p>
-<ul>
-<li>第一，按照步骤《4.玩转自己的主页》将自己的username.github.com库clone下来</li>
-<li>第二，去<a href="https://github.com/mojombo/jekyll/wiki/sites这个网址，然后点击source，进入别人的模版，然后将别人的模版clone下来。" target="_blank">https://github.com/mojombo/jekyll/wiki/sites这个网址，然后点击source，进入别人的模版，然后将别人的模版clone下来。</a></li>
-<li>第三，将clone下来的文件，除了.git文件夹，都放到你的username.github.com文件夹下。</li>
-<li>第四，删除别人的文章，下载的模版一般都有个_posts文件夹，这个文件夹里面放置了很多别人的文章。你要做的就是将这些文章删除，然后换成自己的。至此，如果你要求不高，可以提交你的库。几分钟后，看看是不是一个新的主页诞生了。</li>
-</ul>
-<p><strong>注：</strong>很多人都说使用Jekyll要安装ruby的云云，经过实践，根本不用。安装ruby的唯一好处是可以在本地所见即所得，但是对于不懂ruby的人，这就是一个坑。</p>
+        <p>动作渲染有两种方式，一种是flash的movieclip方式，一种是块传输技术（spritesheet），这两种方式各有利弊。使用movieclip方式优点是：制作方便，缺点是：由于所有动作都基于movieclip类渲染，这样会浪费内存和cpu资源。而spritesheet的优缺点和movieclip正好相反。为了让用户的游戏体验更好，flash在制作大型游戏，一般都选用spritesheet方式。</p>
+<pre>
+<object type="application/x-shockwave-flash" width="105" height="120">
+ <param name="movie" value="/static/images/posts/sheet.swf"/>
+ <param name="bgcolor" value="#ffffff"/>
+ <embed src="/static/images/posts/sheet.swf"
+        type="application/x-shockwave-flash"
+        bgcolor="#ffffff"
+        width="105"
+        height="120">
+ </embed>
+</object>
+</pre>
+[源码](https://gist.github.com/41500281261d4bcb6d12)
+<pre>
+package com.zs.utils
+{
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;
+    import flash.display.Loader;
+    import flash.display.LoaderInfo;
+    import flash.events.Event;
+    import flash.events.IOErrorEvent;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.net.URLRequest;
+    public class SheetMoive extends Bitmap
+    {
+        private var sheets:Object = {};
+        private var action:String;
+        private var actionW:Number = 105;
+        private var actionH:Number = 120;
+        public function SheetMoive(w:Number=105,h:Number=120)
+        {
+            this.bitmapData = new BitmapData(actionW,actionH);
+        }
+        public function addSheet(url:String,action:String):void
+        {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
+            loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
+            loader.name = action;
+            loader.load(new URLRequest(url));
+        }
+        public function go(action:String):Boolean
+        {
+            if(sheets[action]){
+                this.action = action;
+                this.addEventListener(Event.ENTER_FRAME,render);
+                return true;
+            }
+            return false;
+        }
+        private var sheetIndex:int = 0;
+        private function render(e:Event):void
+        {
+            if(sheetIndex >= sheets[action].sheetNum){
+                sheetIndex = 0;
+            }
+            this.bitmapData.lock();
+            this.bitmapData.copyPixels(sheets[action].pic,new Rectangle(sheetIndex * actionW,0,actionW,actionH),new Point(0,0));
+            this.bitmapData.unlock();
+            sheetIndex++;
+        }
+        private function onError(e:IOErrorEvent):void
+        {
+        }
+        private function onLoaded(e:Event):void
+        {
+            var loader:Loader = LoaderInfo(e.target).loader;
+            var bitmapdata:BitmapData = (loader.content as Bitmap).bitmapData;
+            sheets[loader.name] = {pic:bitmapdata,sheetNum:Math.floor(bitmapdata.width/105)};
+            this.dispatchEvent(new Event('done'));
+        }
+    }
+}
+</pre>    
+引用：    
+<pre>
+package
+{
+    import com.zs.utils.SheetMoive;
+    import flash.display.LoaderInfo;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.events.MouseEvent;
 
+    [SWF(width='105',height='120',backgroundColor='0xcccccc')]
+    public class Main extends Sprite
+    {
+        private var ren:SheetMoive = new SheetMoive();
+        public function Main()
+        {
+            this.addEventListener(Event.ADDED_TO_STAGE,init);
+        }
+        private function init(e:Event):void
+        {
+            this.stage.align = 'TL';
+            this.stage.scaleMode = 'noScale';
+            this.stage.addEventListener(MouseEvent.CLICK,changeAction);
+            this.addChild(ren);
+            ren.addSheet('/assets/character/walk.png','walk');
+            ren.addSheet('/assets/character/stand.png','stand');
+            ren.addEventListener('done',onStart);
+        }
+        private var change:Boolean;
+        protected function changeAction(event:MouseEvent):void
+        {
+            if(change){
+                ren.go('stand');
+            }else{
+                ren.go('walk');
+            }
+            change = !change;
+        }
+        private function onStart(e:Event):void
+        {
+            ren.go('walk');
+        }
+    }
+}
+</pre>
       
     </div>
     <section id='after_content_widget'><div class="widget" id="widget_after_content_wumiiRelatedItems>">
@@ -170,15 +230,15 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 <div class="panel panel-success">
     <div class="panel-heading" align="center">希望本站内容对您有点用处,有什么疑问或建议请在后面留言评论</div>
     <div align="center" class="panel-body">若无特别注明，本站内容均属原创,转载请注明作者(<a href="">John Doe</a>)和出处 <a href="http://amswf.com">Amswf's Home</a> ，请勿用于任何商业用途</div>
-    <div class="panel-body">本文链接: <a href="/2014/01/02/2012-09-06-1/">github速成手册</a></div>
+    <div class="panel-body">本文链接: <a href="/2014/01/03/2012-09-16-1/">RPG制作之 -- 人物动作渲染</a></div>
 </div></div><div class="widget" id="widget_after_content_ujian>">
 <div class="ujian-hook"></div>
 </div></section>
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/github/">github</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-06-1/#comments" id="uyan_count_unit" su="2012-09-06-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-09-16-1/#comments" id="uyan_count_unit" su="2012-09-16-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -191,8 +251,10 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     <section id='after_post_widget'><div class="widget" id="widget_after_post_post_pageNav>">
 <ul class="pager">
   
-  <li class="previous"><a href="/2014/01/02/2012-09-16-1/" title="RPG制作之 -- 人物动作渲染">&larr; RPG制作之 -- 人物动作渲染</a></li>
+  <li class="previous"><a href="/2014/01/03/2012-09-17-1/" title="RPG制作之 -- 小地图渲染">&larr; RPG制作之 -- 小地图渲染</a></li>
   
+  
+  <li class="next"><a href="/2014/01/03/2012-09-06-1/" title="github速成手册">github速成手册 &rarr;</a></li>
   
 </ul></div></section>    
 	<div id="comment"><a name="comments"></a>
@@ -224,7 +286,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/02/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -277,8 +339,8 @@ $(window).load(function(){
         
     <script type="text/javascript">
 var uyan_config={
-     'url':'http://amswf.com/2014/01/02/2012-09-06-1/',
-'su':'2012-09-06-1'
+     'url':'http://amswf.com/2014/01/03/2012-09-16-1/',
+'su':'2012-09-16-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>

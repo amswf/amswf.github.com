@@ -8,8 +8,7 @@
   <title>RPG制作之 -- 小地图渲染 | Amswf&#39;s Home</title>
   <meta name="author" content="John Doe">
   
-  <meta name="description" content="RPG制作之 — 小地图渲染
-地图渲染分两步：
+  <meta name="description" content="地图渲染分两步：
 
 使用缩略图渲染
 
@@ -23,7 +22,7 @@
 
 tile：由于整张地图比较大，要是每次都全部渲染，会浪费内存，所以采取分块渲染。分块渲染时将一整张地图按相同大小分成等份。
 
-缩略图：对于整张地图的等比缩放">
+缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -75,8 +74,6 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 	    
       </ul>
       <ul class="nav navbar-nav pull-right">
-      
-        <li><a href="/atom.xml">RSS</a></li>
             
       
       
@@ -112,13 +109,12 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title">RPG制作之 -- 小地图渲染</h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:05.000Z"> <a href="/2014/01/02/2012-09-17-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T01:59:13.000Z"> <a href="/2014/01/03/2012-09-17-1/">Jan 3 2014</a></time></span>      
     </header>
     <section id='before_content_widget'></section>
     <div class="entry">
       
-        <h1 id="-3c-center-3e-RPG-5236-4f5c-4e4b-_-2014-_-5c0f-5730-56fe-6e32-67d3-3c-2f-center-3e-"><center>RPG制作之 — 小地图渲染</center></h1>
-<p>地图渲染分两步：</p>
+        <p>地图渲染分两步：</p>
 <ul>
 <li><p>使用缩略图渲染</p>
 </li>
@@ -132,76 +128,96 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 <ul>
 <li><p>tile：由于整张地图比较大，要是每次都全部渲染，会浪费内存，所以采取分块渲染。分块渲染时将一整张地图按相同大小分成等份。</p>
 </li>
-<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。</p>
+<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。<br><pre><br>  <object type="application/x-shockwave-flash" width="500" height="400"><br>   <param name="movie" value="/static/images/posts/scaleMap.swf"/><br>   <param name="bgcolor" value="#ffffff"/><br>   &lt;embed src=”/static/images/posts/scaleMap.swf”</p>
+<pre><code>      <span class="comment">type="application/x</span><span class="literal">-</span><span class="comment">shockwave</span><span class="literal">-</span><span class="comment">flash"</span>
+      <span class="comment">bgcolor="#ffffff"</span>
+      <span class="comment">width="500"</span>
+      <span class="comment">height="400"</span>&gt;
+</code></pre><p>   </embed><br>  </object><br></pre><br>本文先讲解小地图渲染：</p>
 </li>
 </ul>
-<object type="application/x-shockwave-flash" width="500" height="400"><br> <param name="movie" value="/static/images/posts/scaleMap.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="/static/images/posts/scaleMap.swf"
-        type="application/x-shockwave-flash"
-        bgcolor="#ffffff"
-        width="500"
-        height="400"><br> </embed><br></object>
+<pre>
+package com.zs
+{
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;
+    import flash.display.Loader;
+    import flash.display.LoaderInfo;
+    import flash.display.Shape;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.geom.Matrix;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.net.URLRequest;
+    public class SmallMapFill extends Sprite
+    {
+        private var _smallMap:BitmapData;
+        protected var _scache:BitmapData;
+        /**
+         * 地图缓冲区（源地图）
+         */
+        private var buffer:BitmapData;
+        private var shape:Bitmap = new Bitmap();
+        public function SmallMapFill()
+        {
+            this.addChild(shape);
+        }
+        public function init():void
+        {
+            loadSmallMap();
+        }
+        private function loadSmallMap():void
+        {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
+            loader.load(new URLRequest('assets/s.jpg'));
+        }
+        private function smallMapLoaded(e:Event):void
+        {
+            var loadinfo:LoaderInfo = e.target as LoaderInfo;
+            _smallMap = (loadinfo.content as Bitmap).bitmapData;
+            buffer=new BitmapData(1320,720,false);
+            var per:Number = 3200/_smallMap.width;
+            buffer.draw(_smallMap,new Matrix(per,0,0,per),null,null,null,true);
+            shape.bitmapData = buffer;
+        }
+    }
+}
+</pre>
 
-<p>本文先讲解小地图渲染：<br>    package com.zs<br>    {<br>    import flash.display.Bitmap;<br>    import flash.display.BitmapData;<br>    import flash.display.Loader;<br>    import flash.display.LoaderInfo;<br>    import flash.display.Shape;<br>    import flash.display.Sprite;<br>    import flash.events.Event;<br>    import flash.geom.Matrix;<br>    import flash.geom.Point;<br>    import flash.geom.Rectangle;<br>    import flash.net.URLRequest;<br>    public class SmallMapFill extends Sprite<br>    {<br>        private var _smallMap:BitmapData;<br>        protected var _scache:BitmapData;<br>        /**</p>
-<pre><code>     * 地图缓冲区（源地图）
-     */
-    <span class="keyword">private</span> <span class="keyword">var</span> buffer:BitmapData;
-    <span class="keyword">private</span> <span class="keyword">var</span> shape:Bitmap = <span class="keyword">new</span> Bitmap();
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">SmallMapFill</span><span class="params">()</span>
-    {</span>
-        this.addChild(shape);
-    }
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span><span class="type">:void</span>
-    {</span>
-        loadSmallMap();
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">loadSmallMap</span><span class="params">()</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> loader:Loader = <span class="keyword">new</span> Loader();
-        loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
-        loader.load(<span class="keyword">new</span> URLRequest(<span class="string">'assets/s.jpg'</span>));
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">smallMapLoaded</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> loadinfo:LoaderInfo = e.target <span class="keyword">as</span> LoaderInfo;
-        _smallMap = (loadinfo.content <span class="keyword">as</span> Bitmap).bitmapData;
-        buffer=<span class="keyword">new</span> BitmapData(<span class="number">1320</span>,<span class="number">720</span>,<span class="literal">false</span>);
-        <span class="keyword">var</span> per:Number = <span class="number">3200</span>/_smallMap.width;
-        buffer.draw(_smallMap,<span class="keyword">new</span> Matrix(per,<span class="number">0</span>,<span class="number">0</span>,per),<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">true</span>);
-        shape.bitmapData = buffer;
-    }
-}
-}
-</code></pre><p>使用代码：</p>
-<pre><code><span class="package"><span class="keyword">package</span>
-{</span>
-<span class="preprocessor"><span class="keyword">import</span> com.zs.SmallMapFill;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.LoaderInfo;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Sprite;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.Event;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.MouseEvent;</span>
+<p>使用代码：</p>
+<pre>
+package
+{
+    import com.zs.SmallMapFill;
+    import flash.display.LoaderInfo;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.events.MouseEvent;
 
-[SWF(width=<span class="string">'500'</span>,height=<span class="string">'400'</span>,backgroundColor=<span class="string">'0xcccccc'</span>)]
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> <span class="keyword">extends</span> <span class="title">Sprite</span>
-{</span>
-    <span class="keyword">private</span> <span class="keyword">var</span> map:SmallMapFill = <span class="keyword">new</span> SmallMapFill();
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">Main</span><span class="params">()</span>
-    {</span>
-        this.addEventListener(Event.ADDED_TO_STAGE,init);
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        this.stage.align = <span class="string">'TL'</span>;
-        this.stage.scaleMode = <span class="string">'noScale'</span>;
-        this.stage.addEventListener(MouseEvent.CLICK,onStart);
-        this.addChild(map);
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">onStart</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        map.init();
+    [SWF(width='500',height='400',backgroundColor='0xcccccc')]
+    public class Main extends Sprite
+    {
+        private var map:SmallMapFill = new SmallMapFill();
+        public function Main()
+        {
+            this.addEventListener(Event.ADDED_TO_STAGE,init);
+        }
+        private function init(e:Event):void
+        {
+            this.stage.align = 'TL';
+            this.stage.scaleMode = 'noScale';
+            this.stage.addEventListener(MouseEvent.CLICK,onStart);
+            this.addChild(map);
+        }
+        private function onStart(e:Event):void
+        {
+            map.init();
+        }
     }
 }
-}
-</code></pre>
+</pre>
       
     </div>
     <section id='after_content_widget'><div class="widget" id="widget_after_content_wumiiRelatedItems>">
@@ -210,15 +226,15 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 <div class="panel panel-success">
     <div class="panel-heading" align="center">希望本站内容对您有点用处,有什么疑问或建议请在后面留言评论</div>
     <div align="center" class="panel-body">若无特别注明，本站内容均属原创,转载请注明作者(<a href="">John Doe</a>)和出处 <a href="http://amswf.com">Amswf's Home</a> ，请勿用于任何商业用途</div>
-    <div class="panel-body">本文链接: <a href="/2014/01/02/2012-09-17-1/">RPG制作之 -- 小地图渲染</a></div>
+    <div class="panel-body">本文链接: <a href="/2014/01/03/2012-09-17-1/">RPG制作之 -- 小地图渲染</a></div>
 </div></div><div class="widget" id="widget_after_content_ujian>">
 <div class="ujian-hook"></div>
 </div></section>
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-17-1/#comments" id="uyan_count_unit" su="2012-09-17-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-09-17-1/#comments" id="uyan_count_unit" su="2012-09-17-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -231,10 +247,10 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     <section id='after_post_widget'><div class="widget" id="widget_after_post_post_pageNav>">
 <ul class="pager">
   
-  <li class="previous"><a href="/2014/01/02/2012-09-18-1/" title="RPG制作之 -- 大地图渲染">&larr; RPG制作之 -- 大地图渲染</a></li>
+  <li class="previous"><a href="/2014/01/03/2012-09-18-1/" title="RPG制作之 -- 大地图渲染">&larr; RPG制作之 -- 大地图渲染</a></li>
   
   
-  <li class="next"><a href="/2014/01/02/2012-09-16-1/" title="RPG制作之 -- 人物动作渲染">RPG制作之 -- 人物动作渲染 &rarr;</a></li>
+  <li class="next"><a href="/2014/01/03/2012-09-16-1/" title="RPG制作之 -- 人物动作渲染">RPG制作之 -- 人物动作渲染 &rarr;</a></li>
   
 </ul></div></section>    
 	<div id="comment"><a name="comments"></a>
@@ -266,7 +282,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/02/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -319,7 +335,7 @@ $(window).load(function(){
         
     <script type="text/javascript">
 var uyan_config={
-     'url':'http://amswf.com/2014/01/02/2012-09-17-1/',
+     'url':'http://amswf.com/2014/01/03/2012-09-17-1/',
 'su':'2012-09-17-1'
 };
 </script>

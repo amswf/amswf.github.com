@@ -5,16 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>flashdevelop快捷键修改 | Amswf&#39;s Home</title>
+  <title>js类相关概念梳理 | Amswf&#39;s Home</title>
   <meta name="author" content="John Doe">
   
-  <meta name="description" content="flashdevelop快捷键修改
-最新版的flashdevelop修改快捷键的地方有变化，以前是在设置选项里面。现在直接放到了Tools目录里面。用习惯了flashbuilder的快捷键，再用flashdevelop的快捷键，明显有点不适应。找到修改的地方后，果断出手修改。下面是我修改快捷键的几个">
+  <meta name="description" content="js确切的说是一种基于对象的语言，和纯面向对象的语言（比如as）稍微有点区别，js中没有类的概念。虽然有继承但是基于原型的继承。随着前段越来越受重视，jser们利用js的一些特性他们制造出了和纯面向对象一样好玩的东西。下面就js中一些概念进行概述，很多东西都是来自博客园的一些大牛，我写这篇文章主要想">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="flashdevelop快捷键修改"/>
+  <meta property="og:title" content="js类相关概念梳理"/>
   <meta property="og:site_name" content="Amswf&#39;s Home"/>
 
   
@@ -61,8 +60,6 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 	    
       </ul>
       <ul class="nav navbar-nav pull-right">
-      
-        <li><a href="/atom.xml">RSS</a></li>
             
       
       
@@ -96,19 +93,116 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title">flashdevelop快捷键修改</h1>
+      <h1 class="title">js类相关概念梳理</h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:19.000Z"> <a href="/2014/01/02/2012-09-27-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:12:01.000Z"> <a href="/2014/01/03/2013-10-31-1/">Jan 3 2014</a></time></span>      
     </header>
     <section id='before_content_widget'></section>
     <div class="entry">
       
-        <h1 id="-3c-center-3e-flashdevelop-5feb-6377-952e-4fee-6539-3c-2f-center-3e-"><center>flashdevelop快捷键修改</center></h1>
-<p>最新版的flashdevelop修改快捷键的地方有变化，以前是在设置选项里面。现在直接放到了Tools目录里面。用习惯了flashbuilder的快捷键，再用flashdevelop的快捷键，明显有点不适应。找到修改的地方后，果断出手修改。下面是我修改快捷键的几个地方。</p>
-<p><img src="/static/images/posts/20120927/1.jpg" alt=""></p>
-<p><img src="/static/images/posts/20120927/2.jpg" alt=""></p>
-<p><img src="/static/images/posts/20120927/3.jpg" alt=""></p>
-<p><img src="/static/images/posts/20120927/4.jpg" alt=""></p>
+        <p>js确切的说是一种基于对象的语言，和纯面向对象的语言（比如as）稍微有点区别，js中没有类的概念。虽然有继承但是基于原型的继承。随着前段越来越受重视，jser们利用js的一些特性他们制造出了和纯面向对象一样好玩的东西。下面就js中一些概念进行概述，很多东西都是来自博客园的一些大牛，我写这篇文章主要想拿as和js做对比来讲，以方便as像转js的程序员们。本片文章涉及的概念有，模块，类，继承，私有属性和公开属性。</p>
+<p>1.模块<br>大家写as的时候都知道，as里面是有类的概念，每次生成一个类，系统中都会多一个以.as结尾的文件，这个文件我们称为类文件，我们会将所有关于该类实现的属性方法放到这个文件中来写。那么js呢。在我看了很多大牛的博客后，了解到js也是可以分模块的。有两种写法。</p>
+<pre>
+//module1.js
+1).(function(namespace) {
+    function log() {
+        console.log('test');
+    }
+    namespace.run = function() {
+        log();
+    };
+})(window.module1 = window.module1 || {});
+</pre>
+<pre>
+//module2.js
+2).var module2 = {
+    run: function() {
+         console.log('hi module');
+    }
+}
+</pre>
+从这两种写法中我们可以看到，js中单独的模块并不一定是一个单独的类，而是将一组相关的逻辑写到一个模块中，目的在于程序架构清晰和便于协同开发。
+
+2.类的概念
+js中没有类，但是每个函数都可以使用new来生成新的对象。也就是说在js中每个函数都可以代表as中类的概念。那么类中私有方法，公开方法，私有属性和公开属性又是怎样实现的。可以看代码
+<pre>
+function ClassA(){
+    var a ＝ 1；//这里的a是在函数中使用var关键字声明的，表示的是ClassA中的私有属性，外部不可访问
+    this.b = 2;//这里this调用的，表示的是ClassA中公开的属性。
+    c = 3;//这里声明的c不在ClassA中，而是在全局作用域，相当于window.c = 3;
+    function d(){//这种形式声明的函数属于私有函数，只能在ClassA中调用，window也无法调用。
+        console.log('function d');
+    }
+
+    this.e = function(){//这种形式声明的函数，属于公开函数
+        console.log('function e');
+    }
+}
+var cla = new ClassA();
+console.log(cla.a);//undefined
+console.log(cla.b);//2
+console.log(cla.c);//undefined
+console.log(window.c);//3
+
+console.log(cla.d);//undefined
+console.log(cla.e);//输出函数e的实现
+console.log(window.d);//undefined
+</pre>
+3.继承
+aser都知道as继承一个类很简单只要使用extends就可以了。但是js里面继承是使用的原型继承，什么是原型继承呢。js里面对象有个prototype属性，我们利用这个属性来实现继承。代码演示如下：
+
+<pre>
+function ClassB(){
+    this.a = 10;
+    this.run = function(){
+        console.log('函数run被调用');
+    }
+}
+
+function ClassC(){};
+
+ClassC.prototype = new ClassB();//这样ClassC就继承了ClassB的属性和方法不信可以实验下
+
+var t = new ClassC();
+console.log(t.a);//看到没，这里输出的是10
+t.run();//这里输出的是“函数run被调用”
+
+ClassC.prototype.proA = 34;
+
+console.log(t.proA);//34
+</pre>
+4.命名空间
+js里面的命名空间是如何实现的呢
+<pre>
+var com = {};
+com.amswf = {};
+com.amswf.utils = {};
+com.amswf.utils.PageUtil = function(){
+    this.getPageURL = function(){
+        return window.location.href;
+    }
+}
+</pre>
+上面概念如果理解的话，我们可以这样写一个类模块
+<pre>
+//PageUtil.js
+(function(window){
+    window.com = {};
+    com.amswf = {};
+    com.amswf.utils = {};
+    com.amswf.utils.PageUtil = function(){};
+    com.amswf.utils.PageUtil.prototype.name = 'amswf';
+    com.amswf.utils.PageUtil.prototype.getPageURL = function(){
+        return window.location.href;
+    };
+    //其他属性方法可以继续。。。
+})(window)
+</pre>
+外部使用如下：
+<pre>
+var util = new com.amswf.utils.PageUtil();
+console.log(util.getPageURL());//这里会输出当前网页地址
+</pre>
 
       
     </div>
@@ -118,15 +212,15 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 <div class="panel panel-success">
     <div class="panel-heading" align="center">希望本站内容对您有点用处,有什么疑问或建议请在后面留言评论</div>
     <div align="center" class="panel-body">若无特别注明，本站内容均属原创,转载请注明作者(<a href="">John Doe</a>)和出处 <a href="http://amswf.com">Amswf's Home</a> ，请勿用于任何商业用途</div>
-    <div class="panel-body">本文链接: <a href="/2014/01/02/2012-09-27-1/">flashdevelop快捷键修改</a></div>
+    <div class="panel-body">本文链接: <a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></div>
 </div></div><div class="widget" id="widget_after_content_ujian>">
 <div class="ujian-hook"></div>
 </div></section>
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-27-1/#comments" id="uyan_count_unit" su="2012-09-27-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/javascript/">javascript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-10-31-1/#comments" id="uyan_count_unit" su="2013-10-31-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -139,10 +233,10 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     <section id='after_post_widget'><div class="widget" id="widget_after_post_post_pageNav>">
 <ul class="pager">
   
-  <li class="previous"><a href="/2014/01/02/2012-12-24-1/" title="actionscript条件编译">&larr; actionscript条件编译</a></li>
+  <li class="previous"><a href="/2014/01/03/2013-11-17-1/" title="flash安全域和程序域的一点见解">&larr; flash安全域和程序域的一点见解</a></li>
   
   
-  <li class="next"><a href="/2014/01/02/2012-09-19-1/" title="一个用来取点坐标的小程序">一个用来取点坐标的小程序 &rarr;</a></li>
+  <li class="next"><a href="/2014/01/03/2013-09-30-1/" title="cocos2dx-html5基础教程">cocos2dx-html5基础教程 &rarr;</a></li>
   
 </ul></div></section>    
 	<div id="comment"><a name="comments"></a>
@@ -174,7 +268,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/02/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -227,8 +321,8 @@ $(window).load(function(){
         
     <script type="text/javascript">
 var uyan_config={
-     'url':'http://amswf.com/2014/01/02/2012-09-27-1/',
-'su':'2012-09-27-1'
+     'url':'http://amswf.com/2014/01/03/2013-10-31-1/',
+'su':'2013-10-31-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>

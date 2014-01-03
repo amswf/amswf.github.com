@@ -58,8 +58,6 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 	    
       </ul>
       <ul class="nav navbar-nav pull-right">
-      
-        <li><a href="/atom.xml">RSS</a></li>
             
       
       
@@ -94,199 +92,203 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2012-09-18-1/">RPG制作之 -- 大地图渲染</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2012-09-18-1/">RPG制作之 -- 大地图渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:10.000Z"> <a href="/2014/01/02/2012-09-18-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:05:42.000Z"> <a href="/2014/01/03/2012-09-18-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-RPG-5236-4f5c-4e4b-_-2014-_-5927-5730-56fe-6e32-67d3-3c-2f-center-3e-"><center>RPG制作之 — 大地图渲染</center></h1>
-<p>大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。</p>
+        <p>大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。</p>
 <object type="application/x-shockwave-flash" width="600" height="400"><br> <param name="movie" value="/static/images/posts/bigMap.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="/static/images/posts/bigMap.swf"
         type="application/x-shockwave-flash"
         bgcolor="#ffffff"
         width="600"
         height="400"><br> </embed><br></object>
 
-<pre><code><span class="comment">/**
- * 整个拼合的大图尺寸：3200 * 720
- * 这个地图缩略图尺寸：190 * 42
+<pre>
+/**
+* 整个拼合的大图尺寸：3200 * 720
+* 这个地图缩略图尺寸：190 * 42
 * 每个tile尺寸是：320 * 360
- * 渲染尺寸：1320 * 720,由于该游戏地图是横版的，所以只在x方向多渲染了一个tile
- */</span>
-<span class="package"><span class="keyword">package</span> <span class="title">com</span>.<span class="title">zs</span>
-{</span>
-<span class="preprocessor"><span class="keyword">import</span> com.zs.utils.MapLoader;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Bitmap;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.BitmapData;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Loader;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.LoaderInfo;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Shape;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Sprite;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.Event;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.geom.Matrix;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.geom.Point;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.geom.Rectangle;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.net.URLRequest;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.utils.setInterval;</span>
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigMapFill</span> <span class="keyword">extends</span> <span class="title">Sprite</span>
-{</span>
-    <span class="keyword">private</span> <span class="keyword">var</span> _smallMap:BitmapData;
-    <span class="comment">/**
-     * 地图缓冲区（源地图）
-     */</span>
-    <span class="keyword">private</span> <span class="keyword">var</span> buffer:BitmapData;
-    <span class="keyword">private</span> <span class="keyword">var</span> shape:Bitmap = <span class="keyword">new</span> Bitmap();
-    <span class="keyword">private</span> <span class="keyword">var</span> smallMapFilled:Boolean;
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">BigMapFill</span><span class="params">()</span>
-    {</span>
-        buffer=<span class="keyword">new</span> BitmapData(<span class="number">1320</span>,<span class="number">720</span>,<span class="literal">false</span>);
-        shape.bitmapData = buffer;
-        this.addChild(shape);
-    }
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">fillSmallMap</span><span class="params">()</span><span class="type">:Boolean</span>
-    {</span>
-        <span class="keyword">if</span>(smallMapFilled == <span class="literal">false</span>){
-            loadSmallMap();
+* 渲染尺寸：1320 * 720,由于该游戏地图是横版的，所以只在x方向多渲染了一个tile
+*/
+package com.zs
+{
+    import com.zs.utils.MapLoader;
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;
+    import flash.display.Loader;
+    import flash.display.LoaderInfo;
+    import flash.display.Shape;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.geom.Matrix;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.net.URLRequest;
+    import flash.utils.setInterval;
+    public class BigMapFill extends Sprite
+    {
+        private var _smallMap:BitmapData;
+        /**
+         * 地图缓冲区（源地图）
+         */
+        private var buffer:BitmapData;
+        private var shape:Bitmap = new Bitmap();
+        private var smallMapFilled:Boolean;
+        public function BigMapFill()
+        {
+            buffer=new BitmapData(1320,720,false);
+            shape.bitmapData = buffer;
+            this.addChild(shape);
         }
-        <span class="keyword">return</span> smallMapFilled;
-    }
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">fillBigMap</span><span class="params">()</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> i:int = <span class="number">0</span>;
-        <span class="keyword">var</span> j:int = <span class="number">0</span>;
-        setInterval(<span class="function"><span class="keyword">function</span><span class="params">()</span><span class="type">:void</span>{</span>
-            <span class="keyword">if</span>(i&gt;=<span class="number">4</span>){
-                i=<span class="number">0</span>;
-                j=<span class="number">1</span>;
+        public function fillSmallMap():Boolean
+        {
+            if(smallMapFilled == false){
+                loadSmallMap();
             }
-            <span class="keyword">var</span> loader:MapLoader = <span class="keyword">new</span> MapLoader();
-            loader.load(getSwfCatalog()+<span class="string">'/assets/tiles/301/'</span>+j+<span class="string">'_'</span>+i+<span class="string">'.jpg'</span>);
-            loader.addEventListener(Event.COMPLETE,onTileLoaded);
-            loader.data = {i:i,j:j};
-            i ++;
-        },<span class="number">1000</span>);
-        <span class="comment">/*for(i=0;i&lt;4;i++){
-            for(j=0;j&lt;2;j++){
+            return smallMapFilled;
+        }
+        public function fillBigMap():void
+        {
+            var i:int = 0;
+            var j:int = 0;
+            setInterval(function():void{
+                if(i>=4){
+                    i=0;
+                    j=1;
+                }
                 var loader:MapLoader = new MapLoader();
-                loader.load('assets/tiles/301/'+j+'_'+i+'.jpg');
+                loader.load(getSwfCatalog()+'/assets/tiles/301/'+j+'_'+i+'.jpg');
                 loader.addEventListener(Event.COMPLETE,onTileLoaded);
                 loader.data = {i:i,j:j};
-            }
-        }*/</span>
-    }
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getSwfCatalog</span><span class="params">()</span><span class="type">:String</span>
-    {</span>
-        <span class="comment">//通用代码段，获取播放器自身所在的路径 + 补全URL路径字符串以支持相对路径</span>
-        <span class="keyword">var</span> playerrealurl:String = <span class="string">""</span>;
-        <span class="keyword">var</span> playervarsstr:String = <span class="string">""</span>;
-        <span class="keyword">var</span> playerrootpath:String = <span class="string">""</span>;
-        loaderInfo.url.indexOf(<span class="string">"?"</span>, <span class="number">0</span>)&gt;=<span class="number">0</span> ? playerrealurl=loaderInfo.url.slice(<span class="number">0</span>, loaderInfo.url.indexOf(<span class="string">"?"</span>, <span class="number">0</span>)) : playerrealurl=loaderInfo.url;
-        loaderInfo.url.indexOf(<span class="string">"?"</span>, <span class="number">0</span>)&gt;=<span class="number">0</span> ? playervarsstr=loaderInfo.url.slice(loaderInfo.url.indexOf(<span class="string">"?"</span>, <span class="number">0</span>)+<span class="number">1</span>) : playervarsstr=<span class="string">""</span>;
-        playerrealurl.lastIndexOf(<span class="string">"/"</span>, playerrealurl.length)&gt;=<span class="number">0</span> ? playerrootpath=playerrealurl.slice(<span class="number">0</span>, playerrealurl.lastIndexOf(<span class="string">"/"</span>, playerrealurl.length)) : playerrootpath=<span class="string">""</span>;
-        <span class="keyword">return</span> playerrootpath;
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">onTileLoaded</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> rect:Rectangle = <span class="keyword">new</span> Rectangle(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">360</span>);
-        <span class="keyword">var</span> point:Point = <span class="keyword">new</span> Point(MapLoader(e.target).data.i*<span class="number">320</span>,MapLoader(e.target).data.j * <span class="number">360</span>);
-        buffer.lock();
-        buffer.copyPixels(Bitmap(MapLoader(e.target).content).bitmapData,rect,point);
-        buffer.unlock();
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">loadSmallMap</span><span class="params">()</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> loader:Loader = <span class="keyword">new</span> Loader();
-        loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
-        loader.load(<span class="keyword">new</span> URLRequest(<span class="string">'assets/s.jpg'</span>));
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">smallMapLoaded</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> loadinfo:LoaderInfo = e.target <span class="keyword">as</span> LoaderInfo;
-        _smallMap = (loadinfo.content <span class="keyword">as</span> Bitmap).bitmapData;
-        <span class="keyword">var</span> per:Number = <span class="number">3200</span>/_smallMap.width;
-        buffer.draw(_smallMap,<span class="keyword">new</span> Matrix(per,<span class="number">0</span>,<span class="number">0</span>,per),<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">true</span>);
-        smallMapFilled = <span class="literal">true</span>;
-    }
-}
-}
-</code></pre><p>地图加载器：</p>
-<pre><code><span class="package"><span class="keyword">package</span> <span class="title">com</span>.<span class="title">zs</span>.<span class="title">utils</span>
-{</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.DisplayObject;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Loader;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.LoaderInfo;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.Event;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.EventDispatcher;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.IOErrorEvent;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.net.URLRequest;</span>
-[Event(name=<span class="string">'COMPLETE'</span>,type=<span class="string">'flash.events.Event'</span>)]
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapLoader</span> <span class="keyword">extends</span> <span class="title">EventDispatcher</span>
-{</span>
-    <span class="keyword">public</span> <span class="keyword">var</span> data:Object = {};
-    <span class="keyword">private</span> <span class="keyword">var</span> _content:DisplayObject;
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">MapLoader</span><span class="params">()</span>
-    {</span>
-    }
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">load</span><span class="params">(url:String)</span><span class="type">:MapLoader</span>
-    {</span>
-        <span class="keyword">var</span> loader:Loader = <span class="keyword">new</span> Loader();
-        loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
-        loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
-        loader.load(<span class="keyword">new</span> URLRequest(url));
-        <span class="keyword">return</span> <span class="keyword">this</span>;
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">onError</span><span class="params">(e:IOErrorEvent)</span><span class="type">:void</span>
-    {</span>
-        LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
-        LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
-    }
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span> <span class="title">content</span><span class="params">()</span><span class="type">:DisplayObject</span>
-    {</span>
-        <span class="keyword">return</span> _content;
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">onLoaded</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
-        LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
-        _content = LoaderInfo(e.target).content;
-        this.dispatchEvent(<span class="keyword">new</span> Event(Event.COMPLETE));
-    }
-}
-}
-</code></pre><p>使用：</p>
-<pre><code><span class="package"><span class="keyword">package</span>
-{</span>
-<span class="preprocessor"><span class="keyword">import</span> com.zs.BigMapFill;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Sprite;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.Event;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.MouseEvent;</span>
-
-[SWF(width=<span class="string">'600'</span>,height=<span class="string">'400'</span>)]
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> <span class="keyword">extends</span> <span class="title">Sprite</span>
-{</span>
-    <span class="keyword">private</span> <span class="keyword">var</span> map:BigMapFill = <span class="keyword">new</span> BigMapFill();
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">Main</span><span class="params">()</span>
-    {</span>
-        this.addEventListener(Event.ADDED_TO_STAGE,init);
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        this.stage.align = <span class="string">'TL'</span>;
-        this.stage.scaleMode = <span class="string">'noScale'</span>;
-        this.stage.addEventListener(MouseEvent.CLICK,onStart);
-        this.addChild(map);
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">onStart</span><span class="params">(event:MouseEvent)</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">if</span>(map.fillSmallMap()){
-            map.fillBigMap();
+                i ++;
+            },1000);
+            /*for(i=0;i<4;i++){
+                for(j=0;j<2;j++){
+                    var loader:MapLoader = new MapLoader();
+                    loader.load('assets/tiles/301/'+j+'_'+i+'.jpg');
+                    loader.addEventListener(Event.COMPLETE,onTileLoaded);
+                    loader.data = {i:i,j:j};
+                }
+            }*/
+        }
+        public function getSwfCatalog():String
+        {
+            //通用代码段，获取播放器自身所在的路径 + 补全URL路径字符串以支持相对路径
+            var playerrealurl:String = "";
+            var playervarsstr:String = "";
+            var playerrootpath:String = "";
+            loaderInfo.url.indexOf("?", 0)>=0 ? playerrealurl=loaderInfo.url.slice(0, loaderInfo.url.indexOf("?", 0)) : playerrealurl=loaderInfo.url;
+            loaderInfo.url.indexOf("?", 0)>=0 ? playervarsstr=loaderInfo.url.slice(loaderInfo.url.indexOf("?", 0)+1) : playervarsstr="";
+            playerrealurl.lastIndexOf("/", playerrealurl.length)>=0 ? playerrootpath=playerrealurl.slice(0, playerrealurl.lastIndexOf("/", playerrealurl.length)) : playerrootpath="";
+            return playerrootpath;
+        }
+        private function onTileLoaded(e:Event):void
+        {
+            var rect:Rectangle = new Rectangle(0,0,320,360);
+            var point:Point = new Point(MapLoader(e.target).data.i*320,MapLoader(e.target).data.j * 360);
+            buffer.lock();
+            buffer.copyPixels(Bitmap(MapLoader(e.target).content).bitmapData,rect,point);
+            buffer.unlock();
+        }
+        private function loadSmallMap():void
+        {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
+            loader.load(new URLRequest('assets/s.jpg'));
+        }
+        private function smallMapLoaded(e:Event):void
+        {
+            var loadinfo:LoaderInfo = e.target as LoaderInfo;
+            _smallMap = (loadinfo.content as Bitmap).bitmapData;
+            var per:Number = 3200/_smallMap.width;
+            buffer.draw(_smallMap,new Matrix(per,0,0,per),null,null,null,true);
+            smallMapFilled = true;
         }
     }
 }
+</pre>
+地图加载器：
+<pre>
+package com.zs.utils
+{
+    import flash.display.DisplayObject;
+    import flash.display.Loader;
+    import flash.display.LoaderInfo;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+    import flash.events.IOErrorEvent;
+    import flash.net.URLRequest;
+    [Event(name='COMPLETE',type='flash.events.Event')]
+    public class MapLoader extends EventDispatcher
+    {
+        public var data:Object = {};
+        private var _content:DisplayObject;
+        public function MapLoader()
+        {
+        }
+        public function load(url:String):MapLoader
+        {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
+            loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
+            loader.load(new URLRequest(url));
+            return this;
+        }
+        private function onError(e:IOErrorEvent):void
+        {
+            LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
+            LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
+        }
+        public function get content():DisplayObject
+        {
+            return _content;
+        }
+        private function onLoaded(e:Event):void
+        {
+            LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
+            LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
+            _content = LoaderInfo(e.target).content;
+            this.dispatchEvent(new Event(Event.COMPLETE));
+        }
+    }
 }
-</code></pre>
+</pre>
+使用：
+<pre>
+package
+{
+    import com.zs.BigMapFill;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.events.MouseEvent;
+
+    [SWF(width='600',height='400')]
+    public class Main extends Sprite
+    {
+        private var map:BigMapFill = new BigMapFill();
+        public function Main()
+        {
+            this.addEventListener(Event.ADDED_TO_STAGE,init);
+        }
+        private function init(e:Event):void
+        {
+            this.stage.align = 'TL';
+            this.stage.scaleMode = 'noScale';
+            this.stage.addEventListener(MouseEvent.CLICK,onStart);
+            this.addChild(map);
+        }
+        private function onStart(event:MouseEvent):void
+        {
+            if(map.fillSmallMap()){
+                map.fillBigMap();
+            }
+        }
+    }
+}
+</pre>
       
     </div>
     
@@ -295,8 +297,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-18-1/#comments" id="uyan_count_unit" su="2012-09-18-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-09-18-1/#comments" id="uyan_count_unit" su="2012-09-18-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -325,15 +327,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2012-09-17-1/">RPG制作之 -- 小地图渲染</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2012-09-17-1/">RPG制作之 -- 小地图渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:05.000Z"> <a href="/2014/01/02/2012-09-17-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T01:59:13.000Z"> <a href="/2014/01/03/2012-09-17-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-RPG-5236-4f5c-4e4b-_-2014-_-5c0f-5730-56fe-6e32-67d3-3c-2f-center-3e-"><center>RPG制作之 — 小地图渲染</center></h1>
-<p>地图渲染分两步：</p>
+        <p>地图渲染分两步：</p>
 <ul>
 <li><p>使用缩略图渲染</p>
 </li>
@@ -347,76 +348,96 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 <ul>
 <li><p>tile：由于整张地图比较大，要是每次都全部渲染，会浪费内存，所以采取分块渲染。分块渲染时将一整张地图按相同大小分成等份。</p>
 </li>
-<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。</p>
+<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。<br><pre><br>  <object type="application/x-shockwave-flash" width="500" height="400"><br>   <param name="movie" value="/static/images/posts/scaleMap.swf"/><br>   <param name="bgcolor" value="#ffffff"/><br>   &lt;embed src=”/static/images/posts/scaleMap.swf”</p>
+<pre><code>      <span class="comment">type="application/x</span><span class="literal">-</span><span class="comment">shockwave</span><span class="literal">-</span><span class="comment">flash"</span>
+      <span class="comment">bgcolor="#ffffff"</span>
+      <span class="comment">width="500"</span>
+      <span class="comment">height="400"</span>&gt;
+</code></pre><p>   </embed><br>  </object><br></pre><br>本文先讲解小地图渲染：</p>
 </li>
 </ul>
-<object type="application/x-shockwave-flash" width="500" height="400"><br> <param name="movie" value="/static/images/posts/scaleMap.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="/static/images/posts/scaleMap.swf"
-        type="application/x-shockwave-flash"
-        bgcolor="#ffffff"
-        width="500"
-        height="400"><br> </embed><br></object>
+<pre>
+package com.zs
+{
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;
+    import flash.display.Loader;
+    import flash.display.LoaderInfo;
+    import flash.display.Shape;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.geom.Matrix;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.net.URLRequest;
+    public class SmallMapFill extends Sprite
+    {
+        private var _smallMap:BitmapData;
+        protected var _scache:BitmapData;
+        /**
+         * 地图缓冲区（源地图）
+         */
+        private var buffer:BitmapData;
+        private var shape:Bitmap = new Bitmap();
+        public function SmallMapFill()
+        {
+            this.addChild(shape);
+        }
+        public function init():void
+        {
+            loadSmallMap();
+        }
+        private function loadSmallMap():void
+        {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
+            loader.load(new URLRequest('assets/s.jpg'));
+        }
+        private function smallMapLoaded(e:Event):void
+        {
+            var loadinfo:LoaderInfo = e.target as LoaderInfo;
+            _smallMap = (loadinfo.content as Bitmap).bitmapData;
+            buffer=new BitmapData(1320,720,false);
+            var per:Number = 3200/_smallMap.width;
+            buffer.draw(_smallMap,new Matrix(per,0,0,per),null,null,null,true);
+            shape.bitmapData = buffer;
+        }
+    }
+}
+</pre>
 
-<p>本文先讲解小地图渲染：<br>    package com.zs<br>    {<br>    import flash.display.Bitmap;<br>    import flash.display.BitmapData;<br>    import flash.display.Loader;<br>    import flash.display.LoaderInfo;<br>    import flash.display.Shape;<br>    import flash.display.Sprite;<br>    import flash.events.Event;<br>    import flash.geom.Matrix;<br>    import flash.geom.Point;<br>    import flash.geom.Rectangle;<br>    import flash.net.URLRequest;<br>    public class SmallMapFill extends Sprite<br>    {<br>        private var _smallMap:BitmapData;<br>        protected var _scache:BitmapData;<br>        /**</p>
-<pre><code>     * 地图缓冲区（源地图）
-     */
-    <span class="keyword">private</span> <span class="keyword">var</span> buffer:BitmapData;
-    <span class="keyword">private</span> <span class="keyword">var</span> shape:Bitmap = <span class="keyword">new</span> Bitmap();
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">SmallMapFill</span><span class="params">()</span>
-    {</span>
-        this.addChild(shape);
-    }
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span><span class="type">:void</span>
-    {</span>
-        loadSmallMap();
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">loadSmallMap</span><span class="params">()</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> loader:Loader = <span class="keyword">new</span> Loader();
-        loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
-        loader.load(<span class="keyword">new</span> URLRequest(<span class="string">'assets/s.jpg'</span>));
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">smallMapLoaded</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> loadinfo:LoaderInfo = e.target <span class="keyword">as</span> LoaderInfo;
-        _smallMap = (loadinfo.content <span class="keyword">as</span> Bitmap).bitmapData;
-        buffer=<span class="keyword">new</span> BitmapData(<span class="number">1320</span>,<span class="number">720</span>,<span class="literal">false</span>);
-        <span class="keyword">var</span> per:Number = <span class="number">3200</span>/_smallMap.width;
-        buffer.draw(_smallMap,<span class="keyword">new</span> Matrix(per,<span class="number">0</span>,<span class="number">0</span>,per),<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">true</span>);
-        shape.bitmapData = buffer;
-    }
-}
-}
-</code></pre><p>使用代码：</p>
-<pre><code><span class="package"><span class="keyword">package</span>
-{</span>
-<span class="preprocessor"><span class="keyword">import</span> com.zs.SmallMapFill;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.LoaderInfo;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Sprite;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.Event;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.MouseEvent;</span>
+<p>使用代码：</p>
+<pre>
+package
+{
+    import com.zs.SmallMapFill;
+    import flash.display.LoaderInfo;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.events.MouseEvent;
 
-[SWF(width=<span class="string">'500'</span>,height=<span class="string">'400'</span>,backgroundColor=<span class="string">'0xcccccc'</span>)]
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> <span class="keyword">extends</span> <span class="title">Sprite</span>
-{</span>
-    <span class="keyword">private</span> <span class="keyword">var</span> map:SmallMapFill = <span class="keyword">new</span> SmallMapFill();
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">Main</span><span class="params">()</span>
-    {</span>
-        this.addEventListener(Event.ADDED_TO_STAGE,init);
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        this.stage.align = <span class="string">'TL'</span>;
-        this.stage.scaleMode = <span class="string">'noScale'</span>;
-        this.stage.addEventListener(MouseEvent.CLICK,onStart);
-        this.addChild(map);
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">onStart</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        map.init();
+    [SWF(width='500',height='400',backgroundColor='0xcccccc')]
+    public class Main extends Sprite
+    {
+        private var map:SmallMapFill = new SmallMapFill();
+        public function Main()
+        {
+            this.addEventListener(Event.ADDED_TO_STAGE,init);
+        }
+        private function init(e:Event):void
+        {
+            this.stage.align = 'TL';
+            this.stage.scaleMode = 'noScale';
+            this.stage.addEventListener(MouseEvent.CLICK,onStart);
+            this.addChild(map);
+        }
+        private function onStart(e:Event):void
+        {
+            map.init();
+        }
     }
 }
-}
-</code></pre>
+</pre>
       
     </div>
     
@@ -425,8 +446,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-17-1/#comments" id="uyan_count_unit" su="2012-09-17-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-09-17-1/#comments" id="uyan_count_unit" su="2012-09-17-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -455,119 +476,135 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2012-09-16-1/">RPG制作之 -- 人物动作渲染</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2012-09-16-1/">RPG制作之 -- 人物动作渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:04:59.000Z"> <a href="/2014/01/02/2012-09-16-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T01:53:00.000Z"> <a href="/2014/01/03/2012-09-16-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-RPG-5236-4f5c-4e4b-_-2014-_-4eba-7269-52a8-4f5c-6e32-67d3-3c-2f-center-3e-"><center>RPG制作之 — 人物动作渲染</center></h1>
-<p>动作渲染有两种方式，一种是flash的movieclip方式，一种是块传输技术（spritesheet），这两种方式各有利弊。使用movieclip方式优点是：制作方便，缺点是：由于所有动作都基于movieclip类渲染，这样会浪费内存和cpu资源。而spritesheet的优缺点和movieclip正好相反。为了让用户的游戏体验更好，flash在制作大型游戏，一般都选用spritesheet方式。</p>
-<object type="application/x-shockwave-flash" width="105" height="120"><br> <param name="movie" value="/static/images/posts/sheet.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="/static/images/posts/sheet.swf"
+        <p>动作渲染有两种方式，一种是flash的movieclip方式，一种是块传输技术（spritesheet），这两种方式各有利弊。使用movieclip方式优点是：制作方便，缺点是：由于所有动作都基于movieclip类渲染，这样会浪费内存和cpu资源。而spritesheet的优缺点和movieclip正好相反。为了让用户的游戏体验更好，flash在制作大型游戏，一般都选用spritesheet方式。</p>
+<pre>
+<object type="application/x-shockwave-flash" width="105" height="120">
+ <param name="movie" value="/static/images/posts/sheet.swf"/>
+ <param name="bgcolor" value="#ffffff"/>
+ <embed src="/static/images/posts/sheet.swf"
         type="application/x-shockwave-flash"
         bgcolor="#ffffff"
         width="105"
-        height="120"><br> </embed><br></object>
+        height="120">
+ </embed>
+</object>
+</pre>
+[源码](https://gist.github.com/41500281261d4bcb6d12)
+<pre>
+package com.zs.utils
+{
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;
+    import flash.display.Loader;
+    import flash.display.LoaderInfo;
+    import flash.events.Event;
+    import flash.events.IOErrorEvent;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.net.URLRequest;
+    public class SheetMoive extends Bitmap
+    {
+        private var sheets:Object = {};
+        private var action:String;
+        private var actionW:Number = 105;
+        private var actionH:Number = 120;
+        public function SheetMoive(w:Number=105,h:Number=120)
+        {
+            this.bitmapData = new BitmapData(actionW,actionH);
+        }
+        public function addSheet(url:String,action:String):void
+        {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
+            loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
+            loader.name = action;
+            loader.load(new URLRequest(url));
+        }
+        public function go(action:String):Boolean
+        {
+            if(sheets[action]){
+                this.action = action;
+                this.addEventListener(Event.ENTER_FRAME,render);
+                return true;
+            }
+            return false;
+        }
+        private var sheetIndex:int = 0;
+        private function render(e:Event):void
+        {
+            if(sheetIndex >= sheets[action].sheetNum){
+                sheetIndex = 0;
+            }
+            this.bitmapData.lock();
+            this.bitmapData.copyPixels(sheets[action].pic,new Rectangle(sheetIndex * actionW,0,actionW,actionH),new Point(0,0));
+            this.bitmapData.unlock();
+            sheetIndex++;
+        }
+        private function onError(e:IOErrorEvent):void
+        {
+        }
+        private function onLoaded(e:Event):void
+        {
+            var loader:Loader = LoaderInfo(e.target).loader;
+            var bitmapdata:BitmapData = (loader.content as Bitmap).bitmapData;
+            sheets[loader.name] = {pic:bitmapdata,sheetNum:Math.floor(bitmapdata.width/105)};
+            this.dispatchEvent(new Event('done'));
+        }
+    }
+}
+</pre>    
+引用：    
+<pre>
+package
+{
+    import com.zs.utils.SheetMoive;
+    import flash.display.LoaderInfo;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.events.MouseEvent;
 
-<p><a href="https://gist.github.com/41500281261d4bcb6d12" target="_blank">源码</a></p>
-<pre><code><span class="package"><span class="keyword">package</span> <span class="title">com</span>.<span class="title">zs</span>.<span class="title">utils</span>
-{</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Bitmap;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.BitmapData;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.Loader;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.display.LoaderInfo;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.Event;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.events.IOErrorEvent;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.geom.Point;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.geom.Rectangle;</span>
-<span class="preprocessor"><span class="keyword">import</span> flash.net.URLRequest;</span>
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SheetMoive</span> <span class="keyword">extends</span> <span class="title">Bitmap</span>
-{</span>
-    <span class="keyword">private</span> <span class="keyword">var</span> sheets:Object = {};
-    <span class="keyword">private</span> <span class="keyword">var</span> action:String;
-    <span class="keyword">private</span> <span class="keyword">var</span> actionW:Number = <span class="number">105</span>;
-    <span class="keyword">private</span> <span class="keyword">var</span> actionH:Number = <span class="number">120</span>;
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">SheetMoive</span><span class="params">(w:Number=105,h:Number=120)</span>
-    {</span>
-        this.bitmapData = <span class="keyword">new</span> BitmapData(actionW,actionH);
-    }
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">addSheet</span><span class="params">(url:String,action:String)</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> loader:Loader = <span class="keyword">new</span> Loader();
-        loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
-        loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
-        loader.name = action;
-        loader.load(<span class="keyword">new</span> URLRequest(url));
-    }
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">go</span><span class="params">(action:String)</span><span class="type">:Boolean</span>
-    {</span>
-        <span class="keyword">if</span>(sheets[action]){
-            this.action = action;
-            this.addEventListener(Event.ENTER_FRAME,render);
-            <span class="keyword">return</span> <span class="literal">true</span>;
+    [SWF(width='105',height='120',backgroundColor='0xcccccc')]
+    public class Main extends Sprite
+    {
+        private var ren:SheetMoive = new SheetMoive();
+        public function Main()
+        {
+            this.addEventListener(Event.ADDED_TO_STAGE,init);
         }
-        <span class="keyword">return</span> <span class="literal">false</span>;
-    }
-    <span class="keyword">private</span> <span class="keyword">var</span> sheetIndex:int = <span class="number">0</span>;
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">if</span>(sheetIndex &gt;= sheets[action].sheetNum){
-            sheetIndex = <span class="number">0</span>;
+        private function init(e:Event):void
+        {
+            this.stage.align = 'TL';
+            this.stage.scaleMode = 'noScale';
+            this.stage.addEventListener(MouseEvent.CLICK,changeAction);
+            this.addChild(ren);
+            ren.addSheet('/assets/character/walk.png','walk');
+            ren.addSheet('/assets/character/stand.png','stand');
+            ren.addEventListener('done',onStart);
         }
-        this.bitmapData.lock();
-        this.bitmapData.copyPixels(sheets[action].pic,<span class="keyword">new</span> Rectangle(sheetIndex * actionW,<span class="number">0</span>,actionW,actionH),<span class="keyword">new</span> Point(<span class="number">0</span>,<span class="number">0</span>));
-        this.bitmapData.unlock();
-        sheetIndex++;
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">onError</span><span class="params">(e:IOErrorEvent)</span><span class="type">:void</span>
-    {</span>
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">onLoaded</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">var</span> loader:Loader = LoaderInfo(e.target).loader;
-        <span class="keyword">var</span> bitmapdata:BitmapData = (loader.content <span class="keyword">as</span> Bitmap).bitmapData;
-        sheets[loader.name] = {pic:bitmapdata,sheetNum:Math.floor(bitmapdata.width/<span class="number">105</span>)};
-        this.dispatchEvent(<span class="keyword">new</span> Event(<span class="string">'done'</span>));
-    }
-}
-}
-</code></pre><p>引用：<br>    package<br>    {<br>    import com.zs.utils.SheetMoive;<br>    import flash.display.LoaderInfo;<br>    import flash.display.Sprite;<br>    import flash.events.Event;<br>    import flash.events.MouseEvent;</p>
-<pre><code>[SWF(width=<span class="string">'105'</span>,height=<span class="string">'120'</span>,backgroundColor=<span class="string">'0xcccccc'</span>)]
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> <span class="keyword">extends</span> <span class="title">Sprite</span>
-{</span>
-    <span class="keyword">private</span> <span class="keyword">var</span> ren:SheetMoive = <span class="keyword">new</span> SheetMoive();
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">Main</span><span class="params">()</span>
-    {</span>
-        this.addEventListener(Event.ADDED_TO_STAGE,init);
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        this.stage.align = <span class="string">'TL'</span>;
-        this.stage.scaleMode = <span class="string">'noScale'</span>;
-        this.stage.addEventListener(MouseEvent.CLICK,changeAction);
-        this.addChild(ren);
-        ren.addSheet(<span class="string">'/assets/character/walk.png'</span>,<span class="string">'walk'</span>);
-        ren.addSheet(<span class="string">'/assets/character/stand.png'</span>,<span class="string">'stand'</span>);
-        ren.addEventListener(<span class="string">'done'</span>,onStart);
-    }
-    <span class="keyword">private</span> <span class="keyword">var</span> change:Boolean;
-    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">changeAction</span><span class="params">(event:MouseEvent)</span><span class="type">:void</span>
-    {</span>
-        <span class="keyword">if</span>(change){
-            ren.go(<span class="string">'stand'</span>);
-        }<span class="keyword">else</span>{
-            ren.go(<span class="string">'walk'</span>);
+        private var change:Boolean;
+        protected function changeAction(event:MouseEvent):void
+        {
+            if(change){
+                ren.go('stand');
+            }else{
+                ren.go('walk');
+            }
+            change = !change;
         }
-        change = !change;
-    }
-    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">onStart</span><span class="params">(e:Event)</span><span class="type">:void</span>
-    {</span>
-        ren.go(<span class="string">'walk'</span>);
+        private function onStart(e:Event):void
+        {
+            ren.go('walk');
+        }
     }
 }
-}
-</code></pre>
+</pre>
       
     </div>
     
@@ -576,8 +613,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-16-1/#comments" id="uyan_count_unit" su="2012-09-16-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-09-16-1/#comments" id="uyan_count_unit" su="2012-09-16-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -606,15 +643,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2012-09-06-1/">github速成手册</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2012-09-06-1/">github速成手册</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:04:54.000Z"> <a href="/2014/01/02/2012-09-06-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T01:43:13.000Z"> <a href="/2014/01/03/2012-09-06-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-github-901f-6210-624b-518c-3c-2f-center-3e-"><center>github速成手册</center></h1>
-<p>首先感谢github，有了github的建主页功能，才有了自己的网站（<a href="http://www.amswf.com/" title="amswf" target="_blank"><a href="http://www.amswf.com/">http://www.amswf.com/</a></a>）。并使楼主省了买服务器的银子。所以楼主决定开博的首篇文章用来写一个github入门手册。虽然网上的github学习手册千千万，但是楼主保证自己的教程最精简，最有效。</p>
+        <p>首先感谢github，有了github的建主页功能，才有了自己的网站（<a href="http://www.amswf.com/" title="amswf" target="_blank"><a href="http://www.amswf.com/">http://www.amswf.com/</a></a>）。并使楼主省了买服务器的银子。所以楼主决定开博的首篇文章用来写一个github入门手册。虽然网上的github学习手册千千万，但是楼主保证自己的教程最精简，最有效。</p>
 <p><strong>1.github是啥：</strong></p>
 <p>要明白github先要知道git，git和svn一样是一种代码托管技术。而github和googlecode都属于代码托管社区。这两个社区为数以万计的程序员提供代码托管和技术交流的场所。</p>
 <p><strong>2.下载github上的代码：</strong></p>
@@ -680,8 +716,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/github/">github</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-09-06-1/#comments" id="uyan_count_unit" su="2012-09-06-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/github/">github</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-09-06-1/#comments" id="uyan_count_unit" su="2012-09-06-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -719,7 +755,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/02/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">

@@ -58,8 +58,6 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 	    
       </ul>
       <ul class="nav navbar-nav pull-right">
-      
-        <li><a href="/atom.xml">RSS</a></li>
             
       
       
@@ -98,15 +96,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2013-11-17-1/">flash安全域和程序域的一点见解</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:57.000Z"> <a href="/2014/01/02/2013-11-17-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:14:22.000Z"> <a href="/2014/01/03/2013-11-17-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-flash-5b89-5168-57df-548c-7a0b-5e8f-57df-7684-4e00-70b9-89c1-89e3-3c-2f-center-3e-"><center>flash安全域和程序域的一点见解</center></h1>
-<p>前两天朋友问我安全域和程序域的问题，这个问题我之前也查过，网上大多数文章要么很长要么讲解的不详细，看了后还是一头雾水。所以我就想自己写一篇关于这方面的文章。力求简洁而全面。</p>
+        <p>前两天朋友问我安全域和程序域的问题，这个问题我之前也查过，网上大多数文章要么很长要么讲解的不详细，看了后还是一头雾水。所以我就想自己写一篇关于这方面的文章。力求简洁而全面。</p>
 <p>1.安全域<br>先来说安全域，这个东西通过名字也能理解意思，就是用来解决不同域名下flash文件访问和通信安全。这分两种情况。</p>
 <p>(一)文件访问安全：</p>
 <p>js和flash接口调用：通过flash里面设置Security.allowDomain(‘<em>‘);<br>flash加载swf调用接口：<br>1）子swf信任父swf：通过子swf里面设置Security.allowDomain(‘</em>‘)，这种情况子虽然信任了父，但是子和父仍然位于两个不同的域中;</p>
@@ -134,8 +131,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -164,15 +161,14 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014/01/02/2012-12-24-1/">actionscript条件编译</a></h1>
+      <h1 class="title"><a href="/2014/01/03/2012-12-24-1/">actionscript条件编译</a></h1>
       
-        <span>Posted on<time datetime="2014-01-02T09:05:24.000Z"> <a href="/2014/01/02/2012-12-24-1/">Jan 2 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T02:07:10.000Z"> <a href="/2014/01/03/2012-12-24-1/">Jan 3 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h1 id="-3c-center-3e-actionscript-6761-4ef6-7f16-8bd1-3c-2f-center-3e-"><center>actionscript条件编译</center></h1>
-<p>絮叨一下条件编译，条件编译就是在满足条件后将代码编译进文件，否则不将代码编译进最终文件。</p>
+        <p>絮叨一下条件编译，条件编译就是在满足条件后将代码编译进文件，否则不将代码编译进最终文件。</p>
 <p>as就是这么牛逼，也带有这个功能。使用方法如下，在编译器中定义如下参数：</p>
 <p><img src="/static/images/posts/20121224/1.jpg" alt=""></p>
 <p>然后在代码中可以针对函数，代码块，类进行条件编译。代码块条件编译如下：</p>
@@ -188,8 +184,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 2 2014"> Jan 2 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/02/2012-12-24-1/#comments" id="uyan_count_unit" su="2012-12-24-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/01/03/2012-12-24-1/#comments" id="uyan_count_unit" su="2012-12-24-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -223,7 +219,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/02/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/02/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的一点见解</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-03-27-1/">flashdevelop的几个优点</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
