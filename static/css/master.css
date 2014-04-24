@@ -1,0 +1,27 @@
+html,body{margin: 0;padding: 0;}
+.header{background: url(/static/images/header_bg.gif) repeat-x;width: 100%;height: 139px;margin: 0;}
+.logo{width: 450px;height: 80px;background: url(/static/images/logo.png) no-repeat;float: left;margin-top:10px;}
+.menu{width: 960px;margin: 0 auto;padding-top: 25px;height: 100%;}
+ul{list-style: none;text-align: center;text-align: center;margin: 0;float: right;}
+ul li {display: block;float: left;margin-left: 10px;}
+ul li a {display: block;background: url(/static/images/blog.gif) no-repeat top left;width: 69px;height: 94px;text-indent: -999em;}
+#home_link { background-image: url(/static/images/home.gif); }
+#blog_link { background-image: url(/static/images/blog.gif); }
+#docs_link { background-image: url(/static/images/docs.gif); }
+#about_link { background-image: url(/static/images/about.gif); }
+#weibo_link { background-image: url(/static/images/weibo.gif); }
+.content{width: 960px;margin: 30px auto;}
+.article_list{width: 680px;float: left;}
+table.post-list {width: 100%;border-collapse: collapse;}
+table.post-list a {color: #262;font-weight: bold;text-decoration: none;font-size: 1.1em;}
+table.post-list th {text-align: left;}
+table.post-list td, table.post-list th {padding: 0.5em 0.3em;border-bottom: 1px solid #ddd;}
+table.post-list tr:last-child td, table.post-list tr:last-child th {border-bottom: 0;}
+.home_box {float: left;width: 262px;margin-left: 1em;margin-top: 5px;}
+.home_box h2 {background: #6e9b20 url(/static/images/green_gradient.gif) repeat-x bottom;padding: 0.3em 0.5em;border-bottom: 3px solid #262;margin-bottom: 0em;color: white;margin-top: 0;font-weight: normal;}
+.home_box h2 a {font-weight: normal;color: white;margin: 0 0.2em;}
+.repo {text-decoration: none;clear: left;display: block;color: black;padding: 0.5em 0.7em;margin: 0 0 0.8em 0;font-weight: bold;background: #f8f8f8 url(/static/images/header_gradient.gif) repeat-x bottom;font-weight: normal;color: #000;z-index: 10000;font-size: 0.8em;line-height: 150%;}
+.repo h3 {margin: 0 0 0.3em 0;}
+.repo h3 a {font-weight: normal;color: #426a25;text-decoration: none;letter-spacing: 0;font-size: 1.2em;}
+#footer {width: 960px;color: #444;height:30px;position: relative;margin:500px auto 0;font-size: 0.9em;padding: 0.5em 0;text-align: center;clear:both;}
+#footer a {color: black;font-weight: bold;text-decoration: none;}
