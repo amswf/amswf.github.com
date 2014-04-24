@@ -5,15 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>flashdevelop快捷键修改 | Amswf&#39;s Home</title>
+  <title>object-c | Amswf&#39;s Home</title>
   <meta name="author" content="amswf">
-  
-  <meta name="description" content="最新版的flashdevelop修改快捷键的地方有变化，以前是在设置选项里面。现在直接放到了Tools目录里面。用习惯了flashbuilder的快捷键，再用flashdevelop的快捷键，明显有点不适应。找到修改的地方后，果断出手修改。下面是我修改快捷键的几个地方。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="flashdevelop快捷键修改"/>
+  
   <meta property="og:site_name" content="Amswf&#39;s Home"/>
 
   
@@ -75,7 +73,12 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
        <div class="row">
          <div id="main-col" class="alignleft col9 col-sm-7 col-md-9 col-lg-9">
 	    <section id='header_widget'></section>
-	    <div id="wrapper"><article>
+	    <div id="wrapper">
+<h2 class="archive-title category">object-c<small><small></h2>
+
+
+  
+    <article>
 <div id="master" class="master well">
   
     <div class="gallery">
@@ -93,36 +96,245 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title">flashdevelop快捷键修改</h1>
+      <h1 class="title"><a href="/2014/04/24/2014-04-24-1/">aser学iphone开发基础教程</a></h1>
       
-        <span>Posted on<time datetime="2014-01-03T03:23:51.000Z"> <a href="/2014/01/03/2012-09-27-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-04-24T08:34:30.000Z"> <a href="/2014/04/24/2014-04-24-1/">Apr 24 2014</a></time></span>      
     </header>
-    <section id='before_content_widget'></section>
+    
     <div class="entry">
       
-        <p>最新版的flashdevelop修改快捷键的地方有变化，以前是在设置选项里面。现在直接放到了Tools目录里面。用习惯了flashbuilder的快捷键，再用flashdevelop的快捷键，明显有点不适应。找到修改的地方后，果断出手修改。下面是我修改快捷键的几个地方。</p>
-<p><img src="/static/images/posts/20120927/1.jpg" alt=""></p>
-<p><img src="/static/images/posts/20120927/2.jpg" alt=""></p>
-<p><img src="/static/images/posts/20120927/3.jpg" alt=""></p>
-<p><img src="/static/images/posts/20120927/4.jpg" alt=""></p>
+        <h2 id="调试函数">调试函数</h2>
+<p>NSLog(@”hello world!”);<br>NSLog(@”%@”,name);    //打印字符串<br>NSLog(@”%c”,a);       //打印单个字符<br>NSLog(@”%i”,isTrue);//打印布尔值<br>NSLog(@”%i”,i);        //打印整形变量<br>NSLog(@”%f”,f);        //打印单精度浮点数<br>NSLog(@”%.2f”,f);    //打印单精度浮点数,且只保留两位小数<br>NSLog(@”%e”,f);        //打印科学技术法<br>NSLog(@”i＝%i,f=%f”,i,f);//同时打印两个整数</p>
+<h2 id="变量">变量</h2>
+<h4 id="变量分类">变量分类</h4>
+<p>object-c中变量分成三种：基本数据类型,对象类型,id类型。</p>
+<ul>
+<li>基本数据类型有：int,float,double,char类型和BOOL（YES NO）。</li>
+<li>对象类型就是类或协议所声明的指针类型：NSString *str = @”我是字符串”;</li>
+<li>id类型可以表示任何类型，一般只是表示对象类型，不表示基本数据类型。</li>
+<li>nil</li>
+</ul>
+<h4 id="变量定义">变量定义</h4>
+<p>int a ＝ 2;<br>NSString *str = @”我是字符串”;<br>定义规则：变量类型在前，变量名在后。</p>
+<h2 id="类">类</h2>
+<p>在XCode中选择File-&gt;New-&gt;File…-&gt;Cocoa Touch-&gt;Object-c Class-&gt;填上类名和继承关系后，XCode就会生成想要的新类。新类会产生两个新文件，一个是.h结尾，一个是.m结尾。<br>.h文件用来描述类，类的属性和方法<br>.m文件用来实现.h中定义的属性和方法。</p>
+<p>////////////////////Calculator.h////////////////////</p>
+<pre>   
+ #import &lt;Foundation/Foundation.h&gt;
+@interface Calculator : NSObject
+{
+    int numerator;//分子
+    int denominator;//分母
+}
+-(void)print;
+-(v<br/>oid)setNumerator:(int)n ;
+-(void)setDenominator:(int)d;
+@end 
+</pre>
+
+<p>////////////////////Calculator.m////////////////////</p>
+<pre>      
+ #import "Calculator.h"
+@implementation Calculator
+-(void)print{
+    NSLog(@"numerator=%i,denominator=%i",numerator,denominator);
+}
+-(void)setNumerator:(int)n{
+numerator = n;
+}
+-(void)setDenominator:(int)d{
+    denominator = d;
+}
+@end     
+</pre>
+
+<p>在类的定义中-表示类的实例方法，+表示类方法</p>
+<h2 id="循环和条件语句">循环和条件语句</h2>
+<h4 id="循环">循环</h4>
+<pre> 
+int num;
+num = 0;
+for (int n =0; n <5; n++) {
+    num += n;
+    NSLog(@"%i",num);
+} 
+ </pre>
+#### 条件语句
+<pre> 
+if(){
+
+}else if(){
+
+}else{
+
+} 
+ </pre>
+#### switch语句
+<pre> 
+switch(){
+     case :
+     break;
+     case :
+     break;
+     case :
+     break;
+     default:
+     break;
+} 
+</pre>
+
+<h2 id="存取方法">存取方法</h2>
+<p>在.h文件中用@property定义变量<br>在.m文件中使用@synthesize指令</p>
+<p>//////////////////////Calculator.h/////////////////////</p>
+<pre> 
+ #import &lt;Foundation/Foundation.h&gt;
+@interface Calculator : NSObject
+{
+    int numerator;//分子
+    int denominator;//分母
+}
+//存取方法
+@property int numerator,denominator;
+-(void)print;
+-(void)setNumerator:(int)n ;
+-(void)setDenominator:(int)d;
+@end 
+</pre> 
+
+<p>////////////////////Calculator.m////////////////////</p>
+<pre> 
+ #import "Calculator.h"
+@implementation Calculator
+@synthesize numerator,denominator;
+-(void)print{
+    NSLog(@"numerator=%i,denominator=%i",numerator,denominator);
+}
+-(void)setNumerator:(int)n{
+    numerator = n;
+}
+-(void)setDenominator:(int)d{
+    denominator = d;
+}
+@end 
+</pre> 
+
+<h2 id="多参数方法">多参数方法</h2>
+<h4 id="带参数名的方法">带参数名的方法</h4>
+<p>.h中<br>-(void)setDenominator:(int)d setNumerator:(int)n;<br>.m中</p>
+<pre> 
+ -(void)setDenominator:(int)d setNumerator:(int)n{
+    numerator = n;
+    denominator = d;
+} 
+</pre> 
+
+<h4 id="不带参数名的方法">不带参数名的方法</h4>
+<p>.h中<br>-(void)set:(int)d :(int)n;<br>.m中</p>
+<pre> 
+ -(void)set:(int)d:(int)n{
+    numerator = n;
+    denominator = d;
+} 
+</pre> 
+
+<p>调用：<br>[calc set:1:3];</p>
+<h4 id="局部变量">局部变量</h4>
+<p>在函数内部声明的变量为局部变量。<br>在函数中声明的变量前加上static后，局部变量可以保存多次方法调用所得的值。<br>@class XYPoint方法可以让编译器不使用import ‘XYPoint.h’的情况下把XYPoint当成类来使用</p>
+<h2 id="objc中的hasOwnPreotry方法">objc中的hasOwnPreotry方法</h2>
+<p>@selector</p>
+<h2 id="处理异常">处理异常</h2>
+<pre>
+ @try{
+
+}
+@catch(NSException *err){
+
+} 
+</pre>
+
+<h2 id="分类">分类</h2>
+<p>分类可以为已有的类添加新的方法，并且可以分散实现<br>为NSString添加新方法</p>
+<pre>
+ #import &lt;Foundation/Foundation.h&gt;
+@interface NSString (NewString)
+-(int)toNumber;
+@end 
+</pre>
+
+
+<pre>
+ #import "NSString+NewString.h"
+@implementation NSString (NewString)
+-(int)toNumber{
+    return 123;
+}
+@end
+</pre>
+
+<h2 id="协议">协议</h2>
+<p>协议相当于as中的接口：多个类共享的方法列表</p>
+<pre>
+ #import &lt;Foundation/Foundation.h&gt;
+@protocol ICar <NSObject>
+-(void)run;
+@end 
+</pre>
+
+<p>实现协议</p>
+<pre>
+ #import &lt;Foundation/Foundation.h&gt;
+ #import "ICar.h"
+
+@interface Car : NSObject <ICar>
+-(void)run;
+@end 
+</pre>
+
+<p>Object-c2.0增加两个协议修饰符@optional和@required</p>
+<pre>
+ #import \<Foundation/Foundation.h\>
+@protocol ICar <NSObject>
+-(void)run;
+@optional
+-(void)start;
+@required
+-(void)swing;
+@end 
+</pre>
+
+<p>这个协议里面有两个必须实现的方法run和swing，有一个选择实现的方法start</p>
+<h2 id="静态属性和方法">静态属性和方法</h2>
+<h4 id="静态属性">静态属性</h4>
+<p>在Object C的语法中声明后的static静态变量在其他类中是不能通过类名直接访问的，它的作用域只能是在声明的这个.m文件中。<br>static 属性只能定义在implementation中，而不能定义在interface中，而且写在implementation之外或者方法之中。</p>
+<pre>
+ #import "Person.h"
+static int count;
+@implementation Person
+@synthesize age;
+@synthesize name;
+-(void) write{    
+    NSLog(@"姓名:%@  年龄:%i",name,age);
+}
++(void) hello{    
+    count++;    
+    NSLog(@"static = %i",count);
+}
+@end 
+</pre>
+
+<h4 id="静态方法">静态方法</h4>
+<p>静态方法 就是将 “-“ 改为 “+” 即可。<br>　　+(void) hello; 在interface中定义如上方法签名，而在implementation中实现这个方法。 </p>
 
       
     </div>
-    <section id='after_content_widget'><div class="widget" id="widget_after_content_wumiiRelatedItems>">
-<script type="text/javascript" id="wumiiRelatedItems"></script>
-</div><div class="widget" id="widget_after_content_post_footer_info>">
-<div class="panel panel-success">
-    <div class="panel-heading" align="center">希望本站内容对您有点用处,有什么疑问或建议请在后面留言评论</div>
-    <div align="center" class="panel-body">若无特别注明，本站内容均属原创,转载请注明作者(<a href="">amswf</a>)和出处 <a href="http://amswf.com">Amswf's Home</a> ，请勿用于任何商业用途</div>
-    <div class="panel-body">本文链接: <a href="/2014/01/03/2012-09-27-1/">flashdevelop快捷键修改</a></div>
-</div></div><div class="widget" id="widget_after_content_ujian>">
-<div class="ujian-hook"></div>
-</div></section>
+    
+    
+      
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/03/2012-09-27-1/#comments" id="uyan_count_unit" su="2012-09-27-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/object-c/">object-c</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/04/24/2014-04-24-1/#comments" id="uyan_count_unit" su="2014-04-24-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -132,23 +344,9 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 </article>
 
 
-    <section id='after_post_widget'><div class="widget" id="widget_after_post_post_pageNav>">
-<ul class="pager">
   
-  <li class="previous"><a href="/2014/01/03/2012-12-24-1/" title="actionscript条件编译">&larr; actionscript条件编译</a></li>
-  
-  
-  <li class="next"><a href="/2014/01/03/2012-09-19-1/" title="一个用来取点坐标的小程序">一个用来取点坐标的小程序 &rarr;</a></li>
-  
-</ul></div></section>    
-	<div id="comment"><a name="comments"></a>
 
-<!-- UY BEGIN -->
-<div id="uyan_frame"></div>
-<!-- UY END -->
-
-
-</div>    
+  
 </div><!--wapper-->
          </div><!-- ID main-col END -->
          <div id="sidebar well-sm" class="alignright col3 col-sm-5 col-md-3 col-lg-3">
@@ -166,11 +364,11 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 
 <div id="widget_category" class="widget panel panel-primary">
     <div class="panel-heading">category</div>    
-<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
+<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的最明了总结</a></li><li class="list-group-item icon"><a href="/2014/01/03/2014-01-03-1/">flash优化</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/04/24/2013-03-27-1/">flashdevelop的几个优点</a></li><li class="list-group-item icon"><a href="/2014/04/24/2013-01-06-1/">给flashbuilder套个花衣裳</a></li><li class="list-group-item icon"><a href="/2014/04/24/2012-12-24-1/">actionscript条件编译</a></li><li class="list-group-item icon"><a href="/2014/04/24/2012-09-27-1/">flashdevelop快捷键修改</a></li><li class="list-group-item icon"><a href="/2014/04/24/2012-09-19-1/">一个用来取点坐标的小程序</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -223,8 +421,8 @@ $(window).load(function(){
         
     <script type="text/javascript">
 var uyan_config={
-     'url':'http://amswf.com/2014/01/03/2012-09-27-1/',
-'su':'2012-09-27-1'
+     'url':'http://amswf.com/categories/object-c/',
+'su':'2014-04-24-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>

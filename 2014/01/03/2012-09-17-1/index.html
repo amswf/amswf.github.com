@@ -129,10 +129,10 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 <li><p>tile：由于整张地图比较大，要是每次都全部渲染，会浪费内存，所以采取分块渲染。分块渲染时将一整张地图按相同大小分成等份。</p>
 </li>
 <li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。<br><pre><br>  <object type="application/x-shockwave-flash" width="500" height="400"><br>   <param name="movie" value="http://amswf.com/static/images/posts/scaleMap.swf"/><br>   <param name="bgcolor" value="#ffffff"/><br>   &lt;embed src=”<a href="http://amswf.com/static/images/posts/scaleMap.swf">http://amswf.com/static/images/posts/scaleMap.swf</a>“</p>
-<pre><code>      <span class="comment">type="application/x</span><span class="literal">-</span><span class="comment">shockwave</span><span class="literal">-</span><span class="comment">flash"</span>
-      <span class="comment">bgcolor="#ffffff"</span>
-      <span class="comment">width="500"</span>
-      <span class="comment">height="400"</span>&gt;
+<pre><code>      <span class="keyword">type</span>=<span class="string">"application/x-shockwave-flash"</span>
+      bgcolor=<span class="string">"#ffffff"</span>
+      width=<span class="string">"500"</span>
+      height=<span class="string">"400"</span>&gt;
 </code></pre><p>   </embed><br>  </object><br></pre><br>本文先讲解小地图渲染：</p>
 </li>
 </ul>
@@ -150,6 +150,7 @@ package com.zs
     import flash.geom.Point;
     import flash.geom.Rectangle;
     import flash.net.URLRequest;
+
     public class SmallMapFill extends Sprite
     {
         private var _smallMap:BitmapData;
@@ -158,28 +159,37 @@ package com.zs
          * 地图缓冲区（源地图）
          */
         private var buffer:BitmapData;
+
         private var shape:Bitmap = new Bitmap();
+
         public function SmallMapFill()
         {
             this.addChild(shape);
         }
+
         public function init():void
         {
             loadSmallMap();
         }
+
         private function loadSmallMap():void
         {
             var loader:Loader = new Loader();
             loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
             loader.load(new URLRequest('assets/s.jpg'));
         }
+
         private function smallMapLoaded(e:Event):void
         {
             var loadinfo:LoaderInfo = e.target as LoaderInfo;
+
             _smallMap = (loadinfo.content as Bitmap).bitmapData;
+
             buffer=new BitmapData(1320,720,false);
+
             var per:Number = 3200/_smallMap.width;
             buffer.draw(_smallMap,new Matrix(per,0,0,per),null,null,null,true);
+
             shape.bitmapData = buffer;
         }
     }
@@ -191,6 +201,7 @@ package com.zs
 package
 {
     import com.zs.SmallMapFill;
+
     import flash.display.LoaderInfo;
     import flash.display.Sprite;
     import flash.events.Event;
@@ -200,10 +211,12 @@ package
     public class Main extends Sprite
     {
         private var map:SmallMapFill = new SmallMapFill();
+
         public function Main()
         {
             this.addEventListener(Event.ADDED_TO_STAGE,init);
         }
+
         private function init(e:Event):void
         {
             this.stage.align = 'TL';
@@ -211,6 +224,7 @@ package
             this.stage.addEventListener(MouseEvent.CLICK,onStart);
             this.addChild(map);
         }
+
         private function onStart(e:Event):void
         {
             map.init();
@@ -278,11 +292,11 @@ package
 
 <div id="widget_category" class="widget panel panel-primary">
     <div class="panel-heading">category</div>    
-<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
+<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014/01/03/2013-11-17-1/">flash安全域和程序域的最明了总结</a></li><li class="list-group-item icon"><a href="/2014/01/03/2014-01-03-1/">flash优化</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-30-1/">cocos2dx-html5基础教程</a></li><li class="list-group-item icon"><a href="/2014/01/03/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014/04/24/2013-03-27-1/">flashdevelop的几个优点</a></li><li class="list-group-item icon"><a href="/2014/04/24/2013-01-06-1/">给flashbuilder套个花衣裳</a></li><li class="list-group-item icon"><a href="/2014/04/24/2012-12-24-1/">actionscript条件编译</a></li><li class="list-group-item icon"><a href="/2014/04/24/2012-09-27-1/">flashdevelop快捷键修改</a></li><li class="list-group-item icon"><a href="/2014/04/24/2012-09-19-1/">一个用来取点坐标的小程序</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">

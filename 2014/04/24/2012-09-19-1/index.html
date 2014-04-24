@@ -5,18 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>flash优化 | Amswf&#39;s Home</title>
+  <title>一个用来取点坐标的小程序 | Amswf&#39;s Home</title>
   <meta name="author" content="amswf">
   
-  <meta name="description" content="1) 内存节省
-@选择适当的显示对象。对于非交互式简 单形状，请使用 Shape 对象。对于不需要时间轴的交互式对象，请使用 Sprite 对象。对于使用时间轴的动画，请使用 MovieClip 对象。
-@能使用int，boolean的不使用number。
-@对象尽可能重用，重复使用对象而不是重新创">
+  <meta name="description" content="为了取一个复杂图形的坐标，专门做了个蛋疼的小程序。如果你也蛋疼，请试玩，有彩蛋！">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="flash优化"/>
+  <meta property="og:title" content="一个用来取点坐标的小程序"/>
   <meta property="og:site_name" content="Amswf&#39;s Home"/>
 
   
@@ -96,84 +93,19 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title">flash优化</h1>
+      <h1 class="title">一个用来取点坐标的小程序</h1>
       
-        <span>Posted on<time datetime="2014-01-03T07:56:56.000Z"> <a href="/2014/01/03/2014-01-03-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-04-24T08:36:23.000Z"> <a href="/2014/04/24/2012-09-19-1/">Apr 24 2014</a></time></span>      
     </header>
     <section id='before_content_widget'></section>
     <div class="entry">
       
-        <p>1) 内存节省</p>
-<p>@选择适当的显示对象。对于非交互式简 单形状，请使用 Shape 对象。对于不需要时间轴的交互式对象，请使用 Sprite 对象。对于使用时间轴的动画，请使用 MovieClip 对象。</p>
-<p>@能使用int，boolean的不使用number。</p>
-<p>@对象尽可能重用，重复使用对象而不是重新创建对象。使用对象池。这是一种对象重用技术。</p>
-<pre>
-var myImage:BitmapData;
-var myContainer:Bitmap;
-const MAX_NUM:int = 300;
-for (var i:int = 0; i< MAX_NUM; i++)
-{
-    // Create a 20 x 20 pixel bitmap, non-transparent
-    myImage = new BitmapData(20,20,false,0xF0D062);
-    // Create a container for each BitmapData instance
-    myContainer = new Bitmap(myImage);
-    // Add it to the display list
-    addChild(myContainer);
-    // Place each container
-    myContainer.x = (myContainer.width + 8) * Math.round(i % 20);
-    myContainer.y = (myContainer.height + 8) * int(i / 20);
-}
-</pre>
-
-<p>@当创建同一图像的多个实例时，使用一个BitmapData源，将大大节省内存。</p>
-<p>@尝试尽量减少使用滤镜效果,Flash Player 将在 内存中创建两个位图。其中每个位图的大小与显示对象相同。将第一个位图创建为显示对象的栅格化版本，然后用于生成应用 滤镜的另一个位图。尽可能使用通过创作工具（例如 Adobe® Photoshop®）创建的位图来模拟滤镜。</p>
-<p>@减少3d的应用,或者使用gpu来完成3d。</p>
-<p>2)内存释放：</p>
-<p>引用计数法，标记清除法。</p>
-<pre>
-public function gc():void
-{
-    for(var h = 0;h < this.nHeight;h++)
-    {
-        for(var l = 0;l < this.nWidth;l++)
-        {
-            this.removeChild(this.map[h][l]);
-            this.map[h][l].gc();//调用MapBlock中的垃圾回收器，这里还有事件移除
-            this.map[h][l] = null;
-        }
-    }
-    mapName = null;
-}
-</pre>
-
-<p>总结就是在移除对象的时候，将引用置null，并移除相关显示对象和事件监听。</p>
-<p>3)减少cpu占用：</p>
-<p>@如果移除对象，并不能减少对象cpu暂用。最好是移除之前对对象内的动画和其他效果进行冻结。</p>
-<p>@不用的loader加载的对象进行卸载。</p>
-<p>@不需要互动的sprite和movieclip最好禁用鼠标事件。mouseEnabled和mouseChildren。</p>
-<p>@timer和EnterFrame进行停止。</p>
-<p>@尽量少的使用补间动画。</p>
-<p>@bitmap绘制时候，尽量使用setVector()方法。如果使用使用setPixel和setPixel32方法，最好在绘制之前调用lock，绘制之后调用unlock方法。<br>BitmapData 类的 lock() 方法可以锁定图像，并防止引用该图像的对象在 BitmapData 对象更改时进行更新。例如，如果 Bitmap 对象引用 BitmapData 对象，则可以锁定 BitmapData 对象，对其更改后再解锁。在 BitmapData 对象解锁之前， Bitmap 对象不会更改。要提高性能，请在对 setPixel() 或 setPixel32() 方法进行多次调用之前和之后使用此方法及 unlock() 方 法。调用 lock() 和 unlock() 可防止屏幕进行不必要的更新。</p>
-<p>@当使用 TextField 类的 text 属性时，请使用 appendText() 方法，而不是 += 运算符。</p>
-<p>@使用中括号运算符可能会降低性能。将您的引用存储在本地变量中可避免使用该运算符</p>
-<pre>
-for ( i = 0; i< lng; i++ )
-{
-    currentSprite = arraySprite[i];
-    currentSprite.x = Math.random()*stage.stageWidth;
-    currentSprite.y = Math.random()*stage.stageHeight;
-    currentSprite.alpha = Math.random();
-    currentSprite.rotation = Math.random()*360;
-}
-
-for ( i = 0; i< lng; i++ )
-{
-    arraySprite[i].x = Math.random()*stage.stageWidth;
-    arraySprite[i].y = Math.random()*stage.stageHeight;
-    arraySprite[i].alpha = Math.random();
-    arraySprite[i].rotation = Math.random()*360;
-}
-</pre>
+        <p>为了取一个复杂图形的坐标，专门做了个蛋疼的小程序。如果你也蛋疼，请试玩，有彩蛋！</p>
+<object type="application/x-shockwave-flash" width="680" height="500"><br> <param name="movie" value="/static/images/posts/getPoints.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="http://amswf.com/static/images/posts/getPoints.swf"
+        type="application/x-shockwave-flash"
+        bgcolor="#ffffff"
+        width="680"
+        height="500"><br> </embed><br></object>
       
     </div>
     <section id='after_content_widget'><div class="widget" id="widget_after_content_wumiiRelatedItems>">
@@ -182,15 +114,15 @@ for ( i = 0; i< lng; i++ )
 <div class="panel panel-success">
     <div class="panel-heading" align="center">希望本站内容对您有点用处,有什么疑问或建议请在后面留言评论</div>
     <div align="center" class="panel-body">若无特别注明，本站内容均属原创,转载请注明作者(<a href="">amswf</a>)和出处 <a href="http://amswf.com">Amswf's Home</a> ，请勿用于任何商业用途</div>
-    <div class="panel-body">本文链接: <a href="/2014/01/03/2014-01-03-1/">flash优化</a></div>
+    <div class="panel-body">本文链接: <a href="/2014/04/24/2012-09-19-1/">一个用来取点坐标的小程序</a></div>
 </div></div><div class="widget" id="widget_after_content_ujian>">
 <div class="ujian-hook"></div>
 </div></section>
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014/01/03/2014-01-03-1/#comments" id="uyan_count_unit" su="2014-01-03-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014/04/24/2012-09-19-1/#comments" id="uyan_count_unit" su="2012-09-19-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -203,10 +135,10 @@ for ( i = 0; i< lng; i++ )
     <section id='after_post_widget'><div class="widget" id="widget_after_post_post_pageNav>">
 <ul class="pager">
   
-  <li class="previous"><a href="/2014/01/03/2013-11-17-1/" title="flash安全域和程序域的最明了总结">&larr; flash安全域和程序域的最明了总结</a></li>
+  <li class="previous"><a href="/2014/04/24/2012-09-27-1/" title="flashdevelop快捷键修改">&larr; flashdevelop快捷键修改</a></li>
   
   
-  <li class="next"><a href="/2014/01/03/2013-10-31-1/" title="js类相关概念梳理">js类相关概念梳理 &rarr;</a></li>
+  <li class="next"><a href="/2014/04/24/2014-04-24-1/" title="aser学iphone开发基础教程">aser学iphone开发基础教程 &rarr;</a></li>
   
 </ul></div></section>    
 	<div id="comment"><a name="comments"></a>
@@ -291,8 +223,8 @@ $(window).load(function(){
         
     <script type="text/javascript">
 var uyan_config={
-     'url':'http://amswf.com/2014/01/03/2014-01-03-1/',
-'su':'2014-01-03-1'
+     'url':'http://amswf.com/2014/04/24/2012-09-19-1/',
+'su':'2012-09-19-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>
