@@ -5,13 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cocos2dx | amswf</title>
+  <title>flash安全域和程序域的最明了总结 | amswf</title>
   <meta name="author" content="amswf">
+  
+  <meta name="description" content="安全域：是用来解决程序安全问题的，比如：资源访问安全，接口调用安全，通信安全等。相同域：协议相同（http和https不同），host相同（www.a.com和new.a.com不同）,端口相同（http://www.a.com:80和http://www.a.com:8816不同）常用到沙箱的几个">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="flash安全域和程序域的最明了总结"/>
   <meta property="og:site_name" content="amswf"/>
 
   
@@ -73,12 +75,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
        <div class="row">
          <div id="main-col" class="alignleft col9 col-sm-7 col-md-9 col-lg-9">
 	    <section id='header_widget'></section>
-	    <div id="wrapper">
-<h2 class="archive-title category">cocos2dx<small><small></h2>
-
-
-  
-    <article>
+	    <div id="wrapper"><article>
 <div id="master" class="master well">
   
     <div class="gallery">
@@ -96,36 +93,60 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2013-09-30-1/">cocos2dx-html5基础教程</a></h1>
+      <h1 class="title">flash安全域和程序域的最明了总结</h1>
       
-        <span>Posted on<time datetime="2014-01-03T03:24:22.000Z"> <a href="/2013-09-30-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T08:45:37.000Z"> <a href="/2013-11-17-1/">Jan 3 2014</a></time></span>      
     </header>
-    
+    <section id='before_content_widget'></section>
     <div class="entry">
       
-        <p>这几天闲来没事学习cocos2dx-html5，官方教程都是E文的，有点让人头疼。搜了下其他人写的教程，又太零散不系统。所以遂想系统的总结和罗列下，以方便其他人学习。<br>讲cocos2d首先要先从基本的概念讲起，了解这些基本概念后，再看源码什么的学起来也快。那么cocos2dx里面有哪些概念呢。</p>
-<p>1.基本概念：场景，导演，层，以及精灵</p>
-<p>1）场景（Sence），什么是场景，我们在玩游戏时候都知道，游戏有开始画面，游戏画面，结束画面。这不同的画面，在cocos2dx中称之为场景。<br>2）导演（Director），在cocos2dx-html中就是Director.js这个类，目前只需要知道他的主要负责场景（Sence）的显示，管理和切换。后面会单独一个章节做详细介绍。<br>3）层（Layer），在游戏中，一个场景内，有背景，动画，按钮和菜单，这些东西如果都放到一个层里面，会难以把控。<br>4）精灵（Sprite）可以关联材质的层，他可以用来显示加载的图片。同时可以试用actions对进行缩放，位移等操作。</p>
-<p>2.坐标系：<br>与flash不同的是，flash以左上角为坐标原点。cocos2dx以左下角为坐标原点。<br><img src="/static/images/posts/20130930/1.png" alt=""></p>
-<p>3.actions</p>
-<p>可以用来修改对象的属性，包括，位置，缩放，旋转，可见性，透明度，颜色。按照属性是否是及时修改，还是一段时间内慢慢修改，actions分为两种。CCIntervalAction和CCInstantAction。CCIntervalAction实现功能是这样的，如修改一个属性x，从0到100，使用CCInstantAction，你会发现物体一下从0到了100.而使用CCIntervalAction，你会看到一个过度的动画。</p>
-<p>在cocos2dx中我们常用的actions如下：<br>位置(position)<br>CCMoveBy<br>CCMoveTo<br>CCJumpBy<br>CCJumpTo<br>CCBezierBy<br>CCBezierTo<br>CCPlace</p>
-<p>缩放(scale)<br>CCScaleBy<br>CCScaleTo</p>
-<p>旋转(rotation)<br>CCRotateBy<br>CCRotateTo</p>
-<p>可见性(visible)<br>CCShow<br>CCHide<br>CCBlink<br>CCToggleVisibility</p>
-<p>透明度(opacity)<br>CCFadeIn<br>CCFadeOut<br>CCFadeTo</p>
-<p>颜色(color)<br>CCTintBy<br>CCTintTo</p>
+        <p>安全域：是用来解决程序安全问题的，比如：资源访问安全，接口调用安全，通信安全等。<br>相同域：协议相同（http和https不同），host相同（www.a.com和new.a.com不同）,端口相同（<a href="http://www.a.com:80和http://www.a.com:8816不同）" target="_blank">http://www.a.com:80和http://www.a.com:8816不同）</a><br>常用到沙箱的几个地方：</p>
+<p>(一)资源访问安全：</p>
+<p>A服务器上有一些静态图片和swf资源，这些资源都是A站长辛苦所得，如果没有任何限制，别人将可以随意访问并获得资源。这样无缘增加了A站的带宽流量，并让别人随意盗图。那么A站长怎么来限制别的网站的flash访问本站资源呢。答案很简单，只要在图片的域名下放置一个限制访问的跨域访问文件，填上允许的域即可。</p>
+<p>(二)接口调用安全：</p>
+<ul>
+<li><p>js和flash接口调用：通过flash里面Security.allowDomain();来设置允许js访问的域。</p>
+</li>
+<li><p>flash加载子flash调用接口：子flash允许父flash访问：通过在子flash里面设置Security.allowDomain()来限制访问;</p>
+</li>
+<li><p>两个flash通过localconnection通信：Security.allowDomain()来限制可访问的域;</p>
+</li>
+</ul>
+<p>(三)通信安全：</p>
+<ul>
+<li><p>flash和php后台的通信：A服务器有一些php服务接口，这些接口都不是对外公开访问的，那如何限制别的域名下flash访问A服务器的这些接口，答案是，通过服务器配置跨域访问文件解决。</p>
+</li>
+<li><p>flash和socket后台的通信：A服务器有一些socket服务，这些接口不想对外公开访问，那如何限制别的域下flash访问本站socket资源，答案是，通过843端口架设跨域服务解决。</p>
+</li>
+</ul>
+<p>应用程序域：</p>
+<p>主要为了解决相同安全域下类的命名冲突问题。应用程序域只存在于相同的安全域下，划分管理类定义。对于加载的swf，在加载时候可以通过loader的load方法的第二个参数LoaderContext 设置子swf的程序域。</p>
+<ul>
+<li><p>加载器的 ApplicationDomain 的子级。默认值。（模块）可以使用语法 new ApplicationDomain(ApplicationDomain.currentDomain) 明确表示这种选择。这将允许所加载的 SWF 文件直接使用父级的类，如果父级要使用子级的类，它必须调用 ApplicationDomain.getDefinition() 来检索它们。</p>
+</li>
+<li><p>加载器自己的 ApplicationDomain。（共享库）使用 ApplicationDomain.currentDomain 时请使用此应用程序域。加载完成后父级和子级可以直接使用对方的类。 如果子级试图定义的类与父级已经定义的类同名，将出现错误并放弃加载。</p>
+</li>
+<li><p>系统 ApplicationDomain 的子级。（独立运行的程序或模块）使用 new ApplicationDomain(null) 时请使用此应用程序域。这将完全分离加载方和被加载方，从而允许它们使用相同的名称定义各自版本的类并且不会产生冲突或隐藏。一方查看另一方的类的唯一方式是调用 ApplicationDomain.getDefinition() 方法。</p>
+</li>
+</ul>
 
       
     </div>
-    
-    
-      
+    <section id='after_content_widget'><div class="widget" id="widget_after_content_wumiiRelatedItems>">
+<script type="text/javascript" id="wumiiRelatedItems"></script>
+</div><div class="widget" id="widget_after_content_post_footer_info>">
+<div class="panel panel-success">
+    <div class="panel-heading" align="center">希望本站内容对您有点用处,有什么疑问或建议请在后面留言评论</div>
+    <div align="center" class="panel-body">若无特别注明，本站内容均属原创,转载请注明作者(<a href="">amswf</a>)和出处 <a href="http://amswf.com">amswf</a> ，请勿用于任何商业用途</div>
+    <div class="panel-body">本文链接: <a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></div>
+</div></div><div class="widget" id="widget_after_content_ujian>">
+<div class="ujian-hook"></div>
+</div></section>
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/cocos2dx/">cocos2dx</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2013-09-30-1/#comments" id="uyan_count_unit" su="2013-09-30-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -135,9 +156,23 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 </article>
 
 
+    <section id='after_post_widget'><div class="widget" id="widget_after_post_post_pageNav>">
+<ul class="pager">
   
+  <li class="previous"><a href="/2014-04-24-1/" title="aser学iphone开发基础教程">&larr; aser学iphone开发基础教程</a></li>
+  
+  
+  <li class="next"><a href="/2014-01-03-1/" title="flash优化">flash优化 &rarr;</a></li>
+  
+</ul></div></section>    
+	<div id="comment"><a name="comments"></a>
 
-  
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<!-- UY END -->
+
+
+</div>    
 </div><!--wapper-->
          </div><!-- ID main-col END -->
          <div id="sidebar well-sm" class="alignright col3 col-sm-5 col-md-3 col-lg-3">
@@ -212,8 +247,8 @@ $(window).load(function(){
         
     <script type="text/javascript">
 var uyan_config={
-     'url':'http://amswf.com/categories/cocos2dx/',
-'su':'2013-09-30-1'
+     'url':'http://amswf.com/2013-11-17-1/',
+'su':'2013-11-17-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>

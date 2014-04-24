@@ -5,13 +5,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cocos2dx | amswf</title>
+  <title>RPG制作之 -- 大地图渲染 | amswf</title>
   <meta name="author" content="amswf">
+  
+  <meta name="description" content="大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。
+
+
+ 
+ 
+ 
+ 
+
+
+
+/**
+* 整个拼合的大图尺寸：3200 * 720
+* 这个地图缩略图尺寸：190 * 42
+* 每个tile尺寸是：320 * 360
+* 渲染尺寸：1320 * 7">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="RPG制作之 -- 大地图渲染"/>
   <meta property="og:site_name" content="amswf"/>
 
   
@@ -73,12 +89,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
        <div class="row">
          <div id="main-col" class="alignleft col9 col-sm-7 col-md-9 col-lg-9">
 	    <section id='header_widget'></section>
-	    <div id="wrapper">
-<h2 class="archive-title category">cocos2dx<small><small></h2>
-
-
-  
-    <article>
+	    <div id="wrapper"><article>
 <div id="master" class="master well">
   
     <div class="gallery">
@@ -96,36 +107,257 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2013-09-30-1/">cocos2dx-html5基础教程</a></h1>
+      <h1 class="title">RPG制作之 -- 大地图渲染</h1>
       
-        <span>Posted on<time datetime="2014-01-03T03:24:22.000Z"> <a href="/2013-09-30-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-01-03T03:03:27.000Z"> <a href="/2012-09-18-1/">Jan 3 2014</a></time></span>      
     </header>
-    
+    <section id='before_content_widget'></section>
     <div class="entry">
       
-        <p>这几天闲来没事学习cocos2dx-html5，官方教程都是E文的，有点让人头疼。搜了下其他人写的教程，又太零散不系统。所以遂想系统的总结和罗列下，以方便其他人学习。<br>讲cocos2d首先要先从基本的概念讲起，了解这些基本概念后，再看源码什么的学起来也快。那么cocos2dx里面有哪些概念呢。</p>
-<p>1.基本概念：场景，导演，层，以及精灵</p>
-<p>1）场景（Sence），什么是场景，我们在玩游戏时候都知道，游戏有开始画面，游戏画面，结束画面。这不同的画面，在cocos2dx中称之为场景。<br>2）导演（Director），在cocos2dx-html中就是Director.js这个类，目前只需要知道他的主要负责场景（Sence）的显示，管理和切换。后面会单独一个章节做详细介绍。<br>3）层（Layer），在游戏中，一个场景内，有背景，动画，按钮和菜单，这些东西如果都放到一个层里面，会难以把控。<br>4）精灵（Sprite）可以关联材质的层，他可以用来显示加载的图片。同时可以试用actions对进行缩放，位移等操作。</p>
-<p>2.坐标系：<br>与flash不同的是，flash以左上角为坐标原点。cocos2dx以左下角为坐标原点。<br><img src="/static/images/posts/20130930/1.png" alt=""></p>
-<p>3.actions</p>
-<p>可以用来修改对象的属性，包括，位置，缩放，旋转，可见性，透明度，颜色。按照属性是否是及时修改，还是一段时间内慢慢修改，actions分为两种。CCIntervalAction和CCInstantAction。CCIntervalAction实现功能是这样的，如修改一个属性x，从0到100，使用CCInstantAction，你会发现物体一下从0到了100.而使用CCIntervalAction，你会看到一个过度的动画。</p>
-<p>在cocos2dx中我们常用的actions如下：<br>位置(position)<br>CCMoveBy<br>CCMoveTo<br>CCJumpBy<br>CCJumpTo<br>CCBezierBy<br>CCBezierTo<br>CCPlace</p>
-<p>缩放(scale)<br>CCScaleBy<br>CCScaleTo</p>
-<p>旋转(rotation)<br>CCRotateBy<br>CCRotateTo</p>
-<p>可见性(visible)<br>CCShow<br>CCHide<br>CCBlink<br>CCToggleVisibility</p>
-<p>透明度(opacity)<br>CCFadeIn<br>CCFadeOut<br>CCFadeTo</p>
-<p>颜色(color)<br>CCTintBy<br>CCTintTo</p>
+        <p>大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。</p>
+<pre>
+<object type="application/x-shockwave-flash" width="600" height="400">
+ <param name="movie" value="http://amswf.com/static/images/posts/bigMap.swf"/>
+ <param name="bgcolor" value="#ffffff"/>
+ <embed src="http://amswf.com/static/images/posts/bigMap.swf"
+        type="application/x-shockwave-flash"
+        bgcolor="#ffffff"
+        width="600"
+        height="400">
+ </embed>
+</object>
+</pre>
+<pre>
+/**
+* 整个拼合的大图尺寸：3200 * 720
+* 这个地图缩略图尺寸：190 * 42
+* 每个tile尺寸是：320 * 360
+* 渲染尺寸：1320 * 720,由于该游戏地图是横版的，所以只在x方向多渲染了一个tile
+*/
+package com.zs
+{
+    import com.zs.utils.MapLoader;
 
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;
+    import flash.display.Loader;
+    import flash.display.LoaderInfo;
+    import flash.display.Shape;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.geom.Matrix;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.net.URLRequest;
+    import flash.utils.setInterval;
+
+    public class BigMapFill extends Sprite
+    {
+        private var _smallMap:BitmapData;
+        /**
+         * 地图缓冲区（源地图）
+         */
+        private var buffer:BitmapData;
+
+        private var shape:Bitmap = new Bitmap();
+
+        private var smallMapFilled:Boolean;
+
+        public function BigMapFill()
+        {
+            buffer=new BitmapData(1320,720,false);
+
+            shape.bitmapData = buffer;
+            this.addChild(shape);
+        }
+
+        public function fillSmallMap():Boolean
+        {
+            if(smallMapFilled == false){
+                loadSmallMap();
+            }
+            return smallMapFilled;
+        }
+
+        public function fillBigMap():void
+        {
+            var i:int = 0;
+            var j:int = 0;
+            setInterval(function():void{
+                if(i>=4){
+                    i=0;
+                    j=1;
+                }
+                var loader:MapLoader = new MapLoader();
+                loader.load(getSwfCatalog()+'/assets/tiles/301/'+j+'_'+i+'.jpg');
+                loader.addEventListener(Event.COMPLETE,onTileLoaded);
+                loader.data = {i:i,j:j};
+                i ++;
+            },1000);
+
+            /*for(i=0;i<4;i++){
+                for(j=0;j<2;j++){
+                    var loader:MapLoader = new MapLoader();
+                    loader.load('assets/tiles/301/'+j+'_'+i+'.jpg');
+                    loader.addEventListener(Event.COMPLETE,onTileLoaded);
+                    loader.data = {i:i,j:j};
+                }
+            }*/
+        }
+
+        public function getSwfCatalog():String
+        {
+            //通用代码段，获取播放器自身所在的路径 + 补全URL路径字符串以支持相对路径
+            var playerrealurl:String = "";
+            var playervarsstr:String = "";
+            var playerrootpath:String = "";
+            loaderInfo.url.indexOf("?", 0)>=0 ? playerrealurl=loaderInfo.url.slice(0, loaderInfo.url.indexOf("?", 0)) : playerrealurl=loaderInfo.url;
+            loaderInfo.url.indexOf("?", 0)>=0 ? playervarsstr=loaderInfo.url.slice(loaderInfo.url.indexOf("?", 0)+1) : playervarsstr="";
+            playerrealurl.lastIndexOf("/", playerrealurl.length)>=0 ? playerrootpath=playerrealurl.slice(0, playerrealurl.lastIndexOf("/", playerrealurl.length)) : playerrootpath="";
+
+            return playerrootpath;
+        }
+
+        private function onTileLoaded(e:Event):void
+        {
+            var rect:Rectangle = new Rectangle(0,0,320,360);
+            var point:Point = new Point(MapLoader(e.target).data.i*320,MapLoader(e.target).data.j * 360);
+            buffer.lock();
+            buffer.copyPixels(Bitmap(MapLoader(e.target).content).bitmapData,rect,point);
+            buffer.unlock();
+        }
+
+        private function loadSmallMap():void
+        {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
+            loader.load(new URLRequest('assets/s.jpg'));
+        }
+
+        private function smallMapLoaded(e:Event):void
+        {
+            var loadinfo:LoaderInfo = e.target as LoaderInfo;
+
+            _smallMap = (loadinfo.content as Bitmap).bitmapData;
+
+            var per:Number = 3200/_smallMap.width;
+            buffer.draw(_smallMap,new Matrix(per,0,0,per),null,null,null,true);
+
+            smallMapFilled = true;
+        }
+    }
+}
+</pre>
+地图加载器：
+<pre>
+package com.zs.utils
+{
+    import flash.display.DisplayObject;
+    import flash.display.Loader;
+    import flash.display.LoaderInfo;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+    import flash.events.IOErrorEvent;
+    import flash.net.URLRequest;
+
+    [Event(name='COMPLETE',type='flash.events.Event')]
+    public class MapLoader extends EventDispatcher
+    {
+        public var data:Object = {};
+
+        private var _content:DisplayObject;
+
+        public function MapLoader()
+        {
+        }
+
+        public function load(url:String):MapLoader
+        {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
+            loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
+            loader.load(new URLRequest(url));
+
+            return this;
+        }
+
+        private function onError(e:IOErrorEvent):void
+        {
+            LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
+            LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
+        }
+
+        public function get content():DisplayObject
+        {
+            return _content;
+        }
+
+        private function onLoaded(e:Event):void
+        {
+            LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
+            LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
+
+            _content = LoaderInfo(e.target).content;
+
+            this.dispatchEvent(new Event(Event.COMPLETE));
+        }
+    }
+}
+</pre>
+使用：
+<pre>
+package
+{
+    import com.zs.BigMapFill;
+
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.events.MouseEvent;
+
+    [SWF(width='600',height='400')]
+    public class Main extends Sprite
+    {
+        private var map:BigMapFill = new BigMapFill();
+
+        public function Main()
+        {
+            this.addEventListener(Event.ADDED_TO_STAGE,init);
+        }
+
+        private function init(e:Event):void
+        {
+            this.stage.align = 'TL';
+            this.stage.scaleMode = 'noScale';
+            this.stage.addEventListener(MouseEvent.CLICK,onStart);
+            this.addChild(map);
+        }
+
+        private function onStart(event:MouseEvent):void
+        {
+            if(map.fillSmallMap()){
+                map.fillBigMap();
+            }
+        }
+    }
+}
+</pre>
       
     </div>
-    
-    
-      
+    <section id='after_content_widget'><div class="widget" id="widget_after_content_wumiiRelatedItems>">
+<script type="text/javascript" id="wumiiRelatedItems"></script>
+</div><div class="widget" id="widget_after_content_post_footer_info>">
+<div class="panel panel-success">
+    <div class="panel-heading" align="center">希望本站内容对您有点用处,有什么疑问或建议请在后面留言评论</div>
+    <div align="center" class="panel-body">若无特别注明，本站内容均属原创,转载请注明作者(<a href="">amswf</a>)和出处 <a href="http://amswf.com">amswf</a> ，请勿用于任何商业用途</div>
+    <div class="panel-body">本文链接: <a href="/2012-09-18-1/">RPG制作之 -- 大地图渲染</a></div>
+</div></div><div class="widget" id="widget_after_content_ujian>">
+<div class="ujian-hook"></div>
+</div></section>
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/cocos2dx/">cocos2dx</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2013-09-30-1/#comments" id="uyan_count_unit" su="2013-09-30-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2012-09-18-1/#comments" id="uyan_count_unit" su="2012-09-18-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -135,9 +367,23 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 </article>
 
 
+    <section id='after_post_widget'><div class="widget" id="widget_after_post_post_pageNav>">
+<ul class="pager">
   
+  <li class="previous"><a href="/2013-01-22-1/" title="html嵌入flash说明">&larr; html嵌入flash说明</a></li>
+  
+  
+  <li class="next"><a href="/2012-09-17-1/" title="RPG制作之 -- 小地图渲染">RPG制作之 -- 小地图渲染 &rarr;</a></li>
+  
+</ul></div></section>    
+	<div id="comment"><a name="comments"></a>
 
-  
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<!-- UY END -->
+
+
+</div>    
 </div><!--wapper-->
          </div><!-- ID main-col END -->
          <div id="sidebar well-sm" class="alignright col3 col-sm-5 col-md-3 col-lg-3">
@@ -212,8 +458,8 @@ $(window).load(function(){
         
     <script type="text/javascript">
 var uyan_config={
-     'url':'http://amswf.com/categories/cocos2dx/',
-'su':'2013-09-30-1'
+     'url':'http://amswf.com/2012-09-18-1/',
+'su':'2012-09-18-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>
