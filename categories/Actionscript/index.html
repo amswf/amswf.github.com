@@ -96,137 +96,9 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2012-12-24-1/">actionscript条件编译</a></h1>
-      
-        <span>Posted on<time datetime="2014-04-24T08:37:25.000Z"> <a href="/2012-12-24-1/">Apr 24 2014</a></time></span>      
-    </header>
-    
-    <div class="entry">
-      
-        <p>絮叨一下条件编译，条件编译就是在满足条件后将代码编译进文件，否则不将代码编译进最终文件。</p>
-<p>as就是这么牛逼，也带有这个功能。使用方法如下，在编译器中定义如下参数：</p>
-<p><img src="http://amswf.com/static/images/posts/20121224/1.jpg" alt=""></p>
-<p>然后在代码中可以针对函数，代码块，类进行条件编译。代码块条件编译如下：</p>
-<p><img src="http://amswf.com/static/images/posts/20121224/2.jpg" alt=""></p>
-<p>类条件编译如下：</p>
-<p><img src="http://amswf.com/static/images/posts/20121224/3.jpg" alt=""></p>
-
-      
-    </div>
-    
-    
-      
-    
-    
-        <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2012-12-24-1/#comments" id="uyan_count_unit" su="2012-12-24-1">暂无评论</a>
-</span>
-        </footer>
-        <div class="clearfix"></div>
-    
-  </div>
-</div>
-</article>
-
-
-  
-    <article>
-<div id="master" class="master well">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header class="well-sm">
-      <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></h1>
-      
-        <span>Posted on<time datetime="2014-01-03T08:45:37.000Z"> <a href="/2013-11-17-1/">Jan 3 2014</a></time></span>      
-    </header>
-    
-    <div class="entry">
-      
-        <p>安全域：是用来解决程序安全问题的，比如：资源访问安全，接口调用安全，通信安全等。<br>相同域：协议相同（http和https不同），host相同（www.a.com和new.a.com不同）,端口相同（<a href="http://www.a.com:80和http://www.a.com:8816不同）" target="_blank">http://www.a.com:80和http://www.a.com:8816不同）</a><br>常用到沙箱的几个地方：</p>
-<p>(一)资源访问安全：</p>
-<p>A服务器上有一些静态图片和swf资源，这些资源都是A站长辛苦所得，如果没有任何限制，别人将可以随意访问并获得资源。这样无缘增加了A站的带宽流量，并让别人随意盗图。那么A站长怎么来限制别的网站的flash访问本站资源呢。答案很简单，只要在图片的域名下放置一个限制访问的跨域访问文件，填上允许的域即可。</p>
-<p>(二)接口调用安全：</p>
-<ul>
-<li><p>js和flash接口调用：通过flash里面Security.allowDomain();来设置允许js访问的域。</p>
-</li>
-<li><p>flash加载子flash调用接口：子flash允许父flash访问：通过在子flash里面设置Security.allowDomain()来限制访问;</p>
-</li>
-<li><p>两个flash通过localconnection通信：Security.allowDomain()来限制可访问的域;</p>
-</li>
-</ul>
-<p>(三)通信安全：</p>
-<ul>
-<li><p>flash和php后台的通信：A服务器有一些php服务接口，这些接口都不是对外公开访问的，那如何限制别的域名下flash访问A服务器的这些接口，答案是，通过服务器配置跨域访问文件解决。</p>
-</li>
-<li><p>flash和socket后台的通信：A服务器有一些socket服务，这些接口不想对外公开访问，那如何限制别的域下flash访问本站socket资源，答案是，通过843端口架设跨域服务解决。</p>
-</li>
-</ul>
-<p>应用程序域：</p>
-<p>主要为了解决相同安全域下类的命名冲突问题。应用程序域只存在于相同的安全域下，划分管理类定义。对于加载的swf，在加载时候可以通过loader的load方法的第二个参数LoaderContext 设置子swf的程序域。</p>
-<ul>
-<li><p>加载器的 ApplicationDomain 的子级。默认值。（模块）可以使用语法 new ApplicationDomain(ApplicationDomain.currentDomain) 明确表示这种选择。这将允许所加载的 SWF 文件直接使用父级的类，如果父级要使用子级的类，它必须调用 ApplicationDomain.getDefinition() 来检索它们。</p>
-</li>
-<li><p>加载器自己的 ApplicationDomain。（共享库）使用 ApplicationDomain.currentDomain 时请使用此应用程序域。加载完成后父级和子级可以直接使用对方的类。 如果子级试图定义的类与父级已经定义的类同名，将出现错误并放弃加载。</p>
-</li>
-<li><p>系统 ApplicationDomain 的子级。（独立运行的程序或模块）使用 new ApplicationDomain(null) 时请使用此应用程序域。这将完全分离加载方和被加载方，从而允许它们使用相同的名称定义各自版本的类并且不会产生冲突或隐藏。一方查看另一方的类的唯一方式是调用 ApplicationDomain.getDefinition() 方法。</p>
-</li>
-</ul>
-
-      
-    </div>
-    
-    
-      
-    
-    
-        <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
-</span>
-        </footer>
-        <div class="clearfix"></div>
-    
-  </div>
-</div>
-</article>
-
-
-  
-    <article>
-<div id="master" class="master well">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header class="well-sm">
-      <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2014-01-03-1/">flash优化</a></h1>
       
-        <span>Posted on<time datetime="2014-01-03T07:56:56.000Z"> <a href="/2014-01-03-1/">Jan 3 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-04-24T09:31:26.000Z"> <a href="/2014-01-03-1/">Apr 24 2014</a></time></span>      
     </header>
     
     <div class="entry">
@@ -310,8 +182,136 @@ for ( i = 0; i< lng; i++ )
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Jan 3 2014"> Jan 3 2014</time></span> | <span class="comment-link">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
 <a href="http://amswf.com/2014-01-03-1/#comments" id="uyan_count_unit" su="2014-01-03-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></h1>
+      
+        <span>Posted on<time datetime="2014-04-24T09:31:23.000Z"> <a href="/2013-11-17-1/">Apr 24 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>安全域：是用来解决程序安全问题的，比如：资源访问安全，接口调用安全，通信安全等。<br>相同域：协议相同（http和https不同），host相同（www.a.com和new.a.com不同）,端口相同（<a href="http://www.a.com:80和http://www.a.com:8816不同）" target="_blank">http://www.a.com:80和http://www.a.com:8816不同）</a><br>常用到沙箱的几个地方：</p>
+<p>(一)资源访问安全：</p>
+<p>A服务器上有一些静态图片和swf资源，这些资源都是A站长辛苦所得，如果没有任何限制，别人将可以随意访问并获得资源。这样无缘增加了A站的带宽流量，并让别人随意盗图。那么A站长怎么来限制别的网站的flash访问本站资源呢。答案很简单，只要在图片的域名下放置一个限制访问的跨域访问文件，填上允许的域即可。</p>
+<p>(二)接口调用安全：</p>
+<ul>
+<li><p>js和flash接口调用：通过flash里面Security.allowDomain();来设置允许js访问的域。</p>
+</li>
+<li><p>flash加载子flash调用接口：子flash允许父flash访问：通过在子flash里面设置Security.allowDomain()来限制访问;</p>
+</li>
+<li><p>两个flash通过localconnection通信：Security.allowDomain()来限制可访问的域;</p>
+</li>
+</ul>
+<p>(三)通信安全：</p>
+<ul>
+<li><p>flash和php后台的通信：A服务器有一些php服务接口，这些接口都不是对外公开访问的，那如何限制别的域名下flash访问A服务器的这些接口，答案是，通过服务器配置跨域访问文件解决。</p>
+</li>
+<li><p>flash和socket后台的通信：A服务器有一些socket服务，这些接口不想对外公开访问，那如何限制别的域下flash访问本站socket资源，答案是，通过843端口架设跨域服务解决。</p>
+</li>
+</ul>
+<p>应用程序域：</p>
+<p>主要为了解决相同安全域下类的命名冲突问题。应用程序域只存在于相同的安全域下，划分管理类定义。对于加载的swf，在加载时候可以通过loader的load方法的第二个参数LoaderContext 设置子swf的程序域。</p>
+<ul>
+<li><p>加载器的 ApplicationDomain 的子级。默认值。（模块）可以使用语法 new ApplicationDomain(ApplicationDomain.currentDomain) 明确表示这种选择。这将允许所加载的 SWF 文件直接使用父级的类，如果父级要使用子级的类，它必须调用 ApplicationDomain.getDefinition() 来检索它们。</p>
+</li>
+<li><p>加载器自己的 ApplicationDomain。（共享库）使用 ApplicationDomain.currentDomain 时请使用此应用程序域。加载完成后父级和子级可以直接使用对方的类。 如果子级试图定义的类与父级已经定义的类同名，将出现错误并放弃加载。</p>
+</li>
+<li><p>系统 ApplicationDomain 的子级。（独立运行的程序或模块）使用 new ApplicationDomain(null) 时请使用此应用程序域。这将完全分离加载方和被加载方，从而允许它们使用相同的名称定义各自版本的类并且不会产生冲突或隐藏。一方查看另一方的类的唯一方式是调用 ApplicationDomain.getDefinition() 方法。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2012-12-24-1/">actionscript条件编译</a></h1>
+      
+        <span>Posted on<time datetime="2014-04-24T09:30:59.000Z"> <a href="/2012-12-24-1/">Apr 24 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>絮叨一下条件编译，条件编译就是在满足条件后将代码编译进文件，否则不将代码编译进最终文件。</p>
+<p>as就是这么牛逼，也带有这个功能。使用方法如下，在编译器中定义如下参数：</p>
+<p><img src="http://amswf.com/static/images/posts/20121224/1.jpg" alt=""></p>
+<p>然后在代码中可以针对函数，代码块，类进行条件编译。代码块条件编译如下：</p>
+<p><img src="http://amswf.com/static/images/posts/20121224/2.jpg" alt=""></p>
+<p>类条件编译如下：</p>
+<p><img src="http://amswf.com/static/images/posts/20121224/3.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2012-12-24-1/#comments" id="uyan_count_unit" su="2012-12-24-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -345,7 +345,7 @@ for ( i = 0; i< lng; i++ )
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2013-03-27-1/">flashdevelop的几个优点</a></li><li class="list-group-item icon"><a href="/2013-01-06-1/">给flashbuilder套个花衣裳</a></li><li class="list-group-item icon"><a href="/2012-12-24-1/">actionscript条件编译</a></li><li class="list-group-item icon"><a href="/2012-09-27-1/">flashdevelop快捷键修改</a></li><li class="list-group-item icon"><a href="/2012-09-19-1/">一个用来取点坐标的小程序</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014-04-24-1/">aser学iphone开发基础教程</a></li><li class="list-group-item icon"><a href="/2014-01-03-1/">flash优化</a></li><li class="list-group-item icon"><a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></li><li class="list-group-item icon"><a href="/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2013-09-30-1/">cocos2dx-html5基础教程</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -399,7 +399,7 @@ $(window).load(function(){
     <script type="text/javascript">
 var uyan_config={
      'url':'http://amswf.com/categories/Actionscript/',
-'su':'2014-01-03-1'
+'su':'2012-12-24-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>
