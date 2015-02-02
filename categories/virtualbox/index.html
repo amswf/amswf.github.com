@@ -1,0 +1,245 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>virtualbox | amswf</title>
+  <meta name="author" content="amswf">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="amswf"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+  <style>
+img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}body{padding-top:70px;background-color:#fff;}.widget ul .icon:before{content:'\f069';color:#4141e9;font:12px FontAwesome;}article footer{padding-top:10px;border-top:1px solid #333;}article a.more-link{padding-right:20px;padding-top:10px;padding-bottom:20px;color:#880088;text-decoration:none;}article header .icon{color:#258fb8;}article .post .icon:before{content:'\f15c';}article .comment .icon:before{content:'\f086';}article .photo .icon:before{content:'\f030';}article .link .icon:before{content:'\f0c1';}article .link .title a:after{content:'\f08e';color:#999;font:12px FontAwesome;padding-left:10px;vertical-align:super;}article .gallery{overflow:hidden;position:relative;}article .gallery:hover .control{opacity:1;-ms-filter:none;filter:none;}article .gallery img{position:absolute;top:0;left:0;opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";filter:alpha(opacity=0);}article .gallery .control{opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";filter:alpha(opacity=0);-webkit-transition:0.3s;-moz-transition:0.3s;-o-transition:0.3s;-ms-transition:0.3s;transition:0.3s;}article .gallery .prev,article .gallery .next{position:absolute;top:0;width:50%;height:100%;cursor:pointer;}article .gallery .prev:before,article .gallery .next:before{position:absolute;font:24px/1 FontAwesome;text-align:center;width:24px;text-shadow:0 0 15px rgba(0,0,0,0.5);color:#fff;margin-top:-12px;top:50%;}article .gallery .prev{left:0;}article .gallery .prev:before{content:'\f053';left:10px;}article .gallery .next{right:0;}article .gallery .next:before{content:'\f054';right:10px;}article video,article img{min-width:0%;max-width:100%;height:auto;border:none;}.tagcloud .entry a{padding-left:5px;display:inline-block;}
+  </style> 
+  <link href="/css/test.css" rel="stylesheet"/>
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="amswf" type="application/atom+xml">
+  
+  <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.0.3/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="http://cdn.bootcss.com/prettify/r298/prettify.min.css" type="text/css">
+  
+  
+  <link rel="stylesheet" href="http://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" type="text/css">
+  
+  
+   <style>code{white-space: normal;}</style>
+   <script src="/js/respond.min.js"></script>
+ </head>
+
+
+<body>
+  <header id="header" class="container inner"><nav id="main-nav" class="navbar navbar-default navbar-fixed-top " role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">amswf</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+	
+		    <li><a href="/">主页</a></li>
+	    
+		    <li><a href="/about">关于</a></li>
+	    
+		    <li><a href="/archives">文章</a></li>
+	    
+		    <li><a href="/docs">文档</a></li>
+	    
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+            
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="clearfix"></div></header>
+    <div id='content' class="container inner">
+       <div class="page-header-wrapper"><div class="page-header"><h1>amswf <small></small></h1></div></div>
+       <div class="row">
+         <div id="main-col" class="alignleft col9 col-sm-7 col-md-9 col-lg-9">
+	    <section id='header_widget'></section>
+	    <div id="wrapper">
+<h2 class="archive-title category">virtualbox<small><small></h2>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2014-06-20-1/">mac下virtualbox桥接模式上不了网问题</a></h1>
+      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2014-06-20-1/">Jul 30 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>今天在mac下装了个虚拟机，需要用到里面的fiddler做代理调试，而代理的话需要虚拟机启用桥接模式，于是关闭了NAT，开启桥接模式悲剧就发生了，虚拟机上不了网了。一顿度娘，都说不要开启桥接模式，只有一篇文章说是需要新建一个虚拟网卡，但是没有给出具体的设置方法，自己摸索了半天终于成功了，下面给出我的办法。<br>1.关闭虚拟机<br>2.打开virtualbox界面，在对应虚拟机设置里面，打开该虚拟机的第二个网卡。<br>3.将网卡1还是设置成NAT模式，将网卡2设置成桥接模式。<br>4.ok开机搞定</p>
+<p><img src="http://amswf.com/static/images/posts/20140620/1.png" alt=""></p>
+<p><img src="http://amswf.com/static/images/posts/20140620/2.png" alt=""></p>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/virtualbox/">virtualbox</a></li></span> | <span class="time">updated:<time datetime="Jun 19 2014"> Jun 19 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014-06-20-1/#comments" id="uyan_count_unit" su="2014-06-20-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+
+  
+</div><!--wapper-->
+         </div><!-- ID main-col END -->
+         <div id="sidebar well-sm" class="alignright col3 col-sm-5 col-md-3 col-lg-3">
+<div id="widget_search" class="widget panel panel-primary">
+    <div class="panel-heading">Search</div>    <form action="//google.com/search" method="get" accept-charset="utf-8">
+  <div class="input-group">
+    <input class="form-control" id="searchbox" type="search" name="q" results="0" placeholder="Search">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">Go!</button>
+    </span>
+    <input type="hidden" name="q" value="site:amswf.com">
+  </div>
+</form>
+</div>
+
+<div id="widget_category" class="widget panel panel-primary">
+    <div class="panel-heading">category</div>    
+<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/android/">android</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/swift/">swift</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/virtualbox/">virtualbox</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
+
+<div id="widget_recent_posts" class="widget panel panel-primary">
+    <div class="panel-heading">Recent Posts</div>    
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></li><li class="list-group-item icon"><a href="/2014-09-02-1/">android studio导入第三方依赖库(ResideMenu)</a></li><li class="list-group-item icon"><a href="/2014-5-5-01/">gitcafe托管主页</a></li><li class="list-group-item icon"><a href="/2012-09-06-1/">github速成手册</a></li><li class="list-group-item icon"><a href="/2014-06-20-1/">mac下virtualbox桥接模式上不了网问题</a></li></ul>
+</div>
+
+<div id="widget_recent_comments" class="widget panel panel-primary">
+    <div class="panel-heading">recent_comments</div>    
+
+<div id="uyan_newcmt_unit"></div>
+
+
+
+</div>
+</div>
+         <div class="clearfix"></div>
+       </div><!-- row END -->
+    </div>
+    <footer id="footer" class="container">
+    <div class="panel panel-info">
+    <section id='footer_widget'></section>    <div class="panel-footer">
+  <div id="site-info">
+    <span class='author'>
+  
+  &copy; 2014 amswf
+  
+    </span>
+  <span id='analytics-cnzz'>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_4567281'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s17.cnzz.com/stat.php%3Fid%3D4567281%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</span>  </div>
+  <div id="copyright">Blog powered by <a href='http://zespia.tw/hexo/'><strong>hexo</strong></a> Theme <strong><a href='https://github.com/chenall/hexo-theme-chenall'>chenall</a></div>
+</div>
+<div class="clearfix"></div>
+
+
+    </div>
+    </footer>
+    
+        <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+        
+        <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        
+        
+        
+        <script src="http://cdn.bootcss.com/prettify/r298/prettify.min.js"></script>
+    <script type="text/javascript">
+$(window).load(function(){
+   $("pre").addClass("prettyprint");
+   prettyPrint();
+})
+</script>    
+        <script src="/js/jquery.imagesloaded.min.js"></script>
+        
+        
+    <script type="text/javascript">
+var uyan_config={
+     'url':'http://amswf.com/categories/virtualbox/',
+'su':'2014-06-20-1'
+};
+</script>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>
+    
+        <script src="http://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script src="/js/gallery.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>    
+        <script src="http://cdn.bootcss.com/mathjax/2.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>    
+
+</body>
+</html>

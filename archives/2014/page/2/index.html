@@ -29,8 +29,6 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <link rel="stylesheet" href="http://cdn.bootcss.com/prettify/r298/prettify.min.css" type="text/css">
   
   
-  
-  
   <link rel="stylesheet" href="http://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" type="text/css">
   
   
@@ -97,18 +95,42 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2012-09-27-1/">flashdevelop快捷键修改</a></h1>
+      <h1 class="title"><a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></h1>
       
-        <span>Posted on<time datetime="2014-04-24T09:30:55.000Z"> <a href="/2012-09-27-1/">Apr 24 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2013-11-17-1/">Jul 30 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <p>最新版的flashdevelop修改快捷键的地方有变化，以前是在设置选项里面。现在直接放到了Tools目录里面。用习惯了flashbuilder的快捷键，再用flashdevelop的快捷键，明显有点不适应。找到修改的地方后，果断出手修改。下面是我修改快捷键的几个地方。</p>
-<p><img src="http://amswf.com/static/images/posts/20120927/1.jpg" alt=""></p>
-<p><img src="http://amswf.com/static/images/posts/20120927/2.jpg" alt=""></p>
-<p><img src="http://amswf.com/static/images/posts/20120927/3.jpg" alt=""></p>
-<p><img src="http://amswf.com/static/images/posts/20120927/4.jpg" alt=""></p>
+        <p>安全域：是用来解决程序安全问题的，比如：资源访问安全，接口调用安全，通信安全等。<br>相同域：协议相同（http和https不同），host相同（www.a.com和new.a.com不同）,端口相同（<a href="http://www.a.com:80和http://www.a.com:8816不同）" target="_blank" rel="external">http://www.a.com:80和http://www.a.com:8816不同）</a><br>常用到沙箱的几个地方：</p>
+<p>(一)资源访问安全：</p>
+<p>A服务器上有一些静态图片和swf资源，这些资源都是A站长辛苦所得，如果没有任何限制，别人将可以随意访问并获得资源。这样无缘增加了A站的带宽流量，并让别人随意盗图。那么A站长怎么来限制别的网站的flash访问本站资源呢。答案很简单，只要在图片的域名下放置一个限制访问的跨域访问文件，填上允许的域即可。</p>
+<p>(二)接口调用安全：</p>
+<ul>
+<li><p>js和flash接口调用：通过flash里面Security.allowDomain();来设置允许js访问的域。</p>
+</li>
+<li><p>flash加载子flash调用接口：子flash允许父flash访问：通过在子flash里面设置Security.allowDomain()来限制访问;</p>
+</li>
+<li><p>两个flash通过localconnection通信：Security.allowDomain()来限制可访问的域;</p>
+</li>
+</ul>
+<p>(三)通信安全：</p>
+<ul>
+<li><p>flash和php后台的通信：A服务器有一些php服务接口，这些接口都不是对外公开访问的，那如何限制别的域名下flash访问A服务器的这些接口，答案是，通过服务器配置跨域访问文件解决。</p>
+</li>
+<li><p>flash和socket后台的通信：A服务器有一些socket服务，这些接口不想对外公开访问，那如何限制别的域下flash访问本站socket资源，答案是，通过843端口架设跨域服务解决。</p>
+</li>
+</ul>
+<p>应用程序域：</p>
+<p>主要为了解决相同安全域下类的命名冲突问题。应用程序域只存在于相同的安全域下，划分管理类定义。对于加载的swf，在加载时候可以通过loader的load方法的第二个参数LoaderContext 设置子swf的程序域。</p>
+<ul>
+<li><p>加载器的 ApplicationDomain 的子级。默认值。（模块）可以使用语法 new ApplicationDomain(ApplicationDomain.currentDomain) 明确表示这种选择。这将允许所加载的 SWF 文件直接使用父级的类，如果父级要使用子级的类，它必须调用 ApplicationDomain.getDefinition() 来检索它们。</p>
+</li>
+<li><p>加载器自己的 ApplicationDomain。（共享库）使用 ApplicationDomain.currentDomain 时请使用此应用程序域。加载完成后父级和子级可以直接使用对方的类。 如果子级试图定义的类与父级已经定义的类同名，将出现错误并放弃加载。</p>
+</li>
+<li><p>系统 ApplicationDomain 的子级。（独立运行的程序或模块）使用 new ApplicationDomain(null) 时请使用此应用程序域。这将完全分离加载方和被加载方，从而允许它们使用相同的名称定义各自版本的类并且不会产生冲突或隐藏。一方查看另一方的类的唯一方式是调用 ApplicationDomain.getDefinition() 方法。</p>
+</li>
+</ul>
 
       
     </div>
@@ -118,331 +140,8 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2012-09-27-1/#comments" id="uyan_count_unit" su="2012-09-27-1">暂无评论</a>
-</span>
-        </footer>
-        <div class="clearfix"></div>
-    
-  </div>
-</div>
-</article>
-
-
-  
-    <article>
-<div id="master" class="master well">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header class="well-sm">
-      <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2012-09-19-1/">一个用来取点坐标的小程序</a></h1>
-      
-        <span>Posted on<time datetime="2014-04-24T09:30:52.000Z"> <a href="/2012-09-19-1/">Apr 24 2014</a></time></span>      
-    </header>
-    
-    <div class="entry">
-      
-        <p>为了取一个复杂图形的坐标，专门做了个蛋疼的小程序。如果你也蛋疼，请试玩，有彩蛋！</p>
-<object type="application/x-shockwave-flash" width="680" height="500"><br> <param name="movie" value="/static/images/posts/getPoints.swf"/><br> <param name="bgcolor" value="#ffffff"/><br> <embed src="http://amswf.com/static/images/posts/getPoints.swf"
-        type="application/x-shockwave-flash"
-        bgcolor="#ffffff"
-        width="680"
-        height="500"><br> </embed><br></object>
-      
-    </div>
-    
-    
-      
-    
-    
-        <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2012-09-19-1/#comments" id="uyan_count_unit" su="2012-09-19-1">暂无评论</a>
-</span>
-        </footer>
-        <div class="clearfix"></div>
-    
-  </div>
-</div>
-</article>
-
-
-  
-    <article>
-<div id="master" class="master well">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header class="well-sm">
-      <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2012-09-18-1/">RPG制作之 -- 大地图渲染</a></h1>
-      
-        <span>Posted on<time datetime="2014-04-24T09:30:49.000Z"> <a href="/2012-09-18-1/">Apr 24 2014</a></time></span>      
-    </header>
-    
-    <div class="entry">
-      
-        <p>大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。</p>
-<pre>
-<object type="application/x-shockwave-flash" width="600" height="400">
- <param name="movie" value="http://amswf.com/static/images/posts/bigMap.swf"/>
- <param name="bgcolor" value="#ffffff"/>
- <embed src="http://amswf.com/static/images/posts/bigMap.swf"
-        type="application/x-shockwave-flash"
-        bgcolor="#ffffff"
-        width="600"
-        height="400">
- </embed>
-</object>
-</pre>
-<pre>
-/**
-* 整个拼合的大图尺寸：3200 * 720
-* 这个地图缩略图尺寸：190 * 42
-* 每个tile尺寸是：320 * 360
-* 渲染尺寸：1320 * 720,由于该游戏地图是横版的，所以只在x方向多渲染了一个tile
-*/
-package com.zs
-{
-    import com.zs.utils.MapLoader;
-
-    import flash.display.Bitmap;
-    import flash.display.BitmapData;
-    import flash.display.Loader;
-    import flash.display.LoaderInfo;
-    import flash.display.Shape;
-    import flash.display.Sprite;
-    import flash.events.Event;
-    import flash.geom.Matrix;
-    import flash.geom.Point;
-    import flash.geom.Rectangle;
-    import flash.net.URLRequest;
-    import flash.utils.setInterval;
-
-    public class BigMapFill extends Sprite
-    {
-        private var _smallMap:BitmapData;
-        /**
-         * 地图缓冲区（源地图）
-         */
-        private var buffer:BitmapData;
-
-        private var shape:Bitmap = new Bitmap();
-
-        private var smallMapFilled:Boolean;
-
-        public function BigMapFill()
-        {
-            buffer=new BitmapData(1320,720,false);
-
-            shape.bitmapData = buffer;
-            this.addChild(shape);
-        }
-
-        public function fillSmallMap():Boolean
-        {
-            if(smallMapFilled == false){
-                loadSmallMap();
-            }
-            return smallMapFilled;
-        }
-
-        public function fillBigMap():void
-        {
-            var i:int = 0;
-            var j:int = 0;
-            setInterval(function():void{
-                if(i>=4){
-                    i=0;
-                    j=1;
-                }
-                var loader:MapLoader = new MapLoader();
-                loader.load(getSwfCatalog()+'/assets/tiles/301/'+j+'_'+i+'.jpg');
-                loader.addEventListener(Event.COMPLETE,onTileLoaded);
-                loader.data = {i:i,j:j};
-                i ++;
-            },1000);
-
-            /*for(i=0;i<4;i++){
-                for(j=0;j<2;j++){
-                    var loader:MapLoader = new MapLoader();
-                    loader.load('assets/tiles/301/'+j+'_'+i+'.jpg');
-                    loader.addEventListener(Event.COMPLETE,onTileLoaded);
-                    loader.data = {i:i,j:j};
-                }
-            }*/
-        }
-
-        public function getSwfCatalog():String
-        {
-            //通用代码段，获取播放器自身所在的路径 + 补全URL路径字符串以支持相对路径
-            var playerrealurl:String = "";
-            var playervarsstr:String = "";
-            var playerrootpath:String = "";
-            loaderInfo.url.indexOf("?", 0)>=0 ? playerrealurl=loaderInfo.url.slice(0, loaderInfo.url.indexOf("?", 0)) : playerrealurl=loaderInfo.url;
-            loaderInfo.url.indexOf("?", 0)>=0 ? playervarsstr=loaderInfo.url.slice(loaderInfo.url.indexOf("?", 0)+1) : playervarsstr="";
-            playerrealurl.lastIndexOf("/", playerrealurl.length)>=0 ? playerrootpath=playerrealurl.slice(0, playerrealurl.lastIndexOf("/", playerrealurl.length)) : playerrootpath="";
-
-            return playerrootpath;
-        }
-
-        private function onTileLoaded(e:Event):void
-        {
-            var rect:Rectangle = new Rectangle(0,0,320,360);
-            var point:Point = new Point(MapLoader(e.target).data.i*320,MapLoader(e.target).data.j * 360);
-            buffer.lock();
-            buffer.copyPixels(Bitmap(MapLoader(e.target).content).bitmapData,rect,point);
-            buffer.unlock();
-        }
-
-        private function loadSmallMap():void
-        {
-            var loader:Loader = new Loader();
-            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,smallMapLoaded);
-            loader.load(new URLRequest('assets/s.jpg'));
-        }
-
-        private function smallMapLoaded(e:Event):void
-        {
-            var loadinfo:LoaderInfo = e.target as LoaderInfo;
-
-            _smallMap = (loadinfo.content as Bitmap).bitmapData;
-
-            var per:Number = 3200/_smallMap.width;
-            buffer.draw(_smallMap,new Matrix(per,0,0,per),null,null,null,true);
-
-            smallMapFilled = true;
-        }
-    }
-}
-</pre>
-地图加载器：
-<pre>
-package com.zs.utils
-{
-    import flash.display.DisplayObject;
-    import flash.display.Loader;
-    import flash.display.LoaderInfo;
-    import flash.events.Event;
-    import flash.events.EventDispatcher;
-    import flash.events.IOErrorEvent;
-    import flash.net.URLRequest;
-
-    [Event(name='COMPLETE',type='flash.events.Event')]
-    public class MapLoader extends EventDispatcher
-    {
-        public var data:Object = {};
-
-        private var _content:DisplayObject;
-
-        public function MapLoader()
-        {
-        }
-
-        public function load(url:String):MapLoader
-        {
-            var loader:Loader = new Loader();
-            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
-            loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
-            loader.load(new URLRequest(url));
-
-            return this;
-        }
-
-        private function onError(e:IOErrorEvent):void
-        {
-            LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
-            LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
-        }
-
-        public function get content():DisplayObject
-        {
-            return _content;
-        }
-
-        private function onLoaded(e:Event):void
-        {
-            LoaderInfo(e.target).loader.removeEventListener(Event.COMPLETE,onLoaded);
-            LoaderInfo(e.target).loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
-
-            _content = LoaderInfo(e.target).content;
-
-            this.dispatchEvent(new Event(Event.COMPLETE));
-        }
-    }
-}
-</pre>
-使用：
-<pre>
-package
-{
-    import com.zs.BigMapFill;
-
-    import flash.display.Sprite;
-    import flash.events.Event;
-    import flash.events.MouseEvent;
-
-    [SWF(width='600',height='400')]
-    public class Main extends Sprite
-    {
-        private var map:BigMapFill = new BigMapFill();
-
-        public function Main()
-        {
-            this.addEventListener(Event.ADDED_TO_STAGE,init);
-        }
-
-        private function init(e:Event):void
-        {
-            this.stage.align = 'TL';
-            this.stage.scaleMode = 'noScale';
-            this.stage.addEventListener(MouseEvent.CLICK,onStart);
-            this.addChild(map);
-        }
-
-        private function onStart(event:MouseEvent):void
-        {
-            if(map.fillSmallMap()){
-                map.fillBigMap();
-            }
-        }
-    }
-}
-</pre>
-      
-    </div>
-    
-    
-      
-    
-    
-        <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2012-09-18-1/#comments" id="uyan_count_unit" su="2012-09-18-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -473,7 +172,7 @@ package
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2012-09-17-1/">RPG制作之 -- 小地图渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-04-24T09:30:45.000Z"> <a href="/2012-09-17-1/">Apr 24 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2012-09-17-1/">Jul 30 2014</a></time></span>      
     </header>
     
     <div class="entry">
@@ -492,12 +191,12 @@ package
 <ul>
 <li><p>tile：由于整张地图比较大，要是每次都全部渲染，会浪费内存，所以采取分块渲染。分块渲染时将一整张地图按相同大小分成等份。</p>
 </li>
-<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。<br><pre><br>  <object type="application/x-shockwave-flash" width="500" height="400"><br>   <param name="movie" value="http://amswf.com/static/images/posts/scaleMap.swf"/><br>   <param name="bgcolor" value="#ffffff"/><br>   &lt;embed src=”<a href="http://amswf.com/static/images/posts/scaleMap.swf">http://amswf.com/static/images/posts/scaleMap.swf</a>“</p>
-<pre><code>      <span class="keyword">type</span>=<span class="string">"application/x-shockwave-flash"</span>
-      bgcolor=<span class="string">"#ffffff"</span>
-      width=<span class="string">"500"</span>
-      height=<span class="string">"400"</span>&gt;
-</code></pre><p>   </embed><br>  </object><br></pre><br>本文先讲解小地图渲染：</p>
+<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。<br><pre><br>  <object type="application/x-shockwave-flash" width="500" height="400"><br>   <param name="movie" value="http://amswf.com/static/images/posts/scaleMap.swf"><br>   <param name="bgcolor" value="#ffffff"><br>   &lt;embed src=”<a href="http://amswf.com/static/images/posts/scaleMap.swf" target="_blank" rel="external">http://amswf.com/static/images/posts/scaleMap.swf</a>“</object></pre></p>
+<pre><code>      <span class="variable">type=</span><span class="string">"application/x-shockwave-flash"</span>
+      <span class="variable">bgcolor=</span><span class="string">"#ffffff"</span>
+      <span class="variable">width=</span><span class="string">"500"</span>
+      <span class="variable">height=</span><span class="string">"400"</span>&gt;
+</code></pre><p>   <br>  <br><br>本文先讲解小地图渲染：</p>
 </li>
 </ul>
 <pre>
@@ -634,147 +333,26 @@ package
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2012-09-16-1/">RPG制作之 -- 人物动作渲染</a></h1>
+      <h1 class="title"><a href="/2013-09-30-1/">cocos2dx-html5基础教程</a></h1>
       
-        <span>Posted on<time datetime="2014-04-24T09:30:42.000Z"> <a href="/2012-09-16-1/">Apr 24 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2013-09-30-1/">Jul 30 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <p>动作渲染有两种方式，一种是flash的movieclip方式，一种是块传输技术（spritesheet），这两种方式各有利弊。使用movieclip方式优点是：制作方便，缺点是：由于所有动作都基于movieclip类渲染，这样会浪费内存和cpu资源。而spritesheet的优缺点和movieclip正好相反。为了让用户的游戏体验更好，flash在制作大型游戏，一般都选用spritesheet方式。</p>
-<pre>
-<object type="application/x-shockwave-flash" width="105" height="120">
- <param name="movie" value="http://amswf.com/static/images/posts/sheet.swf"/>
- <param name="bgcolor" value="#ffffff"/>
- <embed src="http://amswf.com/static/images/posts/sheet.swf"
-        type="application/x-shockwave-flash"
-        bgcolor="#ffffff"
-        width="105"
-        height="120">
- </embed>
-</object>
-</pre>
-[源码](https://gist.github.com/41500281261d4bcb6d12)
-<pre>
-package com.zs.utils
-{
-    import flash.display.Bitmap;
-    import flash.display.BitmapData;
-    import flash.display.Loader;
-    import flash.display.LoaderInfo;
-    import flash.events.Event;
-    import flash.events.IOErrorEvent;
-    import flash.geom.Point;
-    import flash.geom.Rectangle;
-    import flash.net.URLRequest;
+        <p>这几天闲来没事学习cocos2dx-html5，官方教程都是E文的，有点让人头疼。搜了下其他人写的教程，又太零散不系统。所以遂想系统的总结和罗列下，以方便其他人学习。<br>讲cocos2d首先要先从基本的概念讲起，了解这些基本概念后，再看源码什么的学起来也快。那么cocos2dx里面有哪些概念呢。</p>
+<p>1.基本概念：场景，导演，层，以及精灵</p>
+<p>1）场景（Sence），什么是场景，我们在玩游戏时候都知道，游戏有开始画面，游戏画面，结束画面。这不同的画面，在cocos2dx中称之为场景。<br>2）导演（Director），在cocos2dx-html中就是Director.js这个类，目前只需要知道他的主要负责场景（Sence）的显示，管理和切换。后面会单独一个章节做详细介绍。<br>3）层（Layer），在游戏中，一个场景内，有背景，动画，按钮和菜单，这些东西如果都放到一个层里面，会难以把控。<br>4）精灵（Sprite）可以关联材质的层，他可以用来显示加载的图片。同时可以试用actions对进行缩放，位移等操作。</p>
+<p>2.坐标系：<br>与flash不同的是，flash以左上角为坐标原点。cocos2dx以左下角为坐标原点。<br><img src="/static/images/posts/20130930/1.png" alt=""></p>
+<p>3.actions</p>
+<p>可以用来修改对象的属性，包括，位置，缩放，旋转，可见性，透明度，颜色。按照属性是否是及时修改，还是一段时间内慢慢修改，actions分为两种。CCIntervalAction和CCInstantAction。CCIntervalAction实现功能是这样的，如修改一个属性x，从0到100，使用CCInstantAction，你会发现物体一下从0到了100.而使用CCIntervalAction，你会看到一个过度的动画。</p>
+<p>在cocos2dx中我们常用的actions如下：<br>位置(position)<br>CCMoveBy<br>CCMoveTo<br>CCJumpBy<br>CCJumpTo<br>CCBezierBy<br>CCBezierTo<br>CCPlace</p>
+<p>缩放(scale)<br>CCScaleBy<br>CCScaleTo</p>
+<p>旋转(rotation)<br>CCRotateBy<br>CCRotateTo</p>
+<p>可见性(visible)<br>CCShow<br>CCHide<br>CCBlink<br>CCToggleVisibility</p>
+<p>透明度(opacity)<br>CCFadeIn<br>CCFadeOut<br>CCFadeTo</p>
+<p>颜色(color)<br>CCTintBy<br>CCTintTo</p>
 
-    public class SheetMoive extends Bitmap
-    {
-        private var sheets:Object = {};
-        private var action:String;
-        private var actionW:Number = 105;
-        private var actionH:Number = 120;
-
-        public function SheetMoive(w:Number=105,h:Number=120)
-        {
-            this.bitmapData = new BitmapData(actionW,actionH);
-        }
-
-        public function addSheet(url:String,action:String):void
-        {
-            var loader:Loader = new Loader();
-            loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
-            loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
-            loader.name = action;
-            loader.load(new URLRequest(url));
-        }
-
-        public function go(action:String):Boolean
-        {
-            if(sheets[action]){
-                this.action = action;
-                this.addEventListener(Event.ENTER_FRAME,render);
-                return true;
-            }
-            return false;
-        }
-
-        private var sheetIndex:int = 0;
-        private function render(e:Event):void
-        {
-            if(sheetIndex >= sheets[action].sheetNum){
-                sheetIndex = 0;
-            }
-            this.bitmapData.lock();
-            this.bitmapData.copyPixels(sheets[action].pic,new Rectangle(sheetIndex * actionW,0,actionW,actionH),new Point(0,0));
-            this.bitmapData.unlock();
-            sheetIndex++;
-        }
-
-        private function onError(e:IOErrorEvent):void
-        {
-
-        }
-
-        private function onLoaded(e:Event):void
-        {
-            var loader:Loader = LoaderInfo(e.target).loader;
-            var bitmapdata:BitmapData = (loader.content as Bitmap).bitmapData;
-            sheets[loader.name] = {pic:bitmapdata,sheetNum:Math.floor(bitmapdata.width/105)};
-            this.dispatchEvent(new Event('done'));
-        }
-    }
-}
-</pre>    
-引用：    
-<pre>
-package
-{
-    import com.zs.utils.SheetMoive;
-    import flash.display.LoaderInfo;
-    import flash.display.Sprite;
-    import flash.events.Event;
-    import flash.events.MouseEvent;
-
-    [SWF(width='105',height='120',backgroundColor='0xcccccc')]
-    public class Main extends Sprite
-    {
-        private var ren:SheetMoive = new SheetMoive();
-
-        public function Main()
-        {
-            this.addEventListener(Event.ADDED_TO_STAGE,init);
-        }
-
-        private function init(e:Event):void
-        {
-            this.stage.align = 'TL';
-            this.stage.scaleMode = 'noScale';
-            this.stage.addEventListener(MouseEvent.CLICK,changeAction);
-            this.addChild(ren);
-            ren.addSheet('/assets/character/walk.png','walk');
-            ren.addSheet('/assets/character/stand.png','stand');
-            ren.addEventListener('done',onStart);
-        }
-
-        private var change:Boolean;
-        protected function changeAction(event:MouseEvent):void
-        {
-            if(change){
-                ren.go('stand');
-            }else{
-                ren.go('walk');
-            }
-            change = !change;
-        }
-
-        private function onStart(e:Event):void
-        {
-            ren.go('walk');
-        }
-    }
-}
-</pre>
       
     </div>
     
@@ -783,8 +361,8 @@ package
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/web游戏/">web游戏</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2012-09-16-1/#comments" id="uyan_count_unit" su="2012-09-16-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/cocos2dx/">cocos2dx</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2013-09-30-1/#comments" id="uyan_count_unit" su="2013-09-30-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -813,70 +391,14 @@ package
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2012-09-06-1/">github速成手册</a></h1>
+      <h1 class="title"><a href="/2013-09-04-1/">破解版flashfirebug4.45不能用的解决办法</a></h1>
       
-        <span>Posted on<time datetime="2014-04-24T09:30:39.000Z"> <a href="/2012-09-06-1/">Apr 24 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2013-09-04-1/">Jul 30 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <p>首先感谢github，有了github的建主页功能，才有了自己的网站（<a href="http://www.amswf.com/" title="amswf" target="_blank">http://www.amswf.com/</a>）。并使楼主省了买服务器的银子。所以楼主决定开博的首篇文章用来写一个github入门手册。虽然网上的github学习手册千千万，但是楼主保证自己的教程最精简，最有效。</p>
-<p><strong>1.github是啥：</strong></p>
-<p>要明白github先要知道git，git和svn一样是一种代码托管技术。而github和googlecode都属于代码托管社区。这两个社区为数以万计的程序员提供代码托管和技术交流的场所。</p>
-<p><strong>2.下载github上的代码：</strong></p>
-<p>既然github为我们提供了很多别人的代码，那么我们该怎么下载别人的代码呢。统共需要四步：<br>（1）安装客户端：下载一个客户端：<a href="http://pan.baidu.com/share/link?shareid=17503&amp;uk=1543698718" target="_blank">http://pan.baidu.com/share/link?shareid=17503&amp;uk=1543698718</a><br>（2）找到库的git地址：打开代码库页面。如<a href="https://github.com/amswf/box2d-to-cn，并找到库的git地址：https://github.com/amswf/box2d-to-cn.git" target="_blank">https://github.com/amswf/box2d-to-cn，并找到库的git地址：https://github.com/amswf/box2d-to-cn.git</a><br>（3）打开git命令行：在桌面或者硬盘的某个文件夹里，右键选择Git bash，这个是git的命令行。<br>（4）执行clone命令：git clone <a href="https://github.com/amswf/box2d-to-cn.git" target="_blank">https://github.com/amswf/box2d-to-cn.git</a> 执行完成后，待进度完成，一个开源项目就安然的躺在你的电脑里了。</p>
-<p><strong>3.托管你的代码：</strong></p>
-<p>github为我们提供了300m的免费空间，供我们存放开源代码。如果要托管代码请按以下步骤：</p>
-<ul>
-<li><p>（1）注册github账号，并登陆。</p>
-</li>
-<li><p>（2）新建库：</p>
-</li>
-</ul>
-<p><img src="/static/images/posts/1.png" alt=""><br><img src="/static/images/posts/2.png" alt=""></p>
-<ul>
-<li>（3）新库建好后，也会有一个如下的界面：</li>
-</ul>
-<p>然后找到你的库的git地址，本人库的地址为：<a href="https://github.com/amswf/box2d-to-cn.git" target="_blank">https://github.com/amswf/box2d-to-cn.git</a></p>
-<ul>
-<li><p>（4）将你的库clone到自己的电脑，这时候就会有个和你库名相同的空文件夹在你的电脑。</p>
-</li>
-<li><p>（5）往你的文件夹中放入一个文本，test.txt,然后在文件夹中右键，启动git bash</p>
-</li>
-<li><p>（6）将test.txt纳入版本控制，git add test.txt</p>
-</li>
-<li>（7）将test.txt提交到缓存，git commit -m “log”</li>
-<li>（8）将test.txt提交到github，git push origin master</li>
-<li>（9）以上如果都顺利，会提示你输入用户名和密码，成功后，会有进度显示。待100%后，你的test.txt就被成功的提交的github服务器上。</li>
-</ul>
-<p><strong>4.玩转自己的主页：</strong></p>
-<p>当你会新建并提交自己的库时，建立自己的主页其实就很简单了。如果你没有自己的域名，github为你提供一个”username.github.com”的域名，如果你有自己的域名，github支持你绑定自己的域名，这一切都很贴心。想要创建自己的主页请遵守下面的步骤：</p>
-<ul>
-<li>（1）新建一个名字为这样的库：<code>&lt;user-id&gt;.github.com</code></li>
-<li>（2）将这个库clone到你的电脑</li>
-<li>（3）在该库的文件夹中放置名为index.html的主页文件</li>
-<li>（4）按照步骤3的提交方法，将文件push到github服务器。如果没意外，十分种后，访问username.github.com,该页面就变成了你自己的主页。是不是so easy！</li>
-</ul>
-<p><strong>5.绑定自己的域名：</strong></p>
-<ul>
-<li>（1）创建一个CNAME文件，内容是你的域名，如：<br>amswf.com<br>然后把此文件添加到Github仓库，上传到Github。Github服务器会设置doulemai.com为你的主域名，然后将www.amswf.com和amswf.github.com重定向到amswf.com。</li>
-<li>（2）修改DNS<br>登陆你的域名管理界面。创建一条A记录，指向207.97.227.245这个IP地址。<br>如果是用子域名，如blog.amswf.com。只需要创建一条CNAME记录，指向blog.amswf.com。</li>
-</ul>
-<p><strong>6.使用模版</strong></p>
-<p>看看下面几个网站，以及本站，是不是感觉很酷？</p>
-<ul>
-<li><a href="http://jekyllrb.com/" target="_blank">http://jekyllrb.com/</a></li>
-<li><a href="http://ztpala.com/" target="_blank">http://ztpala.com/</a></li>
-<li><a href="http://saberma.me/" target="_blank">http://saberma.me/</a></li>
-</ul>
-<p>我想告诉你的是，其实想拥有他们只需四步。</p>
-<ul>
-<li>第一，按照步骤《4.玩转自己的主页》将自己的username.github.com库clone下来</li>
-<li>第二，去<a href="https://github.com/mojombo/jekyll/wiki/sites这个网址，然后点击source，进入别人的模版，然后将别人的模版clone下来。" target="_blank">https://github.com/mojombo/jekyll/wiki/sites这个网址，然后点击source，进入别人的模版，然后将别人的模版clone下来。</a></li>
-<li>第三，将clone下来的文件，除了.git文件夹，都放到你的username.github.com文件夹下。</li>
-<li>第四，删除别人的文章，下载的模版一般都有个_posts文件夹，这个文件夹里面放置了很多别人的文章。你要做的就是将这些文章删除，然后换成自己的。至此，如果你要求不高，可以提交你的库。几分钟后，看看是不是一个新的主页诞生了。</li>
-</ul>
-<p><strong>注：</strong>很多人都说使用Jekyll要安装ruby的云云，经过实践，根本不用。安装ruby的唯一好处是可以在本地所见即所得，但是对于不懂ruby的人，这就是一个坑。</p>
+        <p>将4.45安装后，去附件中心搜索flashfirebug并点击安装，重启后，即可生效。</p>
 
       
     </div>
@@ -886,8 +408,433 @@ package
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/github/">github</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2012-09-06-1/#comments" id="uyan_count_unit" su="2012-09-06-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Jun 7 2014"> Jun 7 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2013-09-04-1/#comments" id="uyan_count_unit" su="2013-09-04-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2013-01-22-1/">html嵌入flash说明</a></h1>
+      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2013-01-22-1/">Jul 30 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>页面嵌入flash总是有这里那里的问题，今天找到一篇官方的详细说明。e文好的直接：<a href="http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html" target="_blank" rel="external">http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html</a></p>
+<p>e文不好的且听我来絮叨：</p>
+<p>1.嵌入方式有几种？</p>
+<p>html嵌入flash有两种方式，一种是ie内核，使用object标签，另一种是非ie内核，使用embed标签。如果你只使用其中一种方式嵌入极有可能导致flash在个别浏览器里面显示不出来。</p>
+<p>2.两种嵌入方式参数是否相同？</p>
+<p>两种嵌入方式参数有所不同，有些是object标签支持，而embed标签不支持。有些是embed标签支持，object不支持。</p>
+<p>3.下面我们会根据重要程度罗列出所有可用参数：</p>
+<p><strong>仅适用于object标签的参数</strong></p>
+<p>(1)classid(必填参数)</p>
+<p>值: clsid:D27cdb6e-ae6d-11cf-96b8-444553540000</p>
+<p>说明: 标识浏览器的 ActiveX 控件。输入的值必须与上面的显示完全一致。仅适用于 object。</p>
+<p>(2)codebase(必填参数)</p>
+<p>值: <a href="http://get.adobe.com/cn/flashplayer/" target="_blank" rel="external">http://get.adobe.com/cn/flashplayer/</a></p>
+<p>说明: 标识 Flash Player ActiveX 控件的位置，以便在尚未安装该控件时，浏览器可以自动下载它。输入的值必须与上面的显示完全一致。仅适用于 object。</p>
+<p>(3)movie(必填参数)</p>
+<p>值: movieName.swf</p>
+<p>说明: 指定要加载的 SWF 文件的名称。仅适用于 object。</p>
+<p>(4)id(可选参数)</p>
+<p>值：一个字符名字</p>
+<p>说明：用于页面和flash之间互相脚本调用使用。仅适用于 object。</p>
+<p><strong>仅适用于embed标签的参数</strong></p>
+<p>(1)src(必填参数)</p>
+<p>值: movieName.swf</p>
+<p>说明 : 指定要加载的 SWF 文件的名称。仅适用于 embed。</p>
+<p>(2)pluginspage(必填参数)</p>
+<p>值: <a href="http://get.adobe.com/cn/flashplayer/" target="_blank" rel="external">http://get.adobe.com/cn/flashplayer/</a></p>
+<p>说明: 标识 Flash Player 插件的位置，以便在尚未安装该插件时，用户可以下载它。输入的值必须与上面的显示完全一致。仅适用于 embed 。</p>
+<p>(3)name(可选参数)</p>
+<p>值：一个字符名字</p>
+<p>说明：用于页面和flash之间互相脚本调用使用。仅适用于 embed。</p>
+<p><strong>通用可选参数</strong></p>
+<p>(1)play </p>
+<p>值: true or false </p>
+<p>说明:（可选）指定应用程序是否在浏览器中加载时就开始播放。如果您的 Flash 应用程序是交互式的，则可以让用户通过单击按钮或执行某些其他任务来开始播放。在这种情况下，将 play 属性设置为 false 可禁止应用程序自动开始播放。如果忽略此属性，默认值为 true。</p>
+<p>(2)loop</p>
+<p>值: true/false</p>
+<p>说明: （可选）指定 Flash 内容在它到达最后一帧后是无限制重复播放还是停止。如果忽略此属性，默认值为 true。</p>
+<p>(3)menu </p>
+<p>值: true/false</p>
+<p>说明: （可选）指定当观众在浏览器中右击 (Windows) 或按住 Command 键单击 (Macintosh) 应用程序区域时将显示的菜单类型。<br>“true” 显示完整的菜单，让用户使用各种选项增强或控制回放。”false” 显示的是一个只包含”关于 Macromedia Flash Player”选项和”设置”选项的菜单。如果忽略此属性，默认值为 true。</p>
+<p>(4)quality </p>
+<p>值: low/medium/high/autolow/autohigh/best</p>
+<p>说明: （可选）指定在应用程序回放期间使用的消除锯齿级别。因为消除锯齿需要更快的处理器先对 SWF 文件的每一帧进行平滑处理，然后再将它们呈现到观众屏幕上，所以需要根据要优化速度还是优化外观来选择一个值：</p>
+<p>“Low”使回放速度优先于外观，而且从不使用消除锯齿功能。</p>
+<p>“Autolow”优先考虑速度，但是也会尽可能改善外观。回放开始时，消除锯齿功能处于关闭状态。如果 Flash Player 检测到处理器可以处理消除锯齿功能，就会打开该功能。</p>
+<p>“Autohigh”在开始时是回放速度和外观两者并重，但在必要时会牺牲外观来保证回放速度。回放开始时，消除锯齿功能处于打开状态。如果实际帧频降到指定帧频之下，就会关闭消除锯齿功能以提高回放速度。使用此设置可模拟 Flash 中的“消除锯齿”命令（”查看”&gt;”预览模式”&gt;”消除锯齿”）。</p>
+<p>“Medium”会应用一些消除锯齿功能，但并不会平滑位图。该设置生成的图像品质要高于“Low”设置生成的图像品质，但低于“High”设置生成的图像品质。</p>
+<p>“High”使外观优先于回放速度，它始终应用消除锯齿功能。如果 SWF 文件不包含动画，则会对位图进行平滑处理；如果 SWF 文件包含动画，则不会对位图进行平滑处理。</p>
+<p>“Best”提供最佳的显示品质，而不考虑回放速度。对所有输出都进行消除锯齿处理，并且对所有位图都进行平滑处理。</p>
+<p>如果忽略 quality 属性，其默认值为 high。</p>
+<p>(5)scale </p>
+<p>值: showall/noborder/exactfit</p>
+<p>说明: （可选）当 width 和 height 值是百分比时，定义应用程序如何放置在浏览器窗口中。</p>
+<p>“Showall”（默认值）使整个 Flash 内容显示在指定区域中，且不会发生扭曲，同时保持它的原始高宽比。边框可能会出现在应用程序的两侧。</p>
+<p>“Noborder”对 Flash 内容进行缩放以填充指定区域，不会发生扭曲，它会使应用程序保持原始高宽比，但有可能会进行一些裁剪。</p>
+<p>“Exactfit”使整个 Flash 内容显示在指定区域中，但不尝试保持原始高宽比。可能会发生扭曲。</p>
+<p>如果忽略此属性（而且 width 和 height 值是百分比），则它的默认值是 showall。</p>
+<p>(6)align</p>
+<p>值: Default /L/R/T/B</p>
+<p>说明: 指定 object、embed 和 img 标记的 align 值，并确定如何在浏览器窗口内放置 Flash SWF 文件。</p>
+<p>“默认”使应用程序在浏览器窗口内居中显示，如果浏览器窗口小于应用程序，则会裁剪边缘。</p>
+<p>L、R、T 和 B 让应用程序分别沿着浏览器窗口的左、右、上、下边缘对齐，并根据需要裁剪其余三边。</p>
+<p>(7)salign </p>
+<p>值: L/R/T/B/TL/TR/BL/BR</p>
+<p>说明: （可选）指定缩放的 Flash SWF 文件在由 width 和 height 设置定义的区域内的位置。有关这些条件的详细信息，请参阅scale 属性/参数。</p>
+<p>L、R、T 和 B 让应用程序分别沿着浏览器窗口的左、右、上、下边缘对齐，并根据需要裁剪其余三边。</p>
+<p>TL 和 TR 让应用程序分别与浏览器窗口的左上角和右上角对齐，并根据需要裁剪底边和剩余的右侧或左侧边缘。</p>
+<p>BL 和 BR 让应用程序分别与浏览器窗口的左下角和右下角对齐，并根据需要裁剪顶边和剩余的右侧或左侧边缘。</p>
+<p>如果忽略此属性，Flash 内容会在浏览器窗口中居中显示。</p>
+<p>(8)wmode<br>值 : Window/Opaque/Transparent/direct/gpu</p>
+<p>说明: （可选）使您可以使用 Internet Explorer 4.0 中的透明 Flash 内容、绝对定位和分层显示的功能。此标记/属性仅在带有 Flash Player ActiveX 控件的 Windows 中有效。</p>
+<p>“Window”在 Web 页上用影片自己的矩形窗口来播放应用程序。“Window”表明 Flash 应用程序与 HTML 层没有任何交互，并且始终位于最顶层。</p>
+<p>“Opaque”使应用程序隐藏页面上位于它后面的所有内容。</p>
+<p>“Transparent”使 HTML 页的背景可以透过应用程序的所有透明部分进行显示，这样可能会降低动画性能。</p>
+<p>“direct”完全避开父网页浏览器的渲染。您可以把他看成跟单独的播放器类似</p>
+<p>“gpu”是完全的硬件加速合成。但是注意到， GPU模式不是灵丹妙药, 对一些都加快，在某些情况下它可能在事实上会牺牲性能。</p>
+<p>如果忽略此属性，默认值为 Window。仅适用于 object。</p>
+<p>(9)bgcolor </p>
+<p>值: “#RRGGBB”（十六进制 RGB 值）</p>
+<p>说明: （可选）指定应用程序的背景色。使用此属性来覆盖在 Flash SWF 文件中指定的背景色设置。此属性不影响 HTML 页面的背景色。</p>
+<p>(10)base </p>
+<p>值: 基本目录或 URL</p>
+<p>说明: （可选）指定用于解析 Flash SWF 文件中的所有相对路径语句的基本目录或 URL。如果 SWF 文件保存在与您的其他文件不同的目录下，这个属性是非常有用。</p>
+<p>(11)allowFullScreen</p>
+<p>值: true或者false</p>
+<p>说明：(可选)指定嵌入网页中的flash是否可以全屏显示。默认为true</p>
+<p>(12)allowscriptaccess</p>
+<p>值: always/never/samedomain</p>
+<p>说明: 使用 allowscriptaccess 使 Flash 应用程序可与承载它的 HTML 页通信。此参数是必需的，因为 fscommand() 和 getURL() 操作可能导致 JavaScript 使用 HTML 页的权限，而该权限可能与 Flash 应用程序的权限不同。这与跨域安全性有着重要关系。</p>
+<p>always 允许随时执行脚本操作。</p>
+<p>never 禁止所有脚本执行操作。</p>
+<p>samedomain 只有在 Flash 应用程序来自与 HTML 页相同的域时才允许执行脚本操作。 所有 HTML 发布模板使用的默认值均为 samedomain。</p>
+<p>(13)allowNetworking</p>
+<p>值: all/internal/none</p>
+<p>“all”（默认值）― SWF 文件中允许使用所有网络 API。</p>
+<p>“internal”― SWF 文件可能不调用浏览器导航或浏览器交互 API，但是它会调用任何其它网络 API。</p>
+<p>“none”― SWF 文件可能不调用浏览器导航或浏览器交互 API，并且它无法使用任何 SWF 到 SWF 通信 API。</p>
+<p>可以控制 SWF 文件对网络功能的访问。调用被禁止的 API 会引发 SecurityError 异常。</p>
+<p>当 allowNetworking 设置为 “internal” 时，以下 API 被禁止：</p>
+<p>navigateToURL</p>
+<p>fscommand</p>
+<p>ExternalInterface.call</p>
+<p>当 allowNetworking 设置为 “none” 时，除了上面列出的那些 API 外，还会禁止以下 API：</p>
+<p>sendToURL</p>
+<p>FileReference.download</p>
+<p>FileReference.upload</p>
+<p>Loader.load</p>
+<p>LocalConnection.connect</p>
+<p>LocalConnection.send</p>
+<p>NetConnection.connect</p>
+<p>NetStream.play</p>
+<p>Security.loadPolicyFile</p>
+<p>SharedObject.getLocal</p>
+<p>SharedObject.getRemote</p>
+<p>Socket.connect</p>
+<p>(14)flashvars </p>
+<p>值：字符串格式，用“&amp;”分隔的name=value集</p>
+<p>说明：传递变量到flash player，需要flash player6及以后的版本。<br>浏览器支持64kB大小的字符串长度。 </p>
+<p>参考来源：<a href="http://www.nowamagic.net/librarys/veda/detail/1615" target="_blank" rel="external">http://www.nowamagic.net/librarys/veda/detail/1615</a></p>
+<p><a href="http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html" target="_blank" rel="external">http://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html</a></p>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2013-01-22-1/#comments" id="uyan_count_unit" su="2013-01-22-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2013-03-27-1/">flashdevelop的几个优点</a></h1>
+      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2013-03-27-1/">Jul 30 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>1.更轻量级：启动速度飞快</p>
+<p>2.更贴心：一键嵌入资源，自动生成带loading的项目，一键生成时间戳</p>
+<p><img src="http://amswf.com/static/images/posts/20130327/1.jpg" alt=""><br><img src="http://amswf.com/static/images/posts/20130327/2.jpg" alt=""></p>
+<p>3.更好的配色方案</p>
+<p><img src="http://amswf.com/static/images/posts/20130327/5.jpg" alt=""></p>
+<p>4.功能更强大<br>（1）flash log viewer：可以支持在线调试打印</p>
+<p><img src="http://amswf.com/static/images/posts/20130327/3.jpg" alt=""></p>
+<p>（2）asdoc生成器：生成帮助文档</p>
+<p>（3）性能分析器</p>
+<p><img src="http://amswf.com/static/images/posts/20130327/4.jpg" alt=""></p>
+<p>5.最新版支持中文</p>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2013-03-27-1/#comments" id="uyan_count_unit" su="2013-03-27-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2013-01-06-1/">给flashbuilder套个花衣裳</a></h1>
+      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2013-01-06-1/">Jul 30 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>开年第一帖，嘎嘎，刚刚添了个宝宝，祝宝宝健康美丽，祝老婆新的一年每天happy</p>
+<p>经常面对着flashbuilder的白底黑字的界面有点单调了，看到sublime颜色搭配方案那是一个八错。于是使用flashbuilder自带的elipse Marketplace搜索关键字theme，还真有这插件，难道我out了吗。果断安装之。</p>
+<p><img src="http://amswf.com/static/images/posts/20130106/install.jpg" alt=""></p>
+<p>安装后使用如下：</p>
+<p><img src="http://amswf.com/static/images/posts/20130106/changeTheme.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2013-01-06-1/#comments" id="uyan_count_unit" su="2013-01-06-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2012-12-24-1/">actionscript条件编译</a></h1>
+      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2012-12-24-1/">Jul 30 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>絮叨一下条件编译，条件编译就是在满足条件后将代码编译进文件，否则不将代码编译进最终文件。</p>
+<p>as就是这么牛逼，也带有这个功能。使用方法如下，在编译器中定义如下参数：</p>
+<p><img src="http://amswf.com/static/images/posts/20121224/1.jpg" alt=""></p>
+<p>然后在代码中可以针对函数，代码块，类进行条件编译。代码块条件编译如下：</p>
+<p><img src="http://amswf.com/static/images/posts/20121224/2.jpg" alt=""></p>
+<p>类条件编译如下：</p>
+<p><img src="http://amswf.com/static/images/posts/20121224/3.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2012-12-24-1/#comments" id="uyan_count_unit" su="2012-12-24-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2012-09-27-1/">flashdevelop快捷键修改</a></h1>
+      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2012-09-27-1/">Jul 30 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>最新版的flashdevelop修改快捷键的地方有变化，以前是在设置选项里面。现在直接放到了Tools目录里面。用习惯了flashbuilder的快捷键，再用flashdevelop的快捷键，明显有点不适应。找到修改的地方后，果断出手修改。下面是我修改快捷键的几个地方。</p>
+<p><img src="http://amswf.com/static/images/posts/20120927/1.jpg" alt=""></p>
+<p><img src="http://amswf.com/static/images/posts/20120927/2.jpg" alt=""></p>
+<p><img src="http://amswf.com/static/images/posts/20120927/3.jpg" alt=""></p>
+<p><img src="http://amswf.com/static/images/posts/20120927/4.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2012-09-27-1/#comments" id="uyan_count_unit" su="2012-09-27-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2012-09-19-1/">一个用来取点坐标的小程序</a></h1>
+      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2012-09-19-1/">Jul 30 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>为了取一个复杂图形的坐标，专门做了个蛋疼的小程序。如果你也蛋疼，请试玩，有彩蛋！</p>
+<object type="application/x-shockwave-flash" width="680" height="500"><br> <param name="movie" value="/static/images/posts/getPoints.swf"><br> <param name="bgcolor" value="#ffffff"><br> <embed src="http://amswf.com/static/images/posts/getPoints.swf" type="application/x-shockwave-flash" bgcolor="#ffffff" width="680" height="500"><br> <br></object>
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2012-09-19-1/#comments" id="uyan_count_unit" su="2012-09-19-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -901,7 +848,7 @@ package
 
   
 <ul id="pagination" class="pagination pagination-lg">
-  <li><a class="extend prev" href="/archives/2014/">&laquo;</a></li><li><a class="page-number" href="/archives/2014/">1</a></li><li class="active"><span class="page-number current">2</span></li>
+  <li><a class="extend prev" rel="prev" href="/archives/2014/">&laquo;</a></li><li><a class="page-number" href="/archives/2014/">1</a></li><li class="active"><span class="page-number current">2</span></li><li><a class="page-number" href="/archives/2014/page/3/">3</a></li><li><a class="extend next" rel="next" href="/archives/2014/page/3/">&raquo;</a></li>
   <div class="clearfix"></div>
 </ul>
 
@@ -922,11 +869,11 @@ package
 
 <div id="widget_category" class="widget panel panel-primary">
     <div class="panel-heading">category</div>    
-<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
+<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/android/">android</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/swift/">swift</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/virtualbox/">virtualbox</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014-04-24-1/">aser学iphone开发基础教程</a></li><li class="list-group-item icon"><a href="/2014-01-03-1/">flash优化</a></li><li class="list-group-item icon"><a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></li><li class="list-group-item icon"><a href="/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2013-09-30-1/">cocos2dx-html5基础教程</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></li><li class="list-group-item icon"><a href="/2014-09-02-1/">android studio导入第三方依赖库(ResideMenu)</a></li><li class="list-group-item icon"><a href="/2014-5-5-01/">gitcafe托管主页</a></li><li class="list-group-item icon"><a href="/2012-09-06-1/">github速成手册</a></li><li class="list-group-item icon"><a href="/2014-06-20-1/">mac下virtualbox桥接模式上不了网问题</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -980,19 +927,10 @@ $(window).load(function(){
     <script type="text/javascript">
 var uyan_config={
      'url':'http://amswf.com/archives/2014/page/2/',
-'su':'2012-09-06-1'
+'su':'2012-09-19-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>
-    
-        
-    <!--wumii_relatedItems-->
-    
-        
-    
-<script type="text/javascript">var ujian_config = {num:6,showType:0,picSize:84,textHeight:45};</script>
-<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1678356"></script>
-<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
     
         <script src="http://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <script src="/js/gallery.js"></script>

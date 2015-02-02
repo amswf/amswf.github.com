@@ -109,7 +109,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title">RPG制作之 -- 大地图渲染</h1>
       
-        <span>Posted on<time datetime="2014-04-24T09:30:49.000Z"> <a href="/2012-09-18-1/">Apr 24 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2012-09-18-1/">Jul 30 2014</a></time></span>      
     </header>
     <section id='before_content_widget'></section>
     <div class="entry">
@@ -117,14 +117,10 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
         <p>大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。</p>
 <pre>
 <object type="application/x-shockwave-flash" width="600" height="400">
- <param name="movie" value="http://amswf.com/static/images/posts/bigMap.swf"/>
- <param name="bgcolor" value="#ffffff"/>
- <embed src="http://amswf.com/static/images/posts/bigMap.swf"
-        type="application/x-shockwave-flash"
-        bgcolor="#ffffff"
-        width="600"
-        height="400">
- </embed>
+ <param name="movie" value="http://amswf.com/static/images/posts/bigMap.swf">
+ <param name="bgcolor" value="#ffffff">
+ <embed src="http://amswf.com/static/images/posts/bigMap.swf" type="application/x-shockwave-flash" bgcolor="#ffffff" width="600" height="400">
+ 
 </object>
 </pre>
 <pre>
@@ -195,23 +191,7 @@ package com.zs
                 i ++;
             },1000);
 
-            /*for(i=0;i<4;i++){
-                for(j=0;j<2;j++){
-                    var loader:MapLoader = new MapLoader();
-                    loader.load('assets/tiles/301/'+j+'_'+i+'.jpg');
-                    loader.addEventListener(Event.COMPLETE,onTileLoaded);
-                    loader.data = {i:i,j:j};
-                }
-            }*/
-        }
-
-        public function getSwfCatalog():String
-        {
-            //通用代码段，获取播放器自身所在的路径 + 补全URL路径字符串以支持相对路径
-            var playerrealurl:String = "";
-            var playervarsstr:String = "";
-            var playerrootpath:String = "";
-            loaderInfo.url.indexOf("?", 0)>=0 ? playerrealurl=loaderInfo.url.slice(0, loaderInfo.url.indexOf("?", 0)) : playerrealurl=loaderInfo.url;
+            /*for(i=0;i<4;i++){ 301="" for(j="0;j<2;j++){" var="" loader:maploader="new" maploader();="" loader.load('assets="" tiles="" '+j+'_'+i+'.jpg');="" loader.addeventlistener(event.complete,ontileloaded);="" loader.data="{i:i,j:j};" }="" }*="" public="" function="" getswfcatalog():string="" {="" 通用代码段，获取播放器自身所在的路径="" +="" 补全url路径字符串以支持相对路径="" playerrealurl:string="" ;="" playervarsstr:string="" playerrootpath:string="" loaderinfo.url.indexof("?",="" 0)="">=0 ? playerrealurl=loaderInfo.url.slice(0, loaderInfo.url.indexOf("?", 0)) : playerrealurl=loaderInfo.url;
             loaderInfo.url.indexOf("?", 0)>=0 ? playervarsstr=loaderInfo.url.slice(loaderInfo.url.indexOf("?", 0)+1) : playervarsstr="";
             playerrealurl.lastIndexOf("/", playerrealurl.length)>=0 ? playerrootpath=playerrealurl.slice(0, playerrealurl.lastIndexOf("/", playerrealurl.length)) : playerrootpath="";
 
@@ -247,7 +227,7 @@ package com.zs
         }
     }
 }
-</pre>
+</4;i++){></pre>
 地图加载器：
 <pre>
 package com.zs.utils
@@ -373,7 +353,7 @@ package
   <li class="previous"><a href="/2012-09-19-1/" title="一个用来取点坐标的小程序">&larr; 一个用来取点坐标的小程序</a></li>
   
   
-  <li class="next"><a href="/2012-09-17-1/" title="RPG制作之 -- 小地图渲染">RPG制作之 -- 小地图渲染 &rarr;</a></li>
+  <li class="next"><a href="/2012-09-16-1/" title="RPG制作之 -- 人物动作渲染">RPG制作之 -- 人物动作渲染 &rarr;</a></li>
   
 </ul></div></section>    
 	<div id="comment"><a name="comments"></a>
@@ -401,11 +381,11 @@ package
 
 <div id="widget_category" class="widget panel panel-primary">
     <div class="panel-heading">category</div>    
-<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
+<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/android/">android</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/swift/">swift</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/virtualbox/">virtualbox</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014-04-24-1/">aser学iphone开发基础教程</a></li><li class="list-group-item icon"><a href="/2014-01-03-1/">flash优化</a></li><li class="list-group-item icon"><a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></li><li class="list-group-item icon"><a href="/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2013-09-30-1/">cocos2dx-html5基础教程</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></li><li class="list-group-item icon"><a href="/2014-09-02-1/">android studio导入第三方依赖库(ResideMenu)</a></li><li class="list-group-item icon"><a href="/2014-5-5-01/">gitcafe托管主页</a></li><li class="list-group-item icon"><a href="/2012-09-06-1/">github速成手册</a></li><li class="list-group-item icon"><a href="/2014-06-20-1/">mac下virtualbox桥接模式上不了网问题</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">

@@ -29,8 +29,6 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <link rel="stylesheet" href="http://cdn.bootcss.com/prettify/r298/prettify.min.css" type="text/css">
   
   
-  
-  
   <link rel="stylesheet" href="http://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" type="text/css">
   
   
@@ -98,7 +96,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2012-09-18-1/">RPG制作之 -- 大地图渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-04-24T09:30:49.000Z"> <a href="/2012-09-18-1/">Apr 24 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2012-09-18-1/">Jul 30 2014</a></time></span>      
     </header>
     
     <div class="entry">
@@ -106,14 +104,10 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
         <p>大地图的渲染是在小的缩略图渲染之后进行的，于缩略图渲染方式不同的是，大地图渲染需要分块加载，分块渲染。</p>
 <pre>
 <object type="application/x-shockwave-flash" width="600" height="400">
- <param name="movie" value="http://amswf.com/static/images/posts/bigMap.swf"/>
- <param name="bgcolor" value="#ffffff"/>
- <embed src="http://amswf.com/static/images/posts/bigMap.swf"
-        type="application/x-shockwave-flash"
-        bgcolor="#ffffff"
-        width="600"
-        height="400">
- </embed>
+ <param name="movie" value="http://amswf.com/static/images/posts/bigMap.swf">
+ <param name="bgcolor" value="#ffffff">
+ <embed src="http://amswf.com/static/images/posts/bigMap.swf" type="application/x-shockwave-flash" bgcolor="#ffffff" width="600" height="400">
+ 
 </object>
 </pre>
 <pre>
@@ -184,23 +178,7 @@ package com.zs
                 i ++;
             },1000);
 
-            /*for(i=0;i<4;i++){
-                for(j=0;j<2;j++){
-                    var loader:MapLoader = new MapLoader();
-                    loader.load('assets/tiles/301/'+j+'_'+i+'.jpg');
-                    loader.addEventListener(Event.COMPLETE,onTileLoaded);
-                    loader.data = {i:i,j:j};
-                }
-            }*/
-        }
-
-        public function getSwfCatalog():String
-        {
-            //通用代码段，获取播放器自身所在的路径 + 补全URL路径字符串以支持相对路径
-            var playerrealurl:String = "";
-            var playervarsstr:String = "";
-            var playerrootpath:String = "";
-            loaderInfo.url.indexOf("?", 0)>=0 ? playerrealurl=loaderInfo.url.slice(0, loaderInfo.url.indexOf("?", 0)) : playerrealurl=loaderInfo.url;
+            /*for(i=0;i<4;i++){ 301="" for(j="0;j<2;j++){" var="" loader:maploader="new" maploader();="" loader.load('assets="" tiles="" '+j+'_'+i+'.jpg');="" loader.addeventlistener(event.complete,ontileloaded);="" loader.data="{i:i,j:j};" }="" }*="" public="" function="" getswfcatalog():string="" {="" 通用代码段，获取播放器自身所在的路径="" +="" 补全url路径字符串以支持相对路径="" playerrealurl:string="" ;="" playervarsstr:string="" playerrootpath:string="" loaderinfo.url.indexof("?",="" 0)="">=0 ? playerrealurl=loaderInfo.url.slice(0, loaderInfo.url.indexOf("?", 0)) : playerrealurl=loaderInfo.url;
             loaderInfo.url.indexOf("?", 0)>=0 ? playervarsstr=loaderInfo.url.slice(loaderInfo.url.indexOf("?", 0)+1) : playervarsstr="";
             playerrealurl.lastIndexOf("/", playerrealurl.length)>=0 ? playerrootpath=playerrealurl.slice(0, playerrealurl.lastIndexOf("/", playerrealurl.length)) : playerrootpath="";
 
@@ -236,7 +214,7 @@ package com.zs
         }
     }
 }
-</pre>
+</4;i++){></pre>
 地图加载器：
 <pre>
 package com.zs.utils
@@ -370,7 +348,7 @@ package
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2012-09-17-1/">RPG制作之 -- 小地图渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-04-24T09:30:45.000Z"> <a href="/2012-09-17-1/">Apr 24 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2012-09-17-1/">Jul 30 2014</a></time></span>      
     </header>
     
     <div class="entry">
@@ -389,12 +367,12 @@ package
 <ul>
 <li><p>tile：由于整张地图比较大，要是每次都全部渲染，会浪费内存，所以采取分块渲染。分块渲染时将一整张地图按相同大小分成等份。</p>
 </li>
-<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。<br><pre><br>  <object type="application/x-shockwave-flash" width="500" height="400"><br>   <param name="movie" value="http://amswf.com/static/images/posts/scaleMap.swf"/><br>   <param name="bgcolor" value="#ffffff"/><br>   &lt;embed src=”<a href="http://amswf.com/static/images/posts/scaleMap.swf">http://amswf.com/static/images/posts/scaleMap.swf</a>“</p>
-<pre><code>      <span class="keyword">type</span>=<span class="string">"application/x-shockwave-flash"</span>
-      bgcolor=<span class="string">"#ffffff"</span>
-      width=<span class="string">"500"</span>
-      height=<span class="string">"400"</span>&gt;
-</code></pre><p>   </embed><br>  </object><br></pre><br>本文先讲解小地图渲染：</p>
+<li><p>缩略图：对于整张地图的等比缩放，常用来在地图渲染中用来初始化具体需要渲染的tile。等具体tile下载完毕后，可供渲染时，才具体将tile渲染到对应地方。这就是我们常在游戏中看到的，地图刚开始是马赛克效果，然后会逐渐清晰。<br><pre><br>  <object type="application/x-shockwave-flash" width="500" height="400"><br>   <param name="movie" value="http://amswf.com/static/images/posts/scaleMap.swf"><br>   <param name="bgcolor" value="#ffffff"><br>   &lt;embed src=”<a href="http://amswf.com/static/images/posts/scaleMap.swf" target="_blank" rel="external">http://amswf.com/static/images/posts/scaleMap.swf</a>“</object></pre></p>
+<pre><code>      <span class="variable">type=</span><span class="string">"application/x-shockwave-flash"</span>
+      <span class="variable">bgcolor=</span><span class="string">"#ffffff"</span>
+      <span class="variable">width=</span><span class="string">"500"</span>
+      <span class="variable">height=</span><span class="string">"400"</span>&gt;
+</code></pre><p>   <br>  <br><br>本文先讲解小地图渲染：</p>
 </li>
 </ul>
 <pre>
@@ -533,7 +511,7 @@ package
       <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2012-09-16-1/">RPG制作之 -- 人物动作渲染</a></h1>
       
-        <span>Posted on<time datetime="2014-04-24T09:30:42.000Z"> <a href="/2012-09-16-1/">Apr 24 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2012-09-16-1/">Jul 30 2014</a></time></span>      
     </header>
     
     <div class="entry">
@@ -541,14 +519,10 @@ package
         <p>动作渲染有两种方式，一种是flash的movieclip方式，一种是块传输技术（spritesheet），这两种方式各有利弊。使用movieclip方式优点是：制作方便，缺点是：由于所有动作都基于movieclip类渲染，这样会浪费内存和cpu资源。而spritesheet的优缺点和movieclip正好相反。为了让用户的游戏体验更好，flash在制作大型游戏，一般都选用spritesheet方式。</p>
 <pre>
 <object type="application/x-shockwave-flash" width="105" height="120">
- <param name="movie" value="http://amswf.com/static/images/posts/sheet.swf"/>
- <param name="bgcolor" value="#ffffff"/>
- <embed src="http://amswf.com/static/images/posts/sheet.swf"
-        type="application/x-shockwave-flash"
-        bgcolor="#ffffff"
-        width="105"
-        height="120">
- </embed>
+ <param name="movie" value="http://amswf.com/static/images/posts/sheet.swf">
+ <param name="bgcolor" value="#ffffff">
+ <embed src="http://amswf.com/static/images/posts/sheet.swf" type="application/x-shockwave-flash" bgcolor="#ffffff" width="105" height="120">
+ 
 </object>
 </pre>
 [源码](https://gist.github.com/41500281261d4bcb6d12)
@@ -711,11 +685,11 @@ package
 
 <div id="widget_category" class="widget panel panel-primary">
     <div class="panel-heading">category</div>    
-<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
+<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/android/">android</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/swift/">swift</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/virtualbox/">virtualbox</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014-04-24-1/">aser学iphone开发基础教程</a></li><li class="list-group-item icon"><a href="/2014-01-03-1/">flash优化</a></li><li class="list-group-item icon"><a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></li><li class="list-group-item icon"><a href="/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2013-09-30-1/">cocos2dx-html5基础教程</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></li><li class="list-group-item icon"><a href="/2014-09-02-1/">android studio导入第三方依赖库(ResideMenu)</a></li><li class="list-group-item icon"><a href="/2014-5-5-01/">gitcafe托管主页</a></li><li class="list-group-item icon"><a href="/2012-09-06-1/">github速成手册</a></li><li class="list-group-item icon"><a href="/2014-06-20-1/">mac下virtualbox桥接模式上不了网问题</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -773,15 +747,6 @@ var uyan_config={
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>
-    
-        
-    <!--wumii_relatedItems-->
-    
-        
-    
-<script type="text/javascript">var ujian_config = {num:6,showType:0,picSize:84,textHeight:45};</script>
-<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1678356"></script>
-<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
     
         <script src="http://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <script src="/js/gallery.js"></script>

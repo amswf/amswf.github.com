@@ -29,8 +29,6 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <link rel="stylesheet" href="http://cdn.bootcss.com/prettify/r298/prettify.min.css" type="text/css">
   
   
-  
-  
   <link rel="stylesheet" href="http://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" type="text/css">
   
   
@@ -96,14 +94,62 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014-04-24-1/">aser学iphone开发基础教程</a></h1>
+      <h1 class="title"><a href="/2014-05-16-1/">ios学习路线图</a></h1>
       
-        <span>Posted on<time datetime="2014-04-24T09:31:30.000Z"> <a href="/2014-04-24-1/">Apr 24 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2014-05-16-1/">Jul 30 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <h2 id="调试函数">调试函数</h2>
+        <p><img src="http://amswf.com/static/images/posts/20140516/1.png" alt=""></p>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/object-c/">object-c</a></li></span> | <span class="time">updated:<time datetime="May 16 2014"> May 16 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2014-05-16-1/#comments" id="uyan_count_unit" su="2014-05-16-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+  
+    <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2014-04-24-1/">aser一天学会object-c基础语法</a></h1>
+      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2014-04-24-1/">Jul 30 2014</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>其实学什么语言最重要的就是动手，这句话不知道被多少人说过。所以要想尽快学会object-c，就赶紧动手搞起来。首先要做的是去下载一个XCode。XCode下载好后，先新建个项目。这时候别想我连基本语法还没学呢，动手能做什么呢。没事跟着咱一步步来。什么新建项目不知道怎么弄，好吧。<br><img src="http://amswf.com/static/images/posts/20140424/1.png" alt=""><br><img src="http://amswf.com/static/images/posts/20140424/2.png" alt=""><br><img src="http://amswf.com/static/images/posts/20140424/3.png" alt=""><br>这里的product name就是项目名称。<br>Company Identifier：一般就填写as中的包管理路径。命名方式公司域名的倒写。其他选项先不用管，直接下一步<br><img src="http://amswf.com/static/images/posts/20140424/4.png" alt=""><br>新建好项目后，会发现有AppDelegate.h和AppDelegate.m这两个文件。这就是传说中的入口文件，相当于as项目中的Main.as。<br>下面说到一下object-c中的类。object-c的类与as类不同的是，每次新建类后都会产生两个文件，一个.h结尾，一个.m结尾。.h是传说中的头文件，头文件一般相当于一个类的声明，这里面会有一些变量和方法的声明。而实现部分则在.m文件中。了解这些后，我们来看看object-c中的调试函数。as中有trace神器对不，object-c里面神器是NSLog。万能的NSLog能输出你想要的一切。不信你试试。</p>
+<h2 id="调试函数">调试函数</h2>
 <p>NSLog(@”hello world!”);<br>NSLog(@”%@”,name);    //打印字符串<br>NSLog(@”%c”,a);       //打印单个字符<br>NSLog(@”%i”,isTrue);//打印布尔值<br>NSLog(@”%i”,i);        //打印整形变量<br>NSLog(@”%f”,f);        //打印单精度浮点数<br>NSLog(@”%.2f”,f);    //打印单精度浮点数,且只保留两位小数<br>NSLog(@”%e”,f);        //打印科学技术法<br>NSLog(@”i＝%i,f=%f”,i,f);//同时打印两个整数</p>
 <h2 id="变量">变量</h2>
 <h4 id="变量分类">变量分类</h4>
@@ -117,7 +163,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
 <h4 id="变量定义">变量定义</h4>
 <p>int a ＝ 2;<br>NSString *str = @”我是字符串”;<br>定义规则：变量类型在前，变量名在后。</p>
 <h2 id="类">类</h2>
-<p>在XCode中选择File-&gt;New-&gt;File…-&gt;Cocoa Touch-&gt;Object-c Class-&gt;填上类名和继承关系后，XCode就会生成想要的新类。新类会产生两个新文件，一个是.h结尾，一个是.m结尾。<br>.h文件用来描述类，类的属性和方法<br>.m文件用来实现.h中定义的属性和方法。</p>
+<p>在XCode中选择File-&gt;New-&gt;File…-&gt;Cocoa Touch-&gt;Object-c Class-&gt;填上类名和继承关系后，XCode就会生成想要的新类。新类会产生两个新文件，一个是.h结尾，一个是.m结尾。<br>.h文件用来描述类，一般类的属性和方法在此定义。<br>.m文件是用来实现.h中定义的属性和方法。</p>
 <p>////////////////////Calculator.h////////////////////</p>
 <pre>   
  #import &lt;Foundation/Foundation.h&gt;
@@ -127,7 +173,7 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
     int denominator;//分母
 }
 -(void)print;
--(v<br/>oid)setNumerator:(int)n ;
+-(v<br>oid)setNumerator:(int)n ;
 -(void)setDenominator:(int)d;
 @end 
 </pre>
@@ -148,17 +194,13 @@ numerator = n;
 @end     
 </pre>
 
-<p>在类的定义中-表示类的实例方法，+表示类方法</p>
+<p>在类的定义中方法名前面使用-表示类的实例方法，+表示类方法，相当于as中的静态方法。如在.h中定义了方法，说明这个方法是公开的。要是没在.h中定义，只在.m中实现，该方法就是内部方法。</p>
 <h2 id="循环和条件语句">循环和条件语句</h2>
 <h4 id="循环">循环</h4>
 <pre> 
 int num;
 num = 0;
-for (int n =0; n <5; n++) {
-    num += n;
-    NSLog(@"%i",num);
-} 
- </pre>
+for (int n =0; n <5; n++)="" {="" num="" +="n;" nslog(@"%i",num);="" }="" <="" pre="">
 #### 条件语句
 <pre> 
 if(){
@@ -183,7 +225,7 @@ switch(){
 } 
 </pre>
 
-<h2 id="存取方法">存取方法</h2>
+<h2 id="存取方法getter和setter">存取方法getter和setter</h2>
 <p>在.h文件中用@property定义变量<br>在.m文件中使用@synthesize指令</p>
 <p>//////////////////////Calculator.h/////////////////////</p>
 <pre> 
@@ -218,7 +260,7 @@ switch(){
 @end 
 </pre> 
 
-<h2 id="多参数方法">多参数方法</h2>
+<h2 id="方法声明和多参数方法的定义">方法声明和多参数方法的定义</h2>
 <h4 id="带参数名的方法">带参数名的方法</h4>
 <p>.h中<br>-(void)setDenominator:(int)d setNumerator:(int)n;<br>.m中</p>
 <pre> 
@@ -238,10 +280,6 @@ switch(){
 </pre> 
 
 <p>调用：<br>[calc set:1:3];</p>
-<h4 id="局部变量">局部变量</h4>
-<p>在函数内部声明的变量为局部变量。<br>在函数中声明的变量前加上static后，局部变量可以保存多次方法调用所得的值。<br>@class XYPoint方法可以让编译器不使用import ‘XYPoint.h’的情况下把XYPoint当成类来使用</p>
-<h2 id="objc中的hasOwnPreotry方法">objc中的hasOwnPreotry方法</h2>
-<p>@selector</p>
 <h2 id="处理异常">处理异常</h2>
 <pre>
  @try{
@@ -253,7 +291,7 @@ switch(){
 </pre>
 
 <h2 id="分类">分类</h2>
-<p>分类可以为已有的类添加新的方法，并且可以分散实现<br>为NSString添加新方法</p>
+<p>分类有点像继承，但是不同的是，分类是能给已有的类添加新的方法。这一特性aser是没有的。类外分类还能起到分散实现的左右。<br>下面我们为NSString添加新方法</p>
 <pre>
  #import &lt;Foundation/Foundation.h&gt;
 @interface NSString (NewString)
@@ -272,35 +310,35 @@ switch(){
 </pre>
 
 <h2 id="协议">协议</h2>
-<p>协议相当于as中的接口：多个类共享的方法列表</p>
+<p>协议相当于as中的接口：下面这种写法是不是很熟悉</p>
 <pre>
  #import &lt;Foundation/Foundation.h&gt;
-@protocol ICar <NSObject>
+@protocol ICar <nsobject>
 -(void)run;
 @end 
-</pre>
+</nsobject></pre>
 
 <p>实现协议</p>
 <pre>
  #import &lt;Foundation/Foundation.h&gt;
  #import "ICar.h"
 
-@interface Car : NSObject <ICar>
+@interface Car : NSObject <icar>
 -(void)run;
 @end 
-</pre>
+</icar></pre>
 
 <p>Object-c2.0增加两个协议修饰符@optional和@required</p>
 <pre>
- #import \<Foundation/Foundation.h\>
-@protocol ICar <NSObject>
+ #import &lt;Foundation/Foundation.h&gt;
+@protocol ICar <nsobject>
 -(void)run;
 @optional
 -(void)start;
 @required
 -(void)swing;
 @end 
-</pre>
+</nsobject></pre>
 
 <p>这个协议里面有两个必须实现的方法run和swing，有一个选择实现的方法start</p>
 <h2 id="静态属性和方法">静态属性和方法</h2>
@@ -324,7 +362,7 @@ static int count;
 
 <h4 id="静态方法">静态方法</h4>
 <p>静态方法 就是将 “-“ 改为 “+” 即可。<br>　　+(void) hello; 在interface中定义如上方法签名，而在implementation中实现这个方法。 </p>
-
+</5;></pre>
       
     </div>
     
@@ -333,7 +371,7 @@ static int count;
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/object-c/">object-c</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/object-c/">object-c</a></li></span> | <span class="time">updated:<time datetime="May 9 2014"> May 9 2014</time></span> | <span class="comment-link">
 <a href="http://amswf.com/2014-04-24-1/#comments" id="uyan_count_unit" su="2014-04-24-1">暂无评论</a>
 </span>
         </footer>
@@ -364,11 +402,11 @@ static int count;
 
 <div id="widget_category" class="widget panel panel-primary">
     <div class="panel-heading">category</div>    
-<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
+<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/android/">android</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/swift/">swift</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/virtualbox/">virtualbox</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014-04-24-1/">aser学iphone开发基础教程</a></li><li class="list-group-item icon"><a href="/2014-01-03-1/">flash优化</a></li><li class="list-group-item icon"><a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></li><li class="list-group-item icon"><a href="/2013-10-31-1/">js类相关概念梳理</a></li><li class="list-group-item icon"><a href="/2013-09-30-1/">cocos2dx-html5基础教程</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></li><li class="list-group-item icon"><a href="/2014-09-02-1/">android studio导入第三方依赖库(ResideMenu)</a></li><li class="list-group-item icon"><a href="/2014-5-5-01/">gitcafe托管主页</a></li><li class="list-group-item icon"><a href="/2012-09-06-1/">github速成手册</a></li><li class="list-group-item icon"><a href="/2014-06-20-1/">mac下virtualbox桥接模式上不了网问题</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -426,15 +464,6 @@ var uyan_config={
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>
-    
-        
-    <!--wumii_relatedItems-->
-    
-        
-    
-<script type="text/javascript">var ujian_config = {num:6,showType:0,picSize:84,textHeight:45};</script>
-<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1678356"></script>
-<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
     
         <script src="http://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <script src="/js/gallery.js"></script>
