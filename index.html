@@ -90,6 +90,53 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
+      <h1 class="title"><a href="/2015-02-03-1/">服务迁移</a></h1>
+      
+        <span>Posted on<time datetime="2015-02-03T04:45:05.000Z"> <a href="/2015-02-03-1/">Feb 3 2015</a></time></span>      
+    </header>
+    
+    <div class="entry">
+      
+        <p>之前为了大家访问速度能快点将域名绑定到gitcafe上面，最近由于域名备案的问题，gitcafe做了调整，导致amswf无法访问。本人惧怕麻烦，暂时没有备案计划，遂将域名绑定到github，访问速度是慢了点，但是可以保证网站不会挂掉。</p>
+
+      
+    </div>
+    
+    
+      
+    
+    
+        <footer id="post-meta">
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/杂七杂八/">杂七杂八</a></li></span> | <span class="time">updated:<time datetime="Feb 3 2015"> Feb 3 2015</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2015-02-03-1/#comments" id="uyan_count_unit" su="2015-02-03-1">暂无评论</a>
+</span>
+        </footer>
+        <div class="clearfix"></div>
+    
+  </div>
+</div>
+</article>
+
+
+
+  <article>
+<div id="master" class="master well">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="well-sm">
+      <i class="fa icon fa-5x pull-left"></i>
       <h1 class="title"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></h1>
       
         <span>Posted on<time datetime="2014-09-11T05:24:20.000Z"> <a href="/2014-09-11-1/">Sep 11 2014</a></time></span>      
@@ -775,122 +822,6 @@ static int count;
 
 
 
-  <article>
-<div id="master" class="master well">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header class="well-sm">
-      <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2014-01-03-1/">flash优化</a></h1>
-      
-        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2014-01-03-1/">Jul 30 2014</a></time></span>      
-    </header>
-    
-    <div class="entry">
-      
-        <p>1) 内存节省</p>
-<p>@选择适当的显示对象。对于非交互式简 单形状，请使用 Shape 对象。对于不需要时间轴的交互式对象，请使用 Sprite 对象。对于使用时间轴的动画，请使用 MovieClip 对象。</p>
-<p>@能使用int，boolean的不使用number。</p>
-<p>@对象尽可能重用，重复使用对象而不是重新创建对象。使用对象池。这是一种对象重用技术。</p>
-<pre>
-var myImage:BitmapData;
-var myContainer:Bitmap;
-const MAX_NUM:int = 300;
-for (var i:int = 0; i< MAX_NUM; i++)
-{
-    // Create a 20 x 20 pixel bitmap, non-transparent
-    myImage = new BitmapData(20,20,false,0xF0D062);
-    // Create a container for each BitmapData instance
-    myContainer = new Bitmap(myImage);
-    // Add it to the display list
-    addChild(myContainer);
-    // Place each container
-    myContainer.x = (myContainer.width + 8) * Math.round(i % 20);
-    myContainer.y = (myContainer.height + 8) * int(i / 20);
-}
-</pre>
-
-<p>@当创建同一图像的多个实例时，使用一个BitmapData源，将大大节省内存。</p>
-<p>@尝试尽量减少使用滤镜效果,Flash Player 将在 内存中创建两个位图。其中每个位图的大小与显示对象相同。将第一个位图创建为显示对象的栅格化版本，然后用于生成应用 滤镜的另一个位图。尽可能使用通过创作工具（例如 Adobe® Photoshop®）创建的位图来模拟滤镜。</p>
-<p>@减少3d的应用,或者使用gpu来完成3d。</p>
-<p>2)内存释放：</p>
-<p>引用计数法，标记清除法。</p>
-<pre>
-public function gc():void
-{
-    for(var h = 0;h < this.nHeight;h++)
-    {
-        for(var l = 0;l < this.nWidth;l++)
-        {
-            this.removeChild(this.map[h][l]);
-            this.map[h][l].gc();//调用MapBlock中的垃圾回收器，这里还有事件移除
-            this.map[h][l] = null;
-        }
-    }
-    mapName = null;
-}
-</pre>
-
-<p>总结就是在移除对象的时候，将引用置null，并移除相关显示对象和事件监听。</p>
-<p>3)减少cpu占用：</p>
-<p>@如果移除对象，并不能减少对象cpu暂用。最好是移除之前对对象内的动画和其他效果进行冻结。</p>
-<p>@不用的loader加载的对象进行卸载。</p>
-<p>@不需要互动的sprite和movieclip最好禁用鼠标事件。mouseEnabled和mouseChildren。</p>
-<p>@timer和EnterFrame进行停止。</p>
-<p>@尽量少的使用补间动画。</p>
-<p>@bitmap绘制时候，尽量使用setVector()方法。如果使用使用setPixel和setPixel32方法，最好在绘制之前调用lock，绘制之后调用unlock方法。<br>BitmapData 类的 lock() 方法可以锁定图像，并防止引用该图像的对象在 BitmapData 对象更改时进行更新。例如，如果 Bitmap 对象引用 BitmapData 对象，则可以锁定 BitmapData 对象，对其更改后再解锁。在 BitmapData 对象解锁之前， Bitmap 对象不会更改。要提高性能，请在对 setPixel() 或 setPixel32() 方法进行多次调用之前和之后使用此方法及 unlock() 方 法。调用 lock() 和 unlock() 可防止屏幕进行不必要的更新。</p>
-<p>@当使用 TextField 类的 text 属性时，请使用 appendText() 方法，而不是 += 运算符。</p>
-<p>@使用中括号运算符可能会降低性能。将您的引用存储在本地变量中可避免使用该运算符</p>
-<pre>
-for ( i = 0; i< lng; i++ )
-{
-    currentSprite = arraySprite[i];
-    currentSprite.x = Math.random()*stage.stageWidth;
-    currentSprite.y = Math.random()*stage.stageHeight;
-    currentSprite.alpha = Math.random();
-    currentSprite.rotation = Math.random()*360;
-}
-
-for ( i = 0; i< lng; i++ )
-{
-    arraySprite[i].x = Math.random()*stage.stageWidth;
-    arraySprite[i].y = Math.random()*stage.stageHeight;
-    arraySprite[i].alpha = Math.random();
-    arraySprite[i].rotation = Math.random()*360;
-}
-</pre>
-      
-    </div>
-    
-    
-      
-    
-    
-        <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2014-01-03-1/#comments" id="uyan_count_unit" su="2014-01-03-1">暂无评论</a>
-</span>
-        </footer>
-        <div class="clearfix"></div>
-    
-  </div>
-</div>
-</article>
-
-
-
 
 
 <ul id="pagination" class="pagination pagination-lg">
@@ -914,11 +845,11 @@ for ( i = 0; i< lng; i++ )
 
 <div id="widget_category" class="widget panel panel-primary">
     <div class="panel-heading">category</div>    
-<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/android/">android</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/swift/">swift</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/virtualbox/">virtualbox</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
+<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/android/">android</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/swift/">swift</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/virtualbox/">virtualbox</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">7</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></li><li class="list-group-item icon"><a href="/2014-09-02-1/">android studio导入第三方依赖库(ResideMenu)</a></li><li class="list-group-item icon"><a href="/2014-5-5-01/">gitcafe托管主页</a></li><li class="list-group-item icon"><a href="/2012-09-06-1/">github速成手册</a></li><li class="list-group-item icon"><a href="/2014-06-20-1/">mac下virtualbox桥接模式上不了网问题</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2015-02-03-1/">服务迁移</a></li><li class="list-group-item icon"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></li><li class="list-group-item icon"><a href="/2014-09-02-1/">android studio导入第三方依赖库(ResideMenu)</a></li><li class="list-group-item icon"><a href="/2014-5-5-01/">gitcafe托管主页</a></li><li class="list-group-item icon"><a href="/2012-09-06-1/">github速成手册</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -939,7 +870,7 @@ for ( i = 0; i< lng; i++ )
   <div id="site-info">
     <span class='author'>
   
-  &copy; 2014 amswf
+  &copy; 2015 amswf
   
     </span>
   <span id='analytics-cnzz'>
@@ -972,7 +903,7 @@ $(window).load(function(){
     <script type="text/javascript">
 var uyan_config={
      'url':'http://amswf.com/',
-'su':'2014-01-03-1'
+'su':'2014-04-24-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>

@@ -95,116 +95,42 @@ img{max-width:100%;height:auto;}.alignleft{float:left;}.alignright{float:right;}
   <div class="post-content">
     <header class="well-sm">
       <i class="fa icon fa-5x pull-left"></i>
-      <h1 class="title"><a href="/2013-10-31-1/">js类相关概念梳理</a></h1>
+      <h1 class="title"><a href="/2013-11-17-1/">flash安全域和程序域的最明了总结</a></h1>
       
-        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2013-10-31-1/">Jul 30 2014</a></time></span>      
+        <span>Posted on<time datetime="2014-07-30T15:57:22.000Z"> <a href="/2013-11-17-1/">Jul 30 2014</a></time></span>      
     </header>
     
     <div class="entry">
       
-        <p>js确切的说是一种基于对象的语言，和纯面向对象的语言（比如as）稍微有点区别，js中没有类的概念。虽然有继承但是基于原型的继承。随着前段越来越受重视，jser们利用js的一些特性他们制造出了和纯面向对象一样好玩的东西。下面就js中一些概念进行概述，很多东西都是来自博客园的一些大牛，我写这篇文章主要想拿as和js做对比来讲，以方便as像转js的程序员们。本片文章涉及的概念有，模块，类，继承，私有属性和公开属性。</p>
-<p>1.模块<br>大家写as的时候都知道，as里面是有类的概念，每次生成一个类，系统中都会多一个以.as结尾的文件，这个文件我们称为类文件，我们会将所有关于该类实现的属性方法放到这个文件中来写。那么js呢。在我看了很多大牛的博客后，了解到js也是可以分模块的。有两种写法。</p>
-<pre>
-//module1.js
-1).(function(namespace) {
-    function log() {
-        console.log('test');
-    }
-    namespace.run = function() {
-        log();
-    };
-})(window.module1 = window.module1 || {});
-</pre>
-<pre>
-//module2.js
-2).var module2 = {
-    run: function() {
-         console.log('hi module');
-    }
-}
-</pre>
-从这两种写法中我们可以看到，js中单独的模块并不一定是一个单独的类，而是将一组相关的逻辑写到一个模块中，目的在于程序架构清晰和便于协同开发。
-
-2.类的概念
-js中没有类，但是每个函数都可以使用new来生成新的对象。也就是说在js中每个函数都可以代表as中类的概念。那么类中私有方法，公开方法，私有属性和公开属性又是怎样实现的。可以看代码
-<pre>
-function ClassA(){
-    var a ＝ 1；//这里的a是在函数中使用var关键字声明的，表示的是ClassA中的私有属性，外部不可访问
-    this.b = 2;//这里this调用的，表示的是ClassA中公开的属性。
-    c = 3;//这里声明的c不在ClassA中，而是在全局作用域，相当于window.c = 3;
-    function d(){//这种形式声明的函数属于私有函数，只能在ClassA中调用，window也无法调用。
-        console.log('function d');
-    }
-
-    this.e = function(){//这种形式声明的函数，属于公开函数
-        console.log('function e');
-    }
-}
-var cla = new ClassA();
-console.log(cla.a);//undefined
-console.log(cla.b);//2
-console.log(cla.c);//undefined
-console.log(window.c);//3
-
-console.log(cla.d);//undefined
-console.log(cla.e);//输出函数e的实现
-console.log(window.d);//undefined
-</pre>
-3.继承
-aser都知道as继承一个类很简单只要使用extends就可以了。但是js里面继承是使用的原型继承，什么是原型继承呢。js里面对象有个prototype属性，我们利用这个属性来实现继承。代码演示如下：
-
-<pre>
-function ClassB(){
-    this.a = 10;
-    this.run = function(){
-        console.log('函数run被调用');
-    }
-}
-
-function ClassC(){};
-
-ClassC.prototype = new ClassB();//这样ClassC就继承了ClassB的属性和方法不信可以实验下
-
-var t = new ClassC();
-console.log(t.a);//看到没，这里输出的是10
-t.run();//这里输出的是“函数run被调用”
-
-ClassC.prototype.proA = 34;
-
-console.log(t.proA);//34
-</pre>
-4.命名空间
-js里面的命名空间是如何实现的呢
-<pre>
-var com = {};
-com.amswf = {};
-com.amswf.utils = {};
-com.amswf.utils.PageUtil = function(){
-    this.getPageURL = function(){
-        return window.location.href;
-    }
-}
-</pre>
-上面概念如果理解的话，我们可以这样写一个类模块
-<pre>
-//PageUtil.js
-(function(window){
-    window.com = {};
-    com.amswf = {};
-    com.amswf.utils = {};
-    com.amswf.utils.PageUtil = function(){};
-    com.amswf.utils.PageUtil.prototype.name = 'amswf';
-    com.amswf.utils.PageUtil.prototype.getPageURL = function(){
-        return window.location.href;
-    };
-    //其他属性方法可以继续。。。
-})(window)
-</pre>
-外部使用如下：
-<pre>
-var util = new com.amswf.utils.PageUtil();
-console.log(util.getPageURL());//这里会输出当前网页地址
-</pre>
+        <p>安全域：是用来解决程序安全问题的，比如：资源访问安全，接口调用安全，通信安全等。<br>相同域：协议相同（http和https不同），host相同（www.a.com和new.a.com不同）,端口相同（<a href="http://www.a.com:80和http://www.a.com:8816不同）" target="_blank" rel="external">http://www.a.com:80和http://www.a.com:8816不同）</a><br>常用到沙箱的几个地方：</p>
+<p>(一)资源访问安全：</p>
+<p>A服务器上有一些静态图片和swf资源，这些资源都是A站长辛苦所得，如果没有任何限制，别人将可以随意访问并获得资源。这样无缘增加了A站的带宽流量，并让别人随意盗图。那么A站长怎么来限制别的网站的flash访问本站资源呢。答案很简单，只要在图片的域名下放置一个限制访问的跨域访问文件，填上允许的域即可。</p>
+<p>(二)接口调用安全：</p>
+<ul>
+<li><p>js和flash接口调用：通过flash里面Security.allowDomain();来设置允许js访问的域。</p>
+</li>
+<li><p>flash加载子flash调用接口：子flash允许父flash访问：通过在子flash里面设置Security.allowDomain()来限制访问;</p>
+</li>
+<li><p>两个flash通过localconnection通信：Security.allowDomain()来限制可访问的域;</p>
+</li>
+</ul>
+<p>(三)通信安全：</p>
+<ul>
+<li><p>flash和php后台的通信：A服务器有一些php服务接口，这些接口都不是对外公开访问的，那如何限制别的域名下flash访问A服务器的这些接口，答案是，通过服务器配置跨域访问文件解决。</p>
+</li>
+<li><p>flash和socket后台的通信：A服务器有一些socket服务，这些接口不想对外公开访问，那如何限制别的域下flash访问本站socket资源，答案是，通过843端口架设跨域服务解决。</p>
+</li>
+</ul>
+<p>应用程序域：</p>
+<p>主要为了解决相同安全域下类的命名冲突问题。应用程序域只存在于相同的安全域下，划分管理类定义。对于加载的swf，在加载时候可以通过loader的load方法的第二个参数LoaderContext 设置子swf的程序域。</p>
+<ul>
+<li><p>加载器的 ApplicationDomain 的子级。默认值。（模块）可以使用语法 new ApplicationDomain(ApplicationDomain.currentDomain) 明确表示这种选择。这将允许所加载的 SWF 文件直接使用父级的类，如果父级要使用子级的类，它必须调用 ApplicationDomain.getDefinition() 来检索它们。</p>
+</li>
+<li><p>加载器自己的 ApplicationDomain。（共享库）使用 ApplicationDomain.currentDomain 时请使用此应用程序域。加载完成后父级和子级可以直接使用对方的类。 如果子级试图定义的类与父级已经定义的类同名，将出现错误并放弃加载。</p>
+</li>
+<li><p>系统 ApplicationDomain 的子级。（独立运行的程序或模块）使用 new ApplicationDomain(null) 时请使用此应用程序域。这将完全分离加载方和被加载方，从而允许它们使用相同的名称定义各自版本的类并且不会产生冲突或隐藏。一方查看另一方的类的唯一方式是调用 ApplicationDomain.getDefinition() 方法。</p>
+</li>
+</ul>
 
       
     </div>
@@ -214,8 +140,8 @@ console.log(util.getPageURL());//这里会输出当前网页地址
     
     
         <footer id="post-meta">
-        <span class="categories breadcrumb">Posted in <li><a href="/categories/javascript/">javascript</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
-<a href="http://amswf.com/2013-10-31-1/#comments" id="uyan_count_unit" su="2013-10-31-1">暂无评论</a>
+        <span class="categories breadcrumb">Posted in <li><a href="/categories/Actionscript/">Actionscript</a></li></span> | <span class="time">updated:<time datetime="Apr 24 2014"> Apr 24 2014</time></span> | <span class="comment-link">
+<a href="http://amswf.com/2013-11-17-1/#comments" id="uyan_count_unit" su="2013-11-17-1">暂无评论</a>
 </span>
         </footer>
         <div class="clearfix"></div>
@@ -250,11 +176,11 @@ console.log(util.getPageURL());//这里会输出当前网页地址
 
 <div id="widget_category" class="widget panel panel-primary">
     <div class="panel-heading">category</div>    
-<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/android/">android</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/swift/">swift</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/virtualbox/">virtualbox</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">6</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
+<ul class="list-group"><li class="list-group-item"><span class="badge">3</span><a href="/categories/Actionscript/">Actionscript</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/android/">android</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/cocos2dx/">cocos2dx</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/github/">github</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/javascript/">javascript</a></li><li class="list-group-item"><span class="badge">2</span><a href="/categories/object-c/">object-c</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/swift/">swift</a></li><li class="list-group-item"><span class="badge">1</span><a href="/categories/virtualbox/">virtualbox</a></li><li class="list-group-item"><span class="badge">3</span><a href="/categories/web游戏/">web游戏</a></li><li class="list-group-item"><span class="badge">7</span><a href="/categories/杂七杂八/">杂七杂八</a></li></ul></div>
 
 <div id="widget_recent_posts" class="widget panel panel-primary">
     <div class="panel-heading">Recent Posts</div>    
-<ul class="list-group"><li class="list-group-item icon"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></li><li class="list-group-item icon"><a href="/2014-09-02-1/">android studio导入第三方依赖库(ResideMenu)</a></li><li class="list-group-item icon"><a href="/2014-5-5-01/">gitcafe托管主页</a></li><li class="list-group-item icon"><a href="/2012-09-06-1/">github速成手册</a></li><li class="list-group-item icon"><a href="/2014-06-20-1/">mac下virtualbox桥接模式上不了网问题</a></li></ul>
+<ul class="list-group"><li class="list-group-item icon"><a href="/2015-02-03-1/">服务迁移</a></li><li class="list-group-item icon"><a href="/2014-09-11-1/">什么xcode6.1 beta，你看错了吧</a></li><li class="list-group-item icon"><a href="/2014-09-02-1/">android studio导入第三方依赖库(ResideMenu)</a></li><li class="list-group-item icon"><a href="/2014-5-5-01/">gitcafe托管主页</a></li><li class="list-group-item icon"><a href="/2012-09-06-1/">github速成手册</a></li></ul>
 </div>
 
 <div id="widget_recent_comments" class="widget panel panel-primary">
@@ -275,7 +201,7 @@ console.log(util.getPageURL());//这里会输出当前网页地址
   <div id="site-info">
     <span class='author'>
   
-  &copy; 2014 amswf
+  &copy; 2015 amswf
   
     </span>
   <span id='analytics-cnzz'>
@@ -308,7 +234,7 @@ $(window).load(function(){
     <script type="text/javascript">
 var uyan_config={
      'url':'http://amswf.com/archives/2014/07/page/3/',
-'su':'2013-10-31-1'
+'su':'2013-11-17-1'
 };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1678356"></script>
