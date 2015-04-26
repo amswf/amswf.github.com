@@ -49,20 +49,13 @@
 				clearTimeout(timer);
 				document.write("success");
 				if (data.code === 8) {
-					downloader.state = true;
+				
 				}
 			});
-
-			
-
 			return {
 				state: undefined
 			};
 		}();
-		setTimeout(function () {
-		 document.write(downloader.state);
-			alert(downloader.state);
-		}, 1e3);
 		</script>
 	</body>
 </html>
