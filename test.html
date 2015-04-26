@@ -47,6 +47,7 @@
 			var timer;
 			jsonp('http://127.0.0.1:5188/check?cb=__check', '__check', function (data) {
 				clearTimeout(timer);
+				document.write("success");
 				if (data.code === 8) {
 					downloader.state = true;
 				}
