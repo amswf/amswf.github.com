@@ -58,7 +58,6 @@
 		var downloader = function () {
 			var timer;
 			jsonp('http://127.0.0.1:5188/check?cb=__check', '__check', function (data) {
-				alert(data);
 				clearTimeout(timer);
 				if (data.code == "8") {
 					downloader.state = true;
@@ -73,6 +72,9 @@
 				state: undefined
 			};
 		}();
+		setTimeout(function(){
+			alert(downloader.state);
+		},1e3);
 		</script>
 	</body>
 </html>
