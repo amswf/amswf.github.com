@@ -60,7 +60,7 @@
 			jsonp('http://127.0.0.1:5188/check?cb=__check', '__check', function (data) {
 				console.log(data);
 				clearTimeout(timer);
-				if (data.code === 8) {
+				if (data.code === "8") {
 					downloader.state = true;
 				}
 			});
