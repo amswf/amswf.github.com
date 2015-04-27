@@ -18,9 +18,9 @@
         </object>
     </div>
  </body>
- </html>
+ </html>-->
  
- <!doctype html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -29,52 +29,5 @@
 	</head>
 	<body>
 		<a href="http://mobile.baidu.com/app?action=log&advitem=&ala=wise_app@strong@qq&f0=item@highdown&f1=aladdin@wise_app_13@button&f2=&from=0&islogin=1&logtype=click&tip=&tj=soft_7680360_1858121943_QQ">QQ下载</a>
-	</body>
-</html>-->
-
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="user-scalable=no, initial-scale=1.0">
-		<title>Document</title>
-	</head>
-
-	<body>
-		<h1>downloader test</h1>
-		<script type="text/javascript">
-		var global = this;
-		var jsonp = function (url, name, fn) {
-			var script = document.createElement('script');
-			global[name] = function (data) {
-				fn && fn(data);
-				global[name] = null;
-				script.parentNode.removeChild(script);
-			};
-			script.charset = 'utf-8';
-			script.src = url;
-			document.body.appendChild(script);
-		};
-		var downloader = function () {
-			var timer;
-			jsonp('http://127.0.0.1:5188/check?cb=__check', '__check', function (data) {
-				clearTimeout(timer);
-				if (data.code == "8") {
-					downloader.state = true;
-				}
-			});
-
-			timer = setTimeout(function () {
-				downloader.state = false;
-			}, 1e3);
-
-			return {
-				state: undefined
-			};
-		}();
-		setTimeout(function(){
-			alert(downloader.state);
-		},1e3);
-		</script>
 	</body>
 </html>
