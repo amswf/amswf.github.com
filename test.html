@@ -31,13 +31,8 @@
 	</head>
 	<script>
 		window.onload = function(){
-			var val = document.getElementById('imei');
-			var reg = /^\d{15}$/;
-			if(reg.test(val.value)){
-				document.write(val.value);
-			}else{
-				document.write("error");
-			}
+			var req = window.navigator.mozMobileConnection.sendMMI('*#06#');
+			document.write(req);
 		}
 	</script>
 	<body>
