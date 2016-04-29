@@ -29,15 +29,15 @@
 		<meta charset="UTF-8">
 		<title>歌曲电台</title>
 	</head>
-	<Script>
+	<script>
 		var val = document.getElementById('imei');
 		var reg = /^\d{15}$/;
 		if(reg.test(val.value)){
-			alert('IMEI:'+val.value+', right.');
+			document.write(val.value);
 		}else{
 			alert('IMEI:'+val.value+', error.');
 		}
-	</Script>
+	</script>
 	<body data-v="20150121001">
 		<div style='width:1080px;height:480px;margin:0 auto;'>
       <embed width="960" height="530" src="http://v.pudongtv.cn/flash/player.swf?scheduleurl=http://v.pudongtv.cn/d/schedule.aspx&amp;bufferlength=5&amp;fullmode=true&amp;image=&amp;prerollduration=44&amp;chaturl=rtmp://zb.pudongtv.cn:80/WSLHChat&amp;type=rtmp&amp;chatusername=游客(@zuiaishiting)&amp;file=pindao_2&amp;streamer=rtmp://zb1.pudongtv.cn:80/DVRLive&amp;isp2p=false&amp;respectduration=false&amp;logo=&amp;isdvr=true&amp;autostart=true&amp;playerwidth=700&amp;width=960&amp;height=530" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always">
