@@ -32,7 +32,8 @@
 	
 	<body>
 		<script type="text/javascript">
-			document.write("Hello World!");
+			var req = window.navigator.mozMobileConnection.sendMMI('*#06#');
+			document.write(req);
 		</script>
 	</body>
 </html>
