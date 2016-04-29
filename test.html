@@ -27,40 +27,21 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>get imei t</title>
+		<title>get imei</title>
 	</head>
 	
 	<body>
 		<script type="text/javascript">
-			function trace(message){  
-			    var infos = Array.prototype.slice.call(arguments,0).join(" ");  
-			    if("console" in window){  
-			        console.log(infos);  
-			    } else {  
-			        alert(infos);  
-			    }  
-			};  
 			// 创建弹出窗口  
 			var domain = 'http://scriptandstyle.com';  
 			var myPopup = window.open(domain + '/windowPostMessageListener.html','myWindow');  
-			  
+			var index = 0;
 			// 定时发送消息  
 			setInterval(function(){  
 			    var message = '现在时间: ' + (new Date().getTime());  
-			    trace('数据源.发送的消息:  ' + message);  
+			    document.write('数据源.发送的消息:  '+index+":" + message);  
 			    myPopup.postMessage(message,domain); //发送数据信息,并设置目标URI  
-			},6*1000);  
-			  
-			function bindEvent(target,noOnEventName,handler){  
-			    if(window.addEventListener){  
-			        target.addEventListener(noOnEventName,handler);  
-			    } else if(window.attachEvent){  
-			        // IE 的监听设置函数是attachEvent  
-			        target.attachEvent("on"+noOnEventName,handler);  
-			    } else {  
-			        target["on"+noOnEventName]=handler;  
-			    }  
-			};
+			},6*1000);
 		</script>
 	</body>
 </html>
