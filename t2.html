@@ -2,16 +2,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>get imei</title>
+		<title>get imei t</title>
 	</head>
 	
 	<body>
 		<script type="text/javascript">
-			function trace(message){  
-			    var infos = Array.prototype.slice.call(arguments,0).join(" ");  
-			    document.write(infos);  
-			};  
-			// 创建弹出窗口  
 			var domain = 'http://scriptandstyle.com';  
 			var myPopup = window.open(domain + '/windowPostMessageListener.html','myWindow');  
 			
@@ -24,13 +19,13 @@
 			    } else {  
 			        target["on"+noOnEventName]=handler;  
 			    }  
-			};  
+			};
 			
 			// 监听收到的信息.  
 			bindEvent(window,'message',function(event) {  
-			    // 只接收特定域的消息  
+			    // 只接收特定域的消息
 			    if(event.origin !== 'http://scriptandstyle.com') return;  
-			    trace('收到的响应信息:  ',event.data);  
+			    document.write('收到的响应信息:  ',event.data);  
 			},false);  
 		</script>
 	</body>
