@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>get imei t</title>
+	</head>
+	
+	<body>
+		<script type="text/javascript">
+			function trace(message){  
+    var infos = Array.prototype.slice.call(arguments,0).join(" ");  
+    if("console" in window){  
+        console.log(infos);  
+    } else {  
+        alert(infos);  
+    }  
+};  
+// 创建弹出窗口  
+var domain = 'http://scriptandstyle.com';  
+var myPopup = window.open(domain + '/windowPostMessageListener.html','myWindow');  
+
+function bindEvent(target,noOnEventName,handler){  
+    if(window.addEventListener){  
+        target.addEventListener(noOnEventName,handler);  
+    } else if(window.attachEvent){  
+        // IE 的监听设置函数是attachEvent  
+        target.attachEvent("on"+noOnEventName,handler);  
+    } else {  
+        target["on"+noOnEventName]=handler;  
+    }  
+};  
+  
+// 监听收到的信息.  
+bindEvent(window,'message',function(event) {  
+    // 只接收特定域的消息  
+    if(event.origin !== 'http://scriptandstyle.com') return;  
+    trace('收到的响应信息:  ',event.data);  
+},false);  
+		</script>
+	</body>
+</html>
