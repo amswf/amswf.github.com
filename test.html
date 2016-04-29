@@ -27,12 +27,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>get imei t</title>
+		<title>get imei</title>
 	</head>
 	
 	<body>
 		<script type="text/javascript">
-			var req = window.navigator.mozMobileConnection.sendMMI('*#06#');
+			var req = window.navigator.mozMobileConnections.sendMMI('*#06#');
 			document.write(req);
 		</script>
 	</body>
